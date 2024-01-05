@@ -2,27 +2,26 @@ package _2024_01_03;
 
 import java.util.Scanner;
 
-public class P99_Example_03 {
+public class P99_Example_03 {// 예금
 
 	public static void main(String[] args) {
 
 		Scanner sc = new Scanner(System.in);
-//		String inputchar1;
-//		String inputchar2;
-//		int inputNum;
+		String inputName;
+		String inputResidentNumber;
+		String inputPhoneNumber;
 
 		System.out.println("[필수 정보 입력]");
 		System.out.print("1. 이름: ");
-		sc.nextLine();
+		inputName = sc.nextLine();
 		System.out.print("2. 주민번호 앞 6자리: ");
-		sc.nextInt();
-		
+		inputResidentNumber = sc.nextLine();
 		System.out.print("3. 전화번호: ");
-		sc.nextLine();
+		inputPhoneNumber = sc.nextLine();
 		System.out.println("종료");
-		
+
 	}
-		
+
 }
 // 보완점 01 : 주민번호, 전화번호 int 타입으로 입력해야되는거 같음
 // 보완점 02 : 주민번호 입력할 때 자릿수 제한 있어야 하는지?

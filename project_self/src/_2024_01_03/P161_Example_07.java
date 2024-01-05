@@ -28,7 +28,7 @@ public class P161_Example_07 {
 				System.out.println("잔고> 8000 \n");
 
 			if (num == 4)
-				System.out.println("");
+				System.out.println();
 				break;
 				
 				

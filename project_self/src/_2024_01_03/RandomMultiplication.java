@@ -8,7 +8,7 @@ public class RandomMultiplication {
 	public static void main(String[] args) {
 
 		Scanner sc1 = new Scanner(System.in);
-//		String inputData;	이거 Scanner할 때는 문자 입력이낚
+//		String inputData;	
 
 //			Random rd1 = new Random();
 //			System.out.print(rd1.nextInt(9+1));	
@@ -24,7 +24,7 @@ public class RandomMultiplication {
 			int num3 = num1 * num2;
 
 			System.out.printf("%d X %d = ", num1, num2);
-			int inputData = sc1.nextInt(); // nextint인점 if nextLine 쓰려면 integer.parseInt 이거 서야됨 캡쳐해둠
+			int inputData = sc1.nextInt(); // nextint인점 if nextLine 쓰려면 integer.parseInt 이거 써야됨 캡쳐해둠
 			if (inputData == num3) {
 				System.out.println("정답입니다");
 			} else {

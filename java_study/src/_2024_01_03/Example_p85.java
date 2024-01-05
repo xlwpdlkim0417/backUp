@@ -22,7 +22,8 @@ public class Example_p85 {
 		String var6 = "3.9";
 
 		int result3 = (int) var3 + (int) (var4 + var5) + Integer.parseInt(var6); // 이거 바로 인티저로 하지말고 더블로 먼저 해야됨
-		// (int)Double.parseDouble(var6) 이렇게 해야할듯
+		// (int)Double.parseDouble(var6) 이렇게 해야할듯 :: 문자값이라도 일단 형식을 따져서 먼저 거기에 맞게 변환해줘야함
+		// 정수로 만들거니까 인티제가 아니고 실수에서 소수점 아래를 잘라내기 위해서 정수 형태를 사용한다고 생각하면 이해됨
 		System.out.println(result3);
 
 	}

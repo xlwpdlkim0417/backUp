@@ -15,7 +15,7 @@ public class FloatDoubleEx {
 		}
 		System.out.println(var);
 
-//		int v2 = 1e2;
+//		int v2 = 1e2; 가수위에 지수 올라간 형태는 실수형임 / 타입이 다른거임 정수형 아님
 
 	}
 }

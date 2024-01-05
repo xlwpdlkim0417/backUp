@@ -4,6 +4,6 @@ public class KeyCodeExample {
 	public static void main(String[] args) {
 		int keyCode;
 		
-		keyCode = System.out.
+//		keyCode = System.out.
 	}
 }
