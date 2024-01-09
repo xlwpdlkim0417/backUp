@@ -23,10 +23,11 @@ public class ArrayEx {
 
 		int[] scores = new int[num]; // 여기 숫자 3은 몇 개인지를 나타내는 표현임 → 합 영역 생성 개수
 
-		for (int i = 0; i < scores.length; i++) { // .length가 좋은 이유는 scanner랑도 쓸 수 있고 확장성이 좋다는 말임 배열은 힙영역에 자신의 길이를 나타내는 필드를 담고있음 메소드인 length()랑은 다름
+		for (int i = 0; i < scores.length; i++) { // .length가 좋은 이유는 scanner랑도 쓸 수 있고 확장성이 좋다는 말임 배열은 힙영역에 자신의 길이를 나타내는
+													// 필드를 담고있음 메소드인 length()랑은 다름
 			System.out.println(scores[i]); // 여기 i는 index를 의미함
 		}
-		
+
 		String str = "abc";
 //		System.out.println(str.length());
 
@@ -34,7 +35,6 @@ public class ArrayEx {
 		names[0] = str;
 		names[1] = "김하나";
 		names[2] = "강하나";
-		
 
 		for (int i = 0; i < names.length; i++) {
 			System.out.println(names[i]);

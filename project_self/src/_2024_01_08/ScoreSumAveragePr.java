@@ -30,7 +30,7 @@ public class ScoreSumAveragePr {
 			}
 
 		}
-		
+
 		double avgScore = (double) sum / array1.length;
 
 		System.out.println("점수 총합 = " + sum);

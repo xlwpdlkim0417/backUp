@@ -54,17 +54,17 @@ public class Project_with_JJW {
 				// 분석
 				int max = 0, sum = 0;
 				double avg = 0.0;
-								
+
 				for (int num : score) {
-					if(max < num) {
+					if (max < num) {
 						max = num;
 					}
 					sum += num;
-					
+
 					avg = sum / (double) studentNum;
-					
+
 					System.out.println("최고 점수 : " + max);
-					
+
 					System.out.println("총합 : " + sum);
 
 					System.out.println("평균 : " + avg);
