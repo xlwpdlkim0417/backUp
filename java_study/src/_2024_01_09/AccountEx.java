@@ -14,7 +14,7 @@ public class AccountEx {
 
 		Account acc1 = new Account("강하나", "980204", "010-1234-1234", 26);
 
-		System.out.println(acc1);
+		System.out.println(acc1);	//위치 주의할 것
 
 	}
 

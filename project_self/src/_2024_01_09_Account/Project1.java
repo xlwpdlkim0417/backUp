@@ -67,7 +67,10 @@ public class Project1 {
 
 					case 1:
 						System.out.print("예금액> ");
-						acc.balance += Integer.parseInt(scanner.nextLine());	//NullPointerException 발생 회원가입 > 로그인 > 예금/출금 순서로 접근하면 오류가 없는데 처음부터 예금/출금으로 접근하려고 하면 acc 객체 값이 초기화된 적이 없기 때문에 오류 발생
+						acc.balance += Integer.parseInt(scanner.nextLine()); // NullPointerException 발생 회원가입 > 로그인 >
+																				// 예금/출금 순서로 접근하면 오류가 없는데 처음부터 예금/출금으로
+																				// 접근하려고 하면 acc 객체 값이 초기화된 적이 없기 때문에 오류
+																				// 발생
 						break;
 
 					case 2:
