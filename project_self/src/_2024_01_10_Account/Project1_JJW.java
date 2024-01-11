@@ -10,9 +10,9 @@ public class Project1_JJW {
 		boolean run = true;
 		boolean run2 = true;
 		Account[] acc = new Account[3];
-		acc[0] = new Account("김하나", "911224", "010-1234-1234");
-		acc[1] = new Account("김두울", "921224", "010-1234-1234");
-		acc[2] = new Account("김세엣", "931224", "010-1234-1234");
+		acc[0] = new Account("A", "1", "1");
+		acc[1] = new Account("B", "2", "2");
+		acc[2] = new Account("C", "3", "3");
 		int idx = -1;
 		boolean login = false;
 		while (run) {

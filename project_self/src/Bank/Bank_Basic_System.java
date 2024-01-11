@@ -16,7 +16,8 @@ public class Bank_Basic_System {
 		Bank[] data = new Bank[10];
 
 		boolean run1 = true;
-
+		boolean run2;
+		boolean taken;
 		boolean login = true;
 		boolean signUp = true;
 		boolean signIn = false;
@@ -27,7 +28,7 @@ public class Bank_Basic_System {
 		while (run1) {
 			System.out.println("-------------------------------------");
 			if (signIn) {
-				System.out.println(accountInfo.name + "고객님으로 로그인 상태입니다.");
+				System.out.println(data[idx].name + "고객님으로 로그인 상태입니다.");
 			}
 			System.out.println("1.로그인 | 2.회원가입 | 3.예금/출금 | 4.종료");
 			System.out.println("-------------------------------------");
@@ -39,42 +40,48 @@ public class Bank_Basic_System {
 
 			case 1:
 				// 로그인 처리
+				login = true;
 				while (login) {
 					System.out.println("<로그인>");
-					System.out.print("아이디:");
+					System.out.print("아이디: ");
 					String id = scanner.nextLine();
-					System.out.print("패스워드:");
+					System.out.print("패스워드: ");
 					String pw = scanner.nextLine();
 
 					for (int i=0; i<idx; i++) {
-					if (id.equals(data[i].name) && pw.equals(data[i].residentNumber)) {
+					if (id.equals(data[i].name) && pw.equals(data[i].residentNumber)) {	//두번 째, 세번 째 가입할 때 idx 값이 2, 3으로 점점 늘어나며 고정되기 때문에 오류 발생
 						System.out.println("로그인 성공");
-//							idx = i;
+							idx = i;	//이거 올리니까 됐는데 왜 됐지?
 						login = false;
 						signIn = true;
+						run2 = true;
+						taken = true;
+						
 						break;
-					} else {
-						System.out.println("로그인 실패");
-						System.out.println("1.로그인 재시도 2.메인화면으로 돌아가기");
-						System.out.print("선택> ");
-						menuNum = Integer.parseInt(scanner.nextLine());
-						switch (menuNum) {
-						case 1:
-							break;
-						case 2:
-							login = false;
-						} // switch문의 괄호
+//					} else {
+//						System.out.println("로그인 실패");
+//						System.out.println("1.로그인 재시도 2.메인화면으로 돌아가기");
+//						System.out.print("선택> ");
+//						menuNum = Integer.parseInt(scanner.nextLine());
+//						switch (menuNum) {
+//						case 1:
+//							break;
+//						case 2:
+//							login = false;
+//						} // switch문의 괄호
 					}
 					}	//for문의 괄호					
 				}
-				login = true;
-				signIn = true;
+//				login = true;
+//				signIn = true;
 				break;
 
 			case 2:
 				// 회원 가입 //회원가입을 할 때마다 idx 값을 늘릴 방법을 찾아보자
-
-//				while (signUp) {	//idx=1;
+				
+				signUp = true;
+				idx++;
+				while (signUp) {	//idx=1;
 
 //					for (s1 = idx; s1 < idx+1; idx++, s1++) {
 
@@ -97,12 +104,13 @@ public class Bank_Basic_System {
 //						break;
 
 //					}
-				idx++;
+//				idx++;
 //					s1++;
 				signUp = false;
 
-//				}
-				signUp = true;
+				}
+//				signUp = true;
+//				idx++;
 				break;
 
 			case 3:
@@ -114,8 +122,8 @@ public class Bank_Basic_System {
 				}
 				System.out.println("<예금/출금>");
 
-				boolean run2 = true;
 				int balance = 0;
+				run2 = true;
 
 				while (run2) {
 					System.out.println("-------------------------------------");
