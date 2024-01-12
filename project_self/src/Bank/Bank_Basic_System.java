@@ -48,16 +48,18 @@ public class Bank_Basic_System {
 					System.out.print("패스워드: ");
 					String pw = scanner.nextLine();
 
-					for (int i=0; i<idx; i++) {
-					if (id.equals(data[i].name) && pw.equals(data[i].residentNumber)) {	//두번 째, 세번 째 가입할 때 idx 값이 2, 3으로 점점 늘어나며 고정되기 때문에 오류 발생
-						System.out.println("로그인 성공");
-							idx = i;	//이거 올리니까 됐는데 왜 됐지?
-						login = false;
-						signIn = true;
-						run2 = true;
-						taken = true;
-						
-						break;
+					for (int i = 0; i < idx; i++) {
+						if (id.equals(data[i].name) && pw.equals(data[i].residentNumber)) { // 두번 째, 세번 째 가입할 때 idx 값이
+																							// 2, 3으로 점점 늘어나며 고정되기 때문에
+																							// 오류 발생
+							System.out.println("로그인 성공");
+							idx = i; // 이거 올리니까 됐는데 왜 됐지?
+							login = false;
+							signIn = true;
+							run2 = true;
+							taken = true;
+
+							break;
 //					} else {
 //						System.out.println("로그인 실패");
 //						System.out.println("1.로그인 재시도 2.메인화면으로 돌아가기");
@@ -69,8 +71,8 @@ public class Bank_Basic_System {
 //						case 2:
 //							login = false;
 //						} // switch문의 괄호
-					}
-					}	//for문의 괄호					
+						}
+					} // for문의 괄호
 				}
 //				login = true;
 //				signIn = true;
@@ -78,35 +80,35 @@ public class Bank_Basic_System {
 
 			case 2:
 				// 회원 가입 //회원가입을 할 때마다 idx 값을 늘릴 방법을 찾아보자
-				
+
 				signUp = true;
 				idx++;
-				while (signUp) {	//idx=1;
+				while (signUp) { // idx=1;
 
 //					for (s1 = idx; s1 < idx+1; idx++, s1++) {
 
-				System.out.println("<회원 가입>");
+					System.out.println("<회원 가입>");
 
-				System.out.println("[필수 정보 입력]");
-				System.out.print("1. 아이디: ");
-				String name = scanner.nextLine();
-				System.out.print("2. 패스워드: ");
-				String residentNumber = scanner.nextLine();
-				System.out.print("3. 전화번호: ");
-				String phoneNumber = scanner.nextLine();
+					System.out.println("[필수 정보 입력]");
+					System.out.print("1. 아이디: ");
+					String name = scanner.nextLine();
+					System.out.print("2. 패스워드: ");
+					String residentNumber = scanner.nextLine();
+					System.out.print("3. 전화번호: ");
+					String phoneNumber = scanner.nextLine();
 
-				accountInfo = new Bank(idx, name, residentNumber, phoneNumber, 0);
+					accountInfo = new Bank(idx, name, residentNumber, phoneNumber, 0);
 //						String accountInfoname = accountInfo.name;
 //						String accountInfonumber = accountInfo.residentNumber;
-				data[idx] = accountInfo;
+					data[idx] = accountInfo;
 
-				System.out.println(accountInfo);
+					System.out.println(accountInfo);
 //						break;
 
 //					}
 //				idx++;
 //					s1++;
-				signUp = false;
+					signUp = false;
 
 				}
 //				signUp = true;
