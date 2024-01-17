@@ -4,6 +4,7 @@ public class Session {
 
 	boolean run1;
 	boolean run2;
+	boolean loginInfo;
 	MenuState menu = MenuState.MENU_START;
 
 	public boolean isRun1() {
@@ -29,8 +30,10 @@ public class Session {
 	public void setMenu(MenuState menu) {
 		if (menu == MenuState.DEPOSIT_START) {
 			run1 = false;
+			run2 = true;
 		} else if (menu == MenuState.DEPOSIT_END) {
 			run1 = true;
+			run2 = false;
 		} else if (menu == MenuState.LOGIN) {
 
 		} else if (menu == MenuState.LOGOUT) {
@@ -48,16 +51,24 @@ public class Session {
 		this.menu = menu;
 	}
 
-	public Session(boolean run1, boolean run2) {
+	public boolean isLoginInfo() {
+		return loginInfo;
+	}
+
+	public void setLoginInfo(boolean loginInfo) {
+		this.loginInfo = loginInfo;
+	}
+
+	public Session(boolean run1, boolean run2, boolean loginInfo) {
 		super();
 		this.run1 = run1;
 		this.run2 = run2;
-
+		this.loginInfo = loginInfo;
 	}
 
 	@Override
 	public String toString() {
-		return "Session [run1=" + run1 + ", run2=" + run2 + ", menu=" + menu + "]";
+		return "Session [run1=" + run1 + ", run2=" + run2 + ", loginInfo=" + loginInfo + ", menu=" + menu + "]";
 	}
 
 }

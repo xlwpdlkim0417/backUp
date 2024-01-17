@@ -25,7 +25,7 @@ public class InstanceofExample {
 
 		Parent parentB = new Parent();
 		method1(parentB);
-		method2(parentB); // 예외 발생
+		method2(parentB); // 예외 발생 //Exception in thread "main" java.lang.ClassCastException:
 
 	}
 

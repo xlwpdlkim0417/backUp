@@ -1,5 +1,6 @@
 package _2024_01_16;
 
+import java.awt.Menu;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -8,31 +9,20 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Project_3rd_Week {
+public class Project_3rd_Week2_Middle_Save {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException {
 
 		Scanner scanner = new Scanner(System.in);
 
 		Account acc = new Account();
-
 		Session session = new Session(true, false, false);
 
 		ArrayList<Account> list = new ArrayList<>();
-		
-		FileInputStream fis = new FileInputStream("C:/temp/prj_3rd.db");
-		ObjectInputStream ois = new ObjectInputStream(fis);
 
-		list = (ArrayList<Account>) ois.readObject();
-
-//		for (Account account : list) {
-//			System.out.println(account);
-//		}
-		ois.close();
-		
 		while (session.isRun1()) {
 			System.out.println("──────────────────────────────────────────────────────");
-			System.out.println("1.회원출력 2.회원등록 3.로그인 4.예금/출금 5.종료");
+			System.out.println("1.회원출력 2.회원등록 3.로그인 4.예금/출금 5.파일저장 6.파일읽기 7.종료");
 			System.out.println("──────────────────────────────────────────────────────");
 			System.out.print("입력> ");
 
@@ -71,32 +61,15 @@ public class Project_3rd_Week {
 
 			case 3:
 				// 로그인
-				session.setLoginInfo(false);
-
 				System.out.println("<로그인>");
 				System.out.print("아이디: ");
 				String userID = scanner.nextLine();
 				System.out.print("비밀번호: ");
 				String userPW = scanner.nextLine();
 
-				for (int i = 0; i < list.size(); i++) {
-					list.get(i);
-					if (userID.equals(list.get(i).id) && userPW.equals(list.get(i).pw)) {
-						System.out.println(list.get(i).name + "회원님으로 로그인");
-						break;
-					} 
-//					else if (!userID.equals(list.get(i).id) || !userPW.equals(list.get(i).pw)) {
-//						System.out.println("로그인 재시도");
-//					}
-
+				if (userID.equals(acc.id) && userPW.equals(acc.pw)) {
+					System.out.println(acc.name + "님 환영합니다.");
 				}
-
-//				if (userID.equals(account.id) && userPW.equals(account.pw)) {
-//					System.out.println(account.name + "님 환영합니다.");
-//					session.setLoginInfo(true);
-
-//				}
-
 				break;
 
 			case 4:
@@ -133,18 +106,26 @@ public class Project_3rd_Week {
 				break;
 
 			case 6:
-				// 파일 읽기
-				
+				// 파일읽기
+				System.out.println("<파일읽기>");
+				FileInputStream fis = new FileInputStream("C:/temp/prj_3rd.db");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+
+				list = (ArrayList<Account>) ois.readObject();
+
+				for (Account account : list) {
+					System.out.println(account);
+				}
+				ois.close();
 
 				break;
 
 			case 7:
 				// 종료
-				System.out.println("<종료>");
+
+				System.out.println("종료합니다.");
 				session.setMenu(MenuState.MENU_END);
-
 				break;
-
 			}
 		}
 
