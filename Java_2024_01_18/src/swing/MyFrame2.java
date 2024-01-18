@@ -4,11 +4,13 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class MyFrame2 extends JFrame implements ActionListener { // 1번 제일 먼저 할 일 임포트 필요
+public class MyFrame2 extends JFrame implements ActionListener, MouseListener { // 1번 제일 먼저 할 일 임포트 필요
 
 	JButton jb = new JButton("버튼 1"); // 8번 버튼 만들기 (괄호 안에 버튼 위에 출력될 이름 기입)
 	JButton jb2 = new JButton("버튼 2"); // 필드로 올려버리면 재정의 된 메소드에서도 쓸 수 있음
@@ -30,7 +32,10 @@ public class MyFrame2 extends JFrame implements ActionListener { // 1번 제일 
 		jb.addActionListener(this); // 버튼에다가 ActionListener 구현한 클래스의 객체를 매개변수로 넣어줌
 
 		con.add(jb2);
-		jb2.addActionListener(this); // MyAction 대신에 this 써야함
+		jb2.addActionListener(this); // MyAction() 대신에 this 써야함 왜? 이전에는 ActionListener가 들어있는 클래스가 있었지만 지금은 implements
+										// 쓰면서 MyAction 클래스 없어져서
+
+		con.addMouseListener(this);
 
 	}
 
@@ -48,6 +53,28 @@ public class MyFrame2 extends JFrame implements ActionListener { // 1번 제일 
 			System.out.println("버튼 2");
 		}
 
+	}
+
+	@Override // 마우스 관련된 건 con.addMouseListener(this);으로 써주면 됨
+	public void mouseClicked(MouseEvent e) {
+//		System.out.println("클릭!");
+		System.out.println(e.getX() + ", " + e.getY());
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
 	}
 
 }

@@ -19,17 +19,7 @@ public class Project_3rd_Week {
 		Session session = new Session(true, false, false);
 
 		ArrayList<Account> list = new ArrayList<>();
-		
-		FileInputStream fis = new FileInputStream("C:/temp/prj_3rd.db");
-		ObjectInputStream ois = new ObjectInputStream(fis);
 
-		list = (ArrayList<Account>) ois.readObject();
-
-//		for (Account account : list) {
-//			System.out.println(account);
-//		}
-		ois.close();
-		
 		while (session.isRun1()) {
 			System.out.println("──────────────────────────────────────────────────────");
 			System.out.println("1.회원출력 2.회원등록 3.로그인 4.예금/출금 5.종료");
@@ -84,7 +74,7 @@ public class Project_3rd_Week {
 					if (userID.equals(list.get(i).id) && userPW.equals(list.get(i).pw)) {
 						System.out.println(list.get(i).name + "회원님으로 로그인");
 						break;
-					} 
+					}
 //					else if (!userID.equals(list.get(i).id) || !userPW.equals(list.get(i).pw)) {
 //						System.out.println("로그인 재시도");
 //					}
@@ -134,7 +124,15 @@ public class Project_3rd_Week {
 
 			case 6:
 				// 파일 읽기
-				
+				FileInputStream fis = new FileInputStream("C:/temp/prj_3rd.db");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+
+				list = (ArrayList<Account>) ois.readObject();
+
+//				for (Account account : list) {
+//					System.out.println(account);
+//				}
+				ois.close();
 
 				break;
 
