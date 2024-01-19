@@ -1,14 +1,8 @@
-package swing.project1;
+package swing.ver0;
 
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -33,12 +27,12 @@ public class MyFrame extends JFrame implements ActionListener {
 	JTextField jt5 = new JTextField();
 	JTextField jt6 = new JTextField();
 
-	JLabel lb7 = new JLabel("메시지: 나오나요? 상태메시지!");
-	JTextArea ta = new JTextArea();
-
 	Account acc = new Account();
 
 	ArrayList<Account> list = new ArrayList<>();
+
+	JLabel lb7 = new JLabel("메시지: 나오나요? 상태메시지!");
+	JTextArea ta = new JTextArea();
 
 	public MyFrame() {
 		Container con = this.getContentPane();
@@ -146,7 +140,7 @@ public class MyFrame extends JFrame implements ActionListener {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
-	public static void main(String[] args) throws IOException, ClassNotFoundException {
+	public static void main(String... ar) {
 
 		new MyFrame();
 	}
@@ -160,36 +154,38 @@ public class MyFrame extends JFrame implements ActionListener {
 		case "전체내용":
 			System.out.println("전체내용 실행");
 
-			lb7.setText("전체 내용 나오기");
+//			lb7.setText("전체 내용 나오기");
 
 			for (Account account : list) {
-				ta.append(account.toString()); // 이걸로 하면 아무래도 전체 내용 누르면 한 번에 하나씩 추가되는게 아니라 원래 나와있던게 새로 나와서 그런듯
+				
+				ta.append(list.toString()); // 이걸로 하면 아무래도 전체 내용 누르면 한 번에 하나씩 추가되는게 아니라 원래 나와있던게 새로 나와서 그런듯
 				ta.append("\n");
-				System.out.println(account);
+
+//				ta.append(acc.toString());
+//				ta.append("\n:");
 			}
 
 			break;
 
 		case "입력":
 			System.out.println("입력 실행");
-//			System.out.printf("%s, %s, %s, %s, %s, %s\n", jt1.getText(), jt2.getText(), jt3.getText(), jt4.getText(),
-//					jt5.getText(), jt6.getText());
+			System.out.printf("%s, %s, %s, %s, %s, %s\n", jt1.getText(), jt2.getText(), jt3.getText(), jt4.getText(),
+					jt5.getText(), jt6.getText());
 
-			String name = jt1.getText();
-			String id = jt2.getText();
-			String pass = jt3.getText();
-			String tel = jt4.getText();
-			String ssn = jt5.getText();
-			int balance = Integer.parseInt(jt6.getText());
+//			String name = jt1.getText();
+//			String id = jt2.getText();
+//			String pass = jt3.getText();
+//			String tel = jt4.getText();
+//			String ssn = jt5.getText();
+//			int balance = Integer.parseInt(jt6.getText());
 
-//			list.add(new Account(jt1.getText(), jt2.getText(), jt3.getText(), jt4.getText(), jt5.getText(),
-//					Integer.parseInt(jt6.getText())));
-//			list.add(new Account(acc.name, acc.ssn, acc.phn, acc.id, acc.pw, acc.balance));
+//			Account acc = new Account(name, ssn, tel, id, pass, balance);
+//			list.add(acc);
 
-			Account acc = new Account(name, ssn, tel, id, pass, balance);
-			list.add(acc);
+			list.add(new Account(jt1.getText(), jt2.getText(), jt3.getText(), jt4.getText(), jt5.getText(),
+					Integer.parseInt(jt6.getText())));
 
-			String str = String.format("%s, %s, %s, %s, %s, %d", name, id, pass, tel, ssn, balance);
+//			String str = String.format("%s, %s, %s, %s, %s, %d", name, id, pass, tel, ssn, balance);
 
 //			lb7.setText(str);
 			lb7.setText(acc.toString());
@@ -206,7 +202,8 @@ public class MyFrame extends JFrame implements ActionListener {
 
 			break;
 
-		case "저장":
+		case "삭제":
+			System.out.println("삭제 실행");
 
 			break;
 
@@ -225,26 +222,5 @@ public class MyFrame extends JFrame implements ActionListener {
 //		} else if (e.getSource() == jb5) {
 //			System.out.println("삭제");
 //		}
-	}
-
-	void method1() throws IOException {
-		System.out.println("<파일저장>");
-		FileOutputStream fos = new FileOutputStream("C:\\temp\\swing.db");
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(list);
-		oos.flush();
-		oos.close();
-	}
-
-	void methos2() throws IOException, ClassNotFoundException {
-		FileInputStream fis = new FileInputStream("C:\\temp\\swing.db");
-		ObjectInputStream ois = new ObjectInputStream(fis);
-
-		list = (ArrayList<Account>) ois.readObject();
-
-//		for (Account account : list) {
-//			System.out.println(account);
-//		}
-		ois.close();
 	}
 }

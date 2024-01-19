@@ -1,56 +1,31 @@
 package sec01.exam03;
-
-import java.util.Scanner;
+//if-else if-else문
 
 public class IfElseIfElseExample {
 
 	public static void main(String[] args) {
 
-//		Scanner scanner = new Scanner(System.in);
-//
-//		System.out.println("점수를 입력하세요.");
-//		System.out.print("입력> ");
-//		int score = scanner.nextInt();
-//		int grade = score / 10;
-//
-//		switch (grade) {
-//
-//		case 10:
-////			System.out.println("등급은 A입니다.");
-////			break;
-//		case 9:
-//			System.out.println("등급은 A입니다.");
-//			break;
-//		case 8:
-//			System.out.println("등급은 B입니다.");
-//			break;
-//		case 7:
-//			System.out.println("등급은 C입니다.");
-//			break;
-//		default:
-//			System.out.println("등급은 D입니다");
-//			break;
-//
-//		}
+		int score = 75; // int 타입 변수 score에 정수 리터럴 값 75
 
-		int score = 75;
-
-		if (score >= 90) {
+		if (score >= 90) { // if-else문 시작
+			// 조건식 : int 타입 변수 score에 저장된 값이 90보다 크거나 같다
+			// false
 			System.out.println("점수가 100~90입니다.");
 			System.out.println("등급은 A입니다.");
-		} else if (score >= 80) {
+		} else if (score >= 80) { // if-else문 시작
+			// 조건식 : int 타입 변수 score에 저장된 값이 80보다 크거나 같다
+			// false
 			System.out.println("점수가 80~89입니다.");
 			System.out.println("등급은 B입니다.");
-		} else if (score >= 70) {
+		} else if (score >= 70) { // if-else문 시작
+			// 조건식 : int 타입 변수 score에 저장된 값이 70보다 크거나 같다
+			// true
 			System.out.println("점수가 70~79입니다.");
 			System.out.println("등급은 C입니다.");
-		} else {
+		} else { // else 실행블록 ▷ 이전 if-else문의 조건식에서 true가 되는 블록이 없을 경우 실행
 			System.out.println("점수가 70 미만입니다.");
 			System.out.println("등급은 D입니다.");
-		}
-//		System.out.println("올바른 숫자를 입력해주세요.");
-
+		} // if-else문 전체 종료
+		System.out.println("올바른 숫자를 입력해주세요."); // main 메소드 내부 프린트문 ▷ 출력
 	}
-
 }
-//수업시간에 직접 해보고 스위치문으로 바꾸는 연습함

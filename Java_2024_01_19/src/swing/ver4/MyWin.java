@@ -1,4 +1,4 @@
-package swing.ver2;
+package swing.ver4;
 
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -43,6 +43,24 @@ public class MyWin extends JFrame { // 14번
 		con.add(lb2);
 		con.add(tf2);
 		con.add(bt2);
+
+		bt1.addActionListener(new ActionListener() { // 괄호 안에 new action까지 누르고 ctrl+스페이스로 나오는 proposal을 이용하라
+			// 인터페이스이기 때문에 익명의 객체 생성임 클래스였다면 익명의 자식 객체였겠지
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				System.out.println("버튼1");
+			}
+		}); // 세미콜론이 바깥에 있더라도 익명의 객체라는 걸 알아차려라
+
+		bt2.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("버튼2");
+			}
+		});
 
 	}
 
