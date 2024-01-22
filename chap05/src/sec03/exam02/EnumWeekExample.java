@@ -26,7 +26,7 @@ public class EnumWeekExample {
 		int month = cal.get(Calendar.MONTH) + 1;
 		int day = cal.get(Calendar.DATE);
 
-		switch (week) {
+		switch (week) { // int 타입 변수 week가 숫자를 리턴하기 때문에 (변수) 자리에 들어갈 수 있음
 		case 1:
 			today = Week.SUNDAY; // 열거 상수 대입
 			break;
