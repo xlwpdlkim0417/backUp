@@ -1,4 +1,5 @@
 package sec04.exam05;
+//클래스 외부에서 메소드 호출
 
 public class Car {
 
@@ -8,20 +9,28 @@ public class Car {
 	// 생성자
 
 	// 메소드
-	int getSpeed() {	//리턴문을 쓰지 않으면 이클립스가 자동으로 추천하는 위치에 추천하는데 우리가 생각하고 집어넣어야지 무조건 이클립스의 추천을 따라가지는 말자
-		return speed;
+	int getSpeed() {
+		// 리턴 타입 : int
+		// 매개 변수 :
+		return speed; // 메소드 실행 결과값 리턴
 	}
 
-	void keyTurnOn() {	// 이 메소드가 별로인 이유 : 필드값에 대해서 변화를 주지 않음 이런걸 굳이 메소드로?
+	void keyTurnOn() {
+		// 리턴 타입 : void
+		// 매개 변수 :
 		System.out.println("키를 돌립니다.");
 	}
 
 	void run() {
 		for (int i = 10; i <= 50; i += 10) {
-			speed = i;	//필드값을 변경하기 위해서 이거 Bank 프로젝트 idx = i; 랑 비슷한 느낌이네
+			// 초기화식
+			// 조건식
+			// 증감식
+			speed = i;
+			// Car 클래스의 필드 speed에 루프 카운터 변수 i 저장 ▷ 필드값 저장
 			System.out.println("달립니다.(시속:" + speed + "km/h)");
 		}
 	}
-
 }
-//★ 지역 변수에 의미를 부여해서 필드값에 저장하기 위해서 speed = i; 코드가 들어간거임
+// ★ 지역 변수에 의미를 부여해서 필드값에 저장하기 위해서 speed = i; 코드가 들어간거임
+// keyTurnOn() 메소드가 별로인 이유 : 필드값에 변화를 주지 않음 굳이 메소드로?
