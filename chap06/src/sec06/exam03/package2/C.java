@@ -1,10 +1,16 @@
-package sec06.exam03.package2; //패키지가 다름
+package sec06.exam03.package2;
 
-import sec06.exam03.package1.*;
+import sec06.exam03.package1.B;
+
+//클래스의 접근 제한(3)
+
 
 public class C {
 
-//	A a;	//다른 패키지에서 default A클래스에 접근 불가능
-	B b; // public이라서 접근 가능(필드 선언 + 생성자/메소드 내부에서 변수 선언)
-
+//	A a;
+	// A 클래스의 객체를 참조하는 필드 a 선언
+	// A 클래스 접근 제한자 default ▷ SAME PACKAGE
+	B b;
+	// B 클래스의 객체를 참조하는 필드 b 선언
+	// B 클래스 접근 제한자 public ▷ ALL FREE (필드 선언 + 생성자/메소드 내부에서 변수 선언)
 }
