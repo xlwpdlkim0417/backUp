@@ -1,13 +1,22 @@
 package sec01.exam07.pack2;
+//protected 접근 제한자 테스트
 
 import sec01.exam07.pack1.A;
 
 public class C {
 
-	public void method() { // The constructor A() is not visible = 이거 protected 접근 제한자라 안보인다고 하는듯
-//		A a = new A();
-//		a.field = "value";
-//		a.method();
-	}
+	public void method() {
+		// public 접근 제한자
+		// 리턴 타입 : void
 
+//		A a = new A();
+		// The constructor A() is not visible
+		// A 클래스의 생성자가 protected 접근 제한자 ▷ SAME PACKAGE CHILD CLASS
+//		a.field = "value";
+		// The field A.field is not visible
+		// A 클래스의 생성자/필드가 protected 접근 제한자 ▷ SAME PACKAGE CHILD CLASS
+//		a.method();
+		// The method method() from the type A is not visible
+		// A 클래스의 생성자/메소드가 protected 접근 제한자 ▷ SAME PACKAGE CHILD CLASS
+	}
 }

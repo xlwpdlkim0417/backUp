@@ -1,21 +1,27 @@
 package sec02.exam02;
+//자동 타입 변환 후의 멤버 접근
 
 public class ChildExample {
 
 	public static void main(String[] args) {
 
 		Child child = new Child();
+		// Child 클래스의 객체를 참조하는 변수 child 선언
+		// new 연산자와 Child 클래스의 생성자로 인스턴스 생성 후 메모리 주소 저장
 
-		Parent parent = child; // 자동타입변환 //promotion 이후 부모 클래스에서 선언된 필드와 메소드에만 접근 가능 그러나 자식 클래스에서 오버라이드 된 메소드가
-								// 있다면 자식 클래스의 메소드가 호출됨
-
-//		바로 위에 있는 걸 정리해보면 아래와 같음
-//		Parent parent = new Child();
+		Parent parent = child;
+		// Parent parent = new Child();
+		// Parent 클래스의 객체를 참조하는 변수 parent 선언
+		// Parent 클래스를 상속받은 Child 클래스에서 인스턴스 생성 후 메모리 주소 저장
 
 		parent.method1();
-		parent.method2(); // 재정의 된 메소드 호출
-//		parent.method3();	//호출 불가능
-
+		// parent.가 참조하는 Parent 클래스의 인스턴스 메소드 method1() 호출
+		parent.method2();
+		// method2() 메소드는 상속관계에서 재정의
+		// parent.가 참조하는 Child 클래스의 인스턴스 메소드 method2() 호출
+//		parent.method3();
+		// The method method3() is undefined for the type Parent
+		// Child 클래스가 Parent 클래스를 상속 받으면서 Parent 타입으로 자동 변환
+		// 호출 불가능
 	}
-
 }
