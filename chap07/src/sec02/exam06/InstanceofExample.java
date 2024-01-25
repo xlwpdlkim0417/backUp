@@ -52,7 +52,9 @@ public class InstanceofExample {
 		// new 연산자와 Parent 클래스의 생성자로 인스턴스 생성 후 메모리 주소 저장
 		method1(parentB);
 		// static 메소드라서 객체 생성 없이 곧바로 호출 가능
-		method2(parentB); // 예외 발생 //Exception in thread "main" java.lang.ClassCastException:
+		// 매개 변수 : parentB
+		method2(parentB); // 예외 발생
+		// ClassCastException
 
 	}
 

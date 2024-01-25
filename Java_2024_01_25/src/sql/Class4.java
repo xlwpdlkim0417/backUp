@@ -19,7 +19,7 @@ public class Class4 { // Class3에 대한 보완점
 
 		try (conn; stmt; rs) { // 저 변수를 try-catch구문 밖에서도 쓰고 싶으면 이렇게 써야함
 			// 대신에 throws 해줘야함
-			// 그리고 아해 cl3 메소드에 대해서 try-catch 해야함
+			// 그리고 아래 cl3 메소드에 대해서 try-catch 해야함
 
 			while (rs.next()) {
 				System.out.print(rs.getInt("empno") + "\t");
