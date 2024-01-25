@@ -119,8 +119,6 @@ public class SimpleMenu {
 
 		try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
 
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-
 			boolean exit = false;
 
 			while (!exit) {
