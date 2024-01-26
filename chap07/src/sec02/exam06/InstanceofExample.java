@@ -55,7 +55,6 @@ public class InstanceofExample {
 		// 매개 변수 : parentB
 		method2(parentB); // 예외 발생
 		// ClassCastException
-
+		// 타입 캐스팅이 부적절하게 이루어지는 경우 발생하는 런타임 오류
 	}
-
 }
