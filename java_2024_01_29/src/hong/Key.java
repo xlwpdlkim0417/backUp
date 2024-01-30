@@ -1,4 +1,4 @@
-package sec01.exam14;
+package hong;
 
 public class Key {
 	public int number;
