@@ -1,4 +1,4 @@
-package sql;
+package swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -14,13 +14,12 @@ import java.sql.Statement;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Swing extends JFrame {
+public class WinEmp2_main_maintenance extends JFrame {
 
 	JLabel lb1 = new JLabel("사원 번호 : ");
 	JTextField tf1 = new JTextField(10);
@@ -39,7 +38,7 @@ public class Swing extends JFrame {
 	JLabel lb8 = new JLabel("부서 번호 : ");
 	JTextField tf8 = new JTextField(10);
 
-	JButton bt1 = new JButton("전체 내용");
+	JButton bt1 = new JButton("전체 내용"); // 이벤트 처리를 위해서 여기다가 썼습니다
 	JButton bt2 = new JButton("정보 입력");
 	JButton bt3 = new JButton("사원 번호 검색");
 	JButton bt4 = new JButton("정보 수정");
@@ -48,14 +47,13 @@ public class Swing extends JFrame {
 	JButton bt7 = new JButton("화면 초기화");
 	JButton bt8 = new JButton("주의 사항");
 	JButton bt9 = new JButton("종료");
-
 	JTextArea ta = new JTextArea(43, 140);
 	// 행의 개수, 열의 개수
 
 	Connection conn;
 	Statement stmt;
 
-	public Swing() {
+	public WinEmp2_main_maintenance() {
 
 		String url = "jdbc:mysql://localhost:3306/firm";
 		String id = "root";
@@ -195,13 +193,16 @@ public class Swing extends JFrame {
 				readMe();
 			}
 		});
-
+		
 		bt9.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Unique_Off();
 				System.exit(0); // 0 : 정상종료
+
+				
+
 			}
 		});
 	}
@@ -400,6 +401,6 @@ public class Swing extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Swing();
+		new WinEmp2_main_maintenance();
 	}
 }

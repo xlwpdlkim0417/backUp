@@ -1,5 +1,6 @@
-package sql;
+package mysql;
 
+import java.io.Console;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -31,10 +32,9 @@ public class Project {
 		String pass = "mysql";
 
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(url, id, pass);
 			stmt = conn.createStatement();
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch (SQLException e) {
 			System.out.println("Project() 생성자 catch");
 			System.out.println(e.getMessage());
 		}
