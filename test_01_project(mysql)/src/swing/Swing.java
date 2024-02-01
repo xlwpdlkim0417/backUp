@@ -225,8 +225,10 @@ public class Swing extends JFrame {
 		ta.append("7. 화면 초기화 : 출력 화면을 초기화합니다.\n");
 		ta.append("\n");
 		ta.append("8. 주의 사항 : 주의 사항을 확인할 수 있습니다.\n");
+		ta.append("\n");
+		ta.append("9. 종료 : 정상적인 서비스 종료를 위해 종료 버튼을 눌러 종료해주세요.\n");
 
-		ta.append("\n\n\n");
+		ta.append("\n\n");
 
 		ta.append("[입력 가능 정보 양식]\n");
 		ta.append("\n");
@@ -245,7 +247,7 @@ public class Swing extends JFrame {
 		ta.append("▷ 인센티브 : 5자리 숫자 (+소수점 아래 2자리)\n");
 		ta.append("\n");
 		ta.append("▷ 부서 번호 : 2자리 숫자\n");
-		ta.append("\n\n");
+		ta.append("\n");
 		ta.append("※주의※ 입력 가능 정보 양식을 벗어날 경우 정상적인 이용에 어려움이 있을 수 있습니다.\n");
 	}
 
