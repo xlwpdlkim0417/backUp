@@ -75,6 +75,7 @@ public class Project {
 					System.out.println("업데이트 성공했습니다.");
 				} else {
 					System.out.println("업데이트 실패했습니다.");
+					System.out.println("존재하지 않는 사원 번호입니다.");
 				}
 			} catch (SQLException e) {
 				System.out.println("올바른 업데이트 정보를 입력하세요.");

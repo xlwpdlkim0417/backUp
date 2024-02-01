@@ -248,6 +248,8 @@ public class Swing extends JFrame {
 		ta.append("▷ 부서 번호 : 2자리 숫자\n");
 		ta.append("\n");
 		ta.append("※주의※ 입력 가능 정보 양식을 벗어날 경우 정상적인 이용에 어려움이 있을 수 있습니다.\n");
+		ta.append("\n");
+		ta.append("※주의※ 사원 번호는 중복 입력, 수정이 불가능합니다.");
 	}
 
 	private void clearTextField() { // TF 클리어
@@ -314,6 +316,7 @@ public class Swing extends JFrame {
 			} catch (SQLException e) {
 				ta.append("입력 실패했습니다.\n");
 				ta.append("올바른 내용을 입력하세요.\n");
+				ta.append("사원 번호의 경우 중복 입력이 불가능합니다..\n");
 			}
 		}
 	}
@@ -330,14 +333,13 @@ public class Swing extends JFrame {
 				|| tf1.getText().isEmpty()) {
 			ta.append("업데이트를 위해 모든 정보를 빠짐없이 입력하세요.\n");
 		}
-
 		try {
 			int result = stmt.executeUpdate(sql);
 			if (result >= 1) {
 				ta.append("업데이트 성공했습니다.\n");
 			} else {
 				ta.append("업데이트 실패했습니다.\n");
-				ta.append("사원 번호는 변경할 수 없습니다.\n");
+				ta.append("존재하지 않는 사원 번호입니다.\n");
 			}
 		} catch (SQLException e) {
 			ta.append("올바른 업데이트 정보를 입력하세요.\n");

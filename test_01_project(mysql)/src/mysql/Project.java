@@ -69,7 +69,6 @@ public class Project {
 			System.out.println("업데이트를 위해 모든 정보를 빠짐없이 입력해주세요.");
 		} else {
 			try {
-
 				int result = stmt.executeUpdate(sql);
 				if (result >= 1) {
 					System.out.println("업데이트 성공했습니다.");

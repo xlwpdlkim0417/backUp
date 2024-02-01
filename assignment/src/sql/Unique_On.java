@@ -24,7 +24,7 @@ public class Unique_On {
 
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("유니크 제약 설정에 실패했습니다.");
-			System.out.println(e.getMessage());
+			System.out.println("유니크 키가 존재하지 않습니다.");
 		}
 	}
 }
