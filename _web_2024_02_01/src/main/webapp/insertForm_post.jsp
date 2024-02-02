@@ -8,9 +8,10 @@
 </head>
 <body>
 	<form action="insert_pstmt.jsp" method="post">
-		이름<input type="text" name="ename" /><br /> 직책<input type="text"
-			name="job" /><br /> 급여<input type="text" name="sal" /><br /> <input
-			type="submit" value="확인" /> <input type="reset" />
+		이름<input type="text" name="ename" /><br />
+		직책<input type="text"name="job" /><br />
+		급여<input type="text" name="sal" /><br />
+		<input type="submit" value="확인" /> <input type="reset" />
 	</form>
 </body>
 </html>

@@ -27,12 +27,18 @@
 	pstmt.setDouble(3, Double.parseDouble(request.getParameter("sal")));
 	/* Double로 받지 않아도 String으로 그냥 받아도 괜찮음 */
 	int result = pstmt.executeUpdate();
-	if(result == 1){
+	if (result == 1) {
 		out.println("입력 성공");
 	}
 	/* emp1() 이 안에는 column 목록 넣어두고 values()는 ? 설정 후 pstmt.로 set~() 메소드 사용 */
 	/* pstmt.executeQuery(); 이건 insert에서 안씁니다 */
 	%>
-<a href="select.jsp">목록으로</a>
+	<a href="select.jsp">목록으로</a>
+
+	<%
+	response.sendRedirect("select.jsp");
+	/* 페이지에 머물지 않고 다른 곳으로 넘어간다고 생각하면 됨
+	insert나 delete 등의 실행 후 결과 자동 출력 기능에 넣으면 효과적 */
+	%>
 </body>
 </html>
