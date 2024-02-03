@@ -18,12 +18,13 @@ th {
 	background-color: cyan;
 }
 </style>
-<title>Insert title here</title>
+<title>SEARCH</title>
 </head>
 <body>
 	<table>
 		<tr>
 			<th>번호</th>
+
 			<th>이름</th>
 			<th>국어</th>
 			<th>영어</th>
@@ -33,32 +34,50 @@ th {
 		</tr>
 		<%
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");) {
-			String sql = "select num, name, kor, eng, math from score where num = ?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, request.getParameter("num"));
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				int sum = rs.getInt("kor") + rs.getInt("eng") + rs.getInt("math");
-		%>
-		<tr>
-			<td><%=rs.getInt("num")%></td>
-			<td><%=rs.getString("name")%></td>
-			<td><%=rs.getInt("kor")%></td>
-			<td><%=rs.getInt("eng")%></td>
-			<td><%=rs.getInt("math")%></td>
-			<td><%=sum%></td>
-			<td><%=String.format("%.2f", (float) sum / 3)%></td>
-		</tr>
-		<%
-		}
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
+		String sql = "select num, name, kor, eng, math from score where num = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, request.getParameter("num"));
+		ResultSet rs = pstmt.executeQuery();
 
-		} catch (Exception e) {
-		e.printStackTrace();
+		String Snum = "";
+		String Sname = "";
+		String Skor = "";
+		String Seng = "";
+		String Smath = "";
+
+		if (rs.next()) {
+			Snum = rs.getString("num");
+			Sname = rs.getString("name");
+			Skor = rs.getString("kor");
+			Seng = rs.getString("eng");
+			Smath = rs.getString("math");
+
+			
 		}
 		%>
+		
+		<form action="index.jsp" method="get">
+		번호 <input type="text" name="num"/><br>
+		이름 <input type="text" name="name"/><br>
+		국어 <input type="text" name="kor"/><br>
+		영어 <input type="text" name="eng"/><br>
+		수학 <input type="text" name="math"/><br>
+		<input type="submit" value="제출"> <input type="reset" />
+		</form>
+		
+		
+		<%
+		response.sendRedirect("index.jsp");
+		%>
+		
+		
+		
+
+
 	</table>
-	
+
+
 	<a href="index.jsp">목록으로</a>
 </body>
 </html>

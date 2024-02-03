@@ -8,7 +8,7 @@
 </head>
 <body>
 	<form action="search.jsp" method="get">
-		번호 <input type="text" name="num" /><br>
+		번호 <input type="text" name="num" value="<%=request.getParameter("num") %>"/><br>
 		이름 <input type="text" name="name" /><br>
 		국어 <input type="text" name="kor" /><br>
 		영어 <input type="text" name="eng" /><br>

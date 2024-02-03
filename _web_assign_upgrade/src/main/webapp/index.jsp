@@ -18,27 +18,24 @@ th {
 	background-color: cyan;
 }
 </style>
-<title>Insert title here</title>
+<title>INDEX</title>
 </head>
 <body>
+		<form action="search.jsp" method="get">
+		번호 <input type="text" name="num"/><br>
+		이름 <input type="text" name="name"/><br>
+		국어 <input type="text" name="kor"/><br>
+		영어 <input type="text" name="eng"/><br>
+		수학 <input type="text" name="math"/><br>
+		<input type="submit" value="제출"> <input type="reset" />
 
-	<form action="search.jsp" method="get">
-		번호 <input type="text" name="num" /><br>
-		이름 <input type="text" name="name" /><br>
-		국어 <input type="text" name="kor" /><br>
-		영어 <input type="text" name="eng" /><br>
-		수학 <input type="text" name="math" /><br>
-		<input type="submit" value="search" />
-		<input type="reset" />
+		<button onclick="location.href=search.jsp">검색</button>
+		<a href="insertForm.jsp">입력</a>
+		<a href="updateForm.jsp">수정</a>
+		<a href="deleteForm.jsp">삭제</a> <br>
+
 	</form>
 
-	
-	<button onclick="location.href='searchForm.jsp' ">검색</button>
-	<a href="insertForm.jsp">입력</a>
-	<a href="updateForm.jsp">수정</a>
-	<a href="deleteForm.jsp">삭제</a>
-	<br>
-	
 	<table>
 		<tr>
 			<th>번호</th>
@@ -51,12 +48,12 @@ th {
 		</tr>
 		<%
 		Class.forName("oracle.jdbc.driver.OracleDriver");
-		try (Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");) {
-			String sql = "select * from score";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				int sum = rs.getInt("kor") + rs.getInt("eng") + rs.getInt("math");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
+		String sql = "select * from score";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		ResultSet rs = pstmt.executeQuery();
+		while (rs.next()) {
+			int sum = rs.getInt("kor") + rs.getInt("eng") + rs.getInt("math");
 		%>
 		<tr>
 			<td><%=rs.getInt("num")%></td>
@@ -69,14 +66,10 @@ th {
 		</tr>
 		<%
 		}
-
-		} catch (Exception e) {
-		e.printStackTrace();
-		}
 		%>
 	</table>
-	
-	
+
+
 
 </body>
 </html>
