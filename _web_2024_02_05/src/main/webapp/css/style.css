@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Ubuntu+Mono&display=swap');
+
+html{
+    font-size: 100px;
+}
+h1{
+    font-weight: bold;
+    color: blue;
+    font-size: 0.5rem;
+}
+p{
+    font-weight: bold;
+    font-size: 100px;
+    font-family: 'Monoton', sans-serif;
+}
+
+p span{
+    font-weight: normal;
+    font-size: 1.5rem;
+
+}
