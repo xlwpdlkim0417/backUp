@@ -68,8 +68,8 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 		</tr>
 		<tr>
 			<form action=insert.jsp method=get>
-				<td><input type="text" name="num" /> <!-- <input type="submit" name="action" value="검색" /> -->
-					<br></td>
+				<td><input type="text" name="num" /> <!-- <input type="submit" name="action" value="검색" />
+					<br></td> -->
 				<td><input type="text" name="name" /><br></td>
 				<td><input type="text" name="kor" /><br></td>
 				<td><input type="text" name="eng" /><br></td>
@@ -112,12 +112,12 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 				<td><input type="text" name="name" value="<%=name%>" /></td> <br />
 				<td><input type="text" name="kor" value="<%=kor%>" /></td> <br />
 				<td><input type="text" name="eng" value="<%=eng%>" /></td> <br />
-				<td><input type="text" name="eng" value="<%=math%>" /></td> <br />
+				<td><input type="text" name="math" value="<%=math%>" /></td> <br />
 				<td><%=sum%></td>
 				<td><%=String.format("%.2f", (float) sum / 3)%></td> <br>
 				<td><input type="submit" value="업데이트" /></td>
-				<td><button onclick="location.href='delete.jsp?num=<%=num%>'">삭제</button></td>
-			</form>
+				
+			</form><td><button onclick="location.href='delete.jsp?num=<%=num%>'">삭제</button></td>
 			<%
 			}
 			%>

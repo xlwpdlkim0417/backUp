@@ -34,10 +34,9 @@
 			math = rs.getString("math");
 
 			int sum = rs.getInt("kor") + rs.getInt("eng") + rs.getInt("math");
-		
-		%>
-		
-		<form action="select.jsp" method="get">
+	%>
+
+	<form action="index.jsp" method="get">
 		<input type="text" name="num" value="<%=num%>" /> <br />
 		<td><input type="search" name="name" value="<%=name%>" /></td> <br />
 		<td><input type="text" name="kor" value="<%=kor%>" /></td> <br />
@@ -47,35 +46,39 @@
 		<td><%=String.format("%.2f", (float) sum / 3)%></td> <br>
 		<td><input type="submit" value="select" /></td>
 		<td><button onclick="location.href='delete.jsp?num=<%=num%>'">삭제</button></td>
-		</form>
-	<%}
+	</form>
+	<%
+	response.sendRedirect("index.jsp");
+	%>
+	<%
+	}
 	} else {
-		request.setCharacterEncoding("utf-8");
-		String driver = "oracle.jdbc.driver.OracleDriver";
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		Class.forName(driver);
-		Connection conn = DriverManager.getConnection(url, "scott", "tiger");
-		String sql = "insert into score(num, name, kor, eng, math) values(?,?,?,?,?)";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, request.getParameter("num"));
-		pstmt.setString(2, request.getParameter("name"));
-		pstmt.setString(3, request.getParameter("kor"));
-		pstmt.setString(4, request.getParameter("eng"));
-		pstmt.setString(5, request.getParameter("math"));
-		int result = pstmt.executeUpdate();
-		if (result == 1) {
-			out.println("입력 성공");
-		} else {
-			out.println("입력 실패");
-		}
+	request.setCharacterEncoding("utf-8");
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	Class.forName(driver);
+	Connection conn = DriverManager.getConnection(url, "scott", "tiger");
+	String sql = "insert into score(num, name, kor, eng, math) values(?,?,?,?,?)";
+	PreparedStatement pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1, request.getParameter("num"));
+	pstmt.setString(2, request.getParameter("name"));
+	pstmt.setString(3, request.getParameter("kor"));
+	pstmt.setString(4, request.getParameter("eng"));
+	pstmt.setString(5, request.getParameter("math"));
+	int result = pstmt.executeUpdate();
+	if (result == 1) {
+	out.println("입력 성공");
+	} else {
+	out.println("입력 실패");
+	}
 	}
 	%>
 
 
 	<%
-	response.sendRedirect("select.jsp");
+	response.sendRedirect("index.jsp");
 	%>
 
-	<a href="select.jsp">목록</a>
+	<a href="index.jsp">목록</a>
 </body>
 </html>
