@@ -19,6 +19,7 @@ table {
 th, td {
 	border: 1px solid #ddd;
 	padding: 8px;
+	text-align: center;
 }
 
 th {
@@ -54,10 +55,9 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 <title>Insert title here</title>
 </head>
 <body>
-
 	<%
 	request.setCharacterEncoding("utf-8");
-	String driver = "oracle.jdbc.driver.OracleDriver";
+	Class.forName("oracle.jdbc.driver.OracleDriver");
 	String url = "jdbc:oracle:thin:@localhost:1521:xe";
 	Connection conn = DriverManager.getConnection(url, "scott", "tiger");
 	String sql = "select * from score where num = ?";
@@ -71,12 +71,17 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 	String eng = "";
 	String math = "";
 
+	int sum = 0;
+	float avg = 0.0f;
+
 	if (rs.next()) { // 왜 if 일까? 무조건 1건(행, 레코드)
 		num = rs.getString("num");
 		name = rs.getString("name");
 		kor = rs.getString("kor");
 		eng = rs.getString("eng");
 		math = rs.getString("math");
+
+		sum = Integer.parseInt(kor) + Integer.parseInt(eng) + Integer.parseInt(math);
 	}
 	%>
 
@@ -89,14 +94,8 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 			<th>수학</th>
 			<th>총점</th>
 			<th>평균</th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
+			<th colspan="4"></th>
 		</tr>
-
-
 		<tr>
 			<form method="get" id="frm">
 				<td><input type="text" name="num" value="<%=num%>" /><br></td>
@@ -104,27 +103,17 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 				<td><input type="text" name="kor" value="<%=kor%>" /><br></td>
 				<td><input type="text" name="eng" value="<%=eng%>" /><br></td>
 				<td><input type="text" name="math" value="<%=math%>" /><br></td>
-
-				<%-- <%
-				int sum = Integer.parseInt("kor") + Integer.parseInt("eng") + Integer.parseInt("math");
-				%>
-				
 				<td><%=sum%></td>
-				<td><%=String.format("%.2f", (float) sum / 3)%></td> --%>
-				
-				<td></td>
-				<td></td>
-				
+				<td><%=String.format("%.2f", (float) sum / 3)%></td>
 				<td><button onclick="search()">검색</button> <br></td>
 				<td><button onclick="insert()">입력</button> <br></td>
 				<td><button onclick="update()">수정</button> <br></td>
 				<td><button onclick="del()">삭제</button> <br></td>
 				<!-- <input type="button" onClick="del()" value="삭제I"/> -->
-				<td><button onClick="reset">초기화</button></td>
 			</form>
 		</tr>
-
 	</table>
+
 	<script type="text/javascript">
 		function serach() {
 			document.querySelector('#frm').action = 'search.jsp'
@@ -156,13 +145,33 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 			<th>평균</th>
 		</tr>
 		<%
+		int sumAll = 0;
+		int loop = 0;
+
+		int maxKor = 0;
+		int maxEng = 0;
+		int maxMath = 0;
+
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 		try (Connection conn0 = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");) {
 			String sql0 = "select * from score";
 			PreparedStatement pstmt0 = conn0.prepareStatement(sql0);
 			ResultSet rs0 = pstmt0.executeQuery();
 			while (rs0.next()) {
+				int getKor = rs0.getInt("kor");
+				int getEng = rs0.getInt("eng");
+				int getMath = rs0.getInt("math");
+
 				int sum0 = rs0.getInt("kor") + rs0.getInt("eng") + rs0.getInt("math");
+				sumAll += sum0;
+				loop++;
+
+				if (getKor > maxKor)
+			maxKor = getKor;
+				if (getEng > maxEng)
+			maxEng = getEng;
+				if (getMath > maxMath)
+			maxMath = getMath;
 		%>
 		<tr>
 			<td><%=rs0.getInt("num")%></td>
@@ -175,11 +184,27 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 		</tr>
 		<%
 		}
-
 		} catch (Exception e) {
-		e.printStackTrace();
+		out.println(e.getMessage());
 		}
 		%>
+		<tr>
+			<td></td>
+			<td></td>
+			<%
+			int[] arrKor = new int[loop];
+			for (int i = 0; i < arrKor.length; i++) {
+				if (maxKor <= arrKor[i]) {
+					maxKor = arrKor[i];
+				}
+			}
+			%>
+			<td><%=maxKor%></td>
+			<td><%=maxEng%></td>
+			<td><%=maxMath%></td>
+			<td></td>
+			<td><%=String.format("%.2f", (float) sumAll / loop)%></td>
+		</tr>
 	</table>
 </body>
 </html>
