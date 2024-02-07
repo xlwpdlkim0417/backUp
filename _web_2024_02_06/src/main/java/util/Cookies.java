@@ -9,9 +9,8 @@ import java.io.IOException;
 
 public class Cookies {
 
-	private Map<String, Cookie> cookieMap =
-			// 문자열을 주면 쿠키를 꺼내옴
-			new java.util.HashMap<String, Cookie>();
+	private Map<String, Cookie> cookieMap = new java.util.HashMap<String, Cookie>();
+	// 문자열을 주면 쿠키를 꺼내옴
 
 	public Cookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
@@ -26,7 +25,7 @@ public class Cookies {
 		return cookieMap.get(name);
 	}
 
-	public String getValue(String name) throws IOException { // 쿠기 벨류 꺼내줌
+	public String getValue(String name) throws IOException { // 쿠기 밸류 꺼내줌
 		Cookie cookie = cookieMap.get(name);
 		if (cookie == null) {
 			return null;

@@ -84,20 +84,19 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 		sum = Integer.parseInt(kor) + Integer.parseInt(eng) + Integer.parseInt(math);
 	}
 	%>
-
-	<table>
-		<tr>
-			<th>번호</th>
-			<th>이름</th>
-			<th>국어</th>
-			<th>영어</th>
-			<th>수학</th>
-			<th>총점</th>
-			<th>평균</th>
-			<th colspan="4"></th>
-		</tr>
-		<tr>
-			<form method="get" id="frm">
+	<form method="post" id="frm">
+		<table>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>국어</th>
+				<th>영어</th>
+				<th>수학</th>
+				<th>총점</th>
+				<th>평균</th>
+				<th colspan="5"></th>
+			</tr>
+			<tr>
 				<td><input type="text" name="num" value="<%=num%>" /><br></td>
 				<td><input type="text" name="name" value="<%=name%>" /><br></td>
 				<td><input type="text" name="kor" value="<%=kor%>" /><br></td>
@@ -105,15 +104,15 @@ input[type="submit"]:hover, input[type="reset"]:hover, button:hover {
 				<td><input type="text" name="math" value="<%=math%>" /><br></td>
 				<td><%=sum%></td>
 				<td><%=String.format("%.2f", (float) sum / 3)%></td>
-				<td><button onclick="search()">검색</button> <br></td>
-				<td><button onclick="insert()">입력</button> <br></td>
-				<td><button onclick="update()">수정</button> <br></td>
-				<td><button onclick="del()">삭제</button> <br></td>
+				<td><button onclick="search()">검색</button></td>
+				<td><button onclick="insert()">입력</button></td>
+				<td><button onclick="update()">수정</button></td>
+				<td><button onclick="del()">삭제</button></td>
+				<!-- <td><button onclick="clear()">초기화</button></td> -->
 				<!-- <input type="button" onClick="del()" value="삭제I"/> -->
-			</form>
-		</tr>
-	</table>
-
+			</tr>
+		</table>
+	</form>
 	<script type="text/javascript">
 		function serach() {
 			document.querySelector('#frm').action = 'search.jsp'
