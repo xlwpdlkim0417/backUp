@@ -1,0 +1,126 @@
+package java_2024_01_10_Account;
+
+import java.util.Scanner;
+
+public class Project1 {
+
+	public static void main(String[] args) {
+
+		Scanner scanner = new Scanner(System.in);
+
+		boolean run = true;
+		boolean run2 = true;
+
+		Account[] acc = new Account[3];
+		int idx = -1;
+
+		first: while (run) {
+			System.out.println("-------------------------------------");
+			System.out.println("1.로그인 | 2.회원가입 | 3.예금/출금 | 4.종료");
+			System.out.println("-------------------------------------");
+			System.out.print("선택> ");
+			int menuNum = Integer.parseInt(scanner.nextLine());
+			switch (menuNum) {
+
+			case 1:
+				// 로그인 처리
+				System.out.println("로그인 처리");
+
+				System.out.print("아이디: ");
+				String id = scanner.nextLine();
+				System.out.print("패스워드: ");
+				String pw = scanner.nextLine();
+
+				for (int i = 0; i < acc.length; i++) {
+					if (id.equals(acc[i].name)) {
+						if (pw.equals(acc[i].ssn)) {
+							System.out.println("로그인 성공!");
+							idx = i;
+						} else {
+							System.out.println("로그인 실패");
+						}
+					} 
+				}
+
+//				if (id.equals(acc.name)) {
+//					if (pw.equals(acc.ssn)) {
+//						System.out.println("로그인 성공");
+//					}
+//				}
+
+				break;
+
+			case 2:
+				// 회원 가입
+
+				// 반복문 들어가서
+
+				for (int i = 0; i < acc.length; i++) {
+
+					System.out.println("회원 가입");
+					System.out.print("이름: ");
+					String name = scanner.nextLine();
+					System.out.print("생년원일: ");
+					String ssn = scanner.nextLine();
+					System.out.print("전화번호: ");
+					String tel = scanner.nextLine();
+
+					acc[i] = new Account(name, ssn, tel);
+					System.out.println(acc[i]);
+				}
+
+//				acc = new Account(name, ssn, tel);
+//				System.out.println(acc); // 위치 주의 할 것
+
+				break;
+
+			case 3:
+				// 예금 출금
+				System.out.println("예금 출금");
+
+				second: while (run2) {
+					System.out.println("-------------------------------------");
+					System.out.println("1.예금 | 2.출금 | 3.잔고 | 4.종료");
+					System.out.println("-------------------------------------");
+					System.out.print("선택> ");
+					int menuNum1 = Integer.parseInt(scanner.nextLine());
+					switch (menuNum1) {
+
+					case 1:
+						System.out.print("예금액> ");
+						acc[idx].balance += Integer.parseInt(scanner.nextLine());
+//						if(idx > acc.length) {
+//							System.out.println("회원가입을 진행해주십시오");
+//						}
+						// NullPointerException 발생 회원가입 > 로그인 >
+						// 예금/출금 순서로 접근하면 오류가 없는데 처음부터 예금/출금으로
+						// 접근하려고 하면 acc 객체 값이 초기화된 적이 없기 때문에 오류
+						// 발생
+						break;
+
+					case 2:
+						System.out.print("출금액> ");
+						acc[idx].balance -= Integer.parseInt(scanner.nextLine());	//여기서 idx란 회원가입을 하면 부여하는 고유의 문자라고 생각하면 됨
+						break;
+
+					case 3:
+						System.out.print("잔고> ");
+						System.out.println(acc[idx].balance);
+						break;
+
+					case 4:
+						run2 = false;
+						break;
+					}
+					System.out.println();
+				}
+				break;
+
+			case 4:
+				run = false;
+				break;
+			}
+		}
+		System.out.println("프로그램 종료");
+	}
+}

@@ -1,4 +1,4 @@
-package mysql;
+package Before_Submit.mysql;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

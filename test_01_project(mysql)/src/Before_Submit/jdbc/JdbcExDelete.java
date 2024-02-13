@@ -1,4 +1,4 @@
-package jdbc;
+package Before_Submit.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
