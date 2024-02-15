@@ -103,6 +103,7 @@ textarea {
 <body>
 	<%
 	String memberId = (String) session.getAttribute("MEMBERID");
+	String memberPw = (String) session.getAttribute("MEMBERPW");
 	boolean login = memberId == null ? false : true;
 	%>
 	<%
@@ -111,7 +112,7 @@ textarea {
 	<div class="right-aligned">
 	 <form action="sessionLogout.jsp" method="post" style="display:inline;">
 		<!--8-3.jsp:로그아웃 처리-->
-		<%=memberId%>번 회원님 로그인 한 상태
+		<%=memberPw%> 회원님 로그인 하셨습니다
 		<input type="submit" value="로그아웃" class="button-right">
 	</form>
 	</div>

@@ -7,14 +7,14 @@
 <%
     request.setCharacterEncoding("utf-8");
 
-	if(session.getAttribute("MEMBERPW").equals(request.getParameter("writer"))){
+	/* if(session.getAttribute("MEMBERPW").equals(request.getParameter("writer"))){
 		System.out.println("진행시켜");
 	} else {
 		System.out.println("equals 수정해야겠지?");
-	}
+	} */
 
     // 양식에 입력되었던 값 읽기
-    String writer  = request.getParameter("writer" );
+    String writer  = request.getParameter("writer");
     String title   = request.getParameter("title"  );
     String content = request.getParameter("content");
 

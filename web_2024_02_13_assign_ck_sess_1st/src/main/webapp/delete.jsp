@@ -22,7 +22,7 @@ try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/
 		} else {
 %>
 <script>
-	alert("권한이 없습니다. 작성자만 삭제 할 수 있습니다");
+	alert("권한이 없습니다. 작성자만 삭제 할 수 있습니다.");
 	history.go(-1);
 </script>
 

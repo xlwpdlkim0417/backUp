@@ -13,7 +13,6 @@ boolean login = memberId == null ? false : true;
 	if (login) {
 	%>
 	<form action="sessionLogout.jsp" method="post">
-		<!--8-3.jsp:로그아웃 처리-->
 		<%=memberId%>님 로그인 한 상태 <input type="submit" value="로그아웃">
 	</form>
 	<%
