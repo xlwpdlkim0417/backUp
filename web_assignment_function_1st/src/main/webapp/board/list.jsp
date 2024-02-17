@@ -28,7 +28,7 @@ List<Board> list = dao.selectList();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   </head>
 <body>
-<form action="sessionLogout.jsp" method="post">
+<form action="logout.jsp" method="post">
 <%=memberPw%> 회원님 로그인 하셨습니다
 <input type="submit" value="로그아웃">
 </form>

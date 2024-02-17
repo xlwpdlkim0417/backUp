@@ -13,7 +13,7 @@ Member member = dao.selectForLogin(id, email);
 
 if (member != null) {
 	session.setAttribute("member", member);
-	response.sendRedirect("login_main.jsp");
+	response.sendRedirect("list.jsp");
 	return;
 }
 %>
