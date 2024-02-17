@@ -17,7 +17,7 @@
         </tr>
         <tr>
             <td>이메일</td>
-            <td><input type="text" name="pw"></td>
+            <td><input type="text" name="email"></td>
         </tr>
         <tr>
             <td>이름</td>

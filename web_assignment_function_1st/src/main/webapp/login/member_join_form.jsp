@@ -23,14 +23,6 @@
             <td>이름</td>
             <td><input type="text" name="name"></td>
         </tr>
-         <tr>
-            <td>생년원일</td>
-            <td><input type="text" name="rsnum"></td>
-        </tr>
-         <tr>
-            <td>전화번호</td>
-            <td><input type="text" name="phone"></td>
-        </tr>
     </table>    
     <input type="submit" value="등록"> 
 </form>
