@@ -9,7 +9,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("login_main.jsp");
+	response.sendRedirect("index.html");
 }
 
 request.setCharacterEncoding("utf-8");
@@ -32,7 +32,10 @@ return;
 
 BoardDao dao = BoardDao.getInstance();
 Board board = new Board(num, writer, title, content);
-dao.update(board);
-
-response.sendRedirect("view.jsp?num=" + num);
+dao.update(board, false);
 %>
+<%
+response.sendRedirect("view.jsp?num=" + num);
+/* response.sendRedirect("list.jsp"); */
+%>
+

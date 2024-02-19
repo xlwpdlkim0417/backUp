@@ -85,7 +85,7 @@ a:hover {
 			<td style="text-align: left;"><a
 				href="view.jsp?num=<%=board.getNum()%>"> <%=board.getTitle()%>
 			</a></td>
-			<td><%=board.getWriter()%></td>
+			<td><a href="list_one.jsp?writer=<%=board.getWriter()%>"><%=board.getWriter()%></a></td>
 			<td><%=board.getRegtime()%></td>
 			<td><%=board.getHits()%></td>
 		</tr>

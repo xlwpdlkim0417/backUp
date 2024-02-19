@@ -1,13 +1,18 @@
 package dao;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import dto.Board;
 import dto.Member;
+import util.Cookies;
 
 public class MemberDao {
 	private static Connection conn;
@@ -23,8 +28,8 @@ public class MemberDao {
 
 	private static void getConnection() {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project1", "root", "mysql");
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

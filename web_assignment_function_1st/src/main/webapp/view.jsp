@@ -1,5 +1,6 @@
-<%@page import="dao.MemberDao"%>
-<%@page import="dto.Member"%>
+<%@ page import="util.Cookies"%>
+<%@ page import="dao.MemberDao"%>
+<%@ page import="dto.Member"%>
 <%@ page import="dao.BoardDao"%>
 <%@ page import="dto.Board"%>
 <%@ page import="java.sql.*"%>
@@ -9,7 +10,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("login_main.jsp");
+	response.sendRedirect("index.html");
 }
 %>
 <%
@@ -20,19 +21,39 @@ String title = "";
 String content = "";
 String regtime = "";
 int hits = 0;
+int likes = 0;
 
 BoardDao dao = BoardDao.getInstance();
-Board board = dao.selectOne(num, true);
+Cookies cookies = new Cookies(request);
+if (cookies.exists("MEMBERLOG") && cookies.getValue("MEMBERLOG").equals(dao.selectOneDelete(num).getWriter())){
+	Board board = dao.selectOne(num, false);
+	
+	writer = board.getWriter();
+	title = board.getTitle();
+	content = board.getContent();
+	regtime = board.getRegtime();
+	hits = board.getHits();
+	likes = board.getLikes();
 
-writer = board.getWriter();
-title = board.getTitle();
-content = board.getContent();
-regtime = board.getRegtime();
-hits = board.getHits();
+	title = title.replace(" ", "&nbsp;");
+	content = content.replace(" ", "&nbsp;").replace("\n", "<br>");
+} else  {
+	Board board = dao.selectOne(num, true);
+	
+	writer = board.getWriter();
+	title = board.getTitle();
+	content = board.getContent();
+	regtime = board.getRegtime();
+	hits = board.getHits();
+	likes = board.getLikes();
 
-title = title.replace(" ", "&nbsp;");
-content = content.replace(" ", "&nbsp;").replace("\n", "<br>");
+	title = title.replace(" ", "&nbsp;");
+	content = content.replace(" ", "&nbsp;").replace("\n", "<br>");
+}
 %>
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -80,6 +101,8 @@ td {
 		</tr>
 	</table>
 
+	<br>
+	<input type="button" value="좋아요" onclick="location.href='likes.jsp?num=<%=num%>'"> <%=likes%>
 	<br>
 	<input type="button" value="목록보기" onclick="location.href='list.jsp'">
 	<input type="button" value="수정" onclick="location.href='write.jsp?num=<%=num%>'">

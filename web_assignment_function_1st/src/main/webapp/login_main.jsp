@@ -13,25 +13,17 @@
 	<%
 	Member member = (Member) session.getAttribute("member");
 	if (member != null) {
-	%>
-	
-	<form action="logout.jsp" method="post">
-		<%=member.getName()%>님 로그인
-		<input type="submit" value="로그아웃">
-		<input type="button" value="회원정보 수정" onclick="window.open('member_update_form.jsp', 'popup', 'width=600, height=300')">
-	</form>
-	
-	<%
+		response.sendRedirect("list.jsp");
 	} else {
 	%>
-	
+
 	<form action="login.jsp" method="post">
 		아이디: <input type="text" name="id">&nbsp;&nbsp;
 		이메일: <input type="text" name="pw">
 		<input type="submit" value="로그인">
 		<input type="button" value="회원가입" onclick="window.open('member_join_form.jsp', 'popup', 'width=600, height=300')">
 	</form>
-	
+
 	<%
 	}
 	%>

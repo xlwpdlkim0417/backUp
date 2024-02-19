@@ -8,6 +8,7 @@ public class Board {
 	private String content;
 	private String regtime;
 	private int hits;
+	private int likes;
 
 	public Board(String writer, String title, String content) {
 		super();
@@ -22,6 +23,25 @@ public class Board {
 		this.writer = writer;
 		this.title = title;
 		this.content = content;
+	}
+
+	public Board(int num, String writer, String title, String content, String regtime, int hits, int likes) {
+		super();
+		this.num = num;
+		this.writer = writer;
+		this.title = title;
+		this.content = content;
+		this.regtime = regtime;
+		this.hits = hits;
+		this.likes = likes;
+	}
+
+	public int getLikes() {
+		return likes;
+	}
+
+	public void setLikes(int likes) {
+		this.likes = likes;
 	}
 
 	public Board(int num, String writer, String title, String content, String regtime, int hits) {
@@ -85,7 +105,7 @@ public class Board {
 	@Override
 	public String toString() {
 		return "Board [num=" + num + ", writer=" + writer + ", title=" + title + ", content=" + content + ", regtime="
-				+ regtime + ", hits=" + hits + "]";
+				+ regtime + ", hits=" + hits + ", likes=" + likes + "]";
 	}
 
 }

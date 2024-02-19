@@ -29,7 +29,7 @@ return;
 BoardDao dao = BoardDao.getInstance();
 Board board = new Board(num, writer, title, content);
 
-dao.update(board);
+/* dao.update(board); */
 
 // 글 보기 화면으로 돌아감
 response.sendRedirect("view.jsp?num=" + num);

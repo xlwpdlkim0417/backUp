@@ -8,7 +8,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("login_main.jsp");
+	response.sendRedirect("index.html.jsp");
 }
 %>
 <%
@@ -27,8 +27,18 @@ if (num > 0) {
 	writer = board.getWriter();
 	title = board.getTitle();
 	content = board.getContent();
-
+%>
+<%
+if (member.getName().equals(writer)) {
 	action = "update.jsp?num=" + num;
+} else {
+%>
+<script>
+	alert('작성자 only 업데이트.');
+	history.back();
+</script>
+<%
+}
 }
 %>
 
@@ -53,6 +63,7 @@ input[type=text], textarea {
 </style>
 </head>
 <body>
+
 
 	<form method="post" action="<%=action%>">
 		<table>

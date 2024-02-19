@@ -19,18 +19,26 @@ BoardDao dao = BoardDao.getInstance();
 
 int num = Integer.parseInt(request.getParameter("num"));
 
-dao.delete(num);
-// 만약에 BoardDao의 delete 메소드의 리턴값을 사용하고 싶으면 int result = dao.delete(num); 등으로 받아서 if-else 쓰면 됩니다
-%>
-<%
+if (member.getName().equals(dao.selectOneDelete(num).getWriter())) {
+	
+	dao.delete(num);
 %>
 <script>
-alert("삭제되었습니다.");
-location.href="list.jsp";
-/* history.go(-1); */
+	alert("삭제되었습니다.");
+	location.href = "list.jsp";
+	/* history.go(-1); */
 </script>
-<%
-%>
 <%
 response.sendRedirect("list.jsp");
 %>
+<%
+} else {
+%>
+<script>
+	alert('작성자 only 삭제.');
+	history.back();
+</script>
+<%
+}
+%>
+

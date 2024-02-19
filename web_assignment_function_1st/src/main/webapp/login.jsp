@@ -1,3 +1,5 @@
+<%@page import="dao.BoardDao"%>
+<%@page import="util.Cookies"%>
 <%@page import="dao.MemberDao"%>
 <%@page import="dto.Member"%>
 <%@ page import="java.sql.*"%>
@@ -9,10 +11,12 @@ String id = request.getParameter("id");
 String email = request.getParameter("pw");
 
 MemberDao dao = MemberDao.getInstance();
+BoardDao daob = BoardDao.getInstance();
 Member member = dao.selectForLogin(id, email);
 
 if (member != null) {
 	session.setAttribute("member", member);
+	response.addCookie(Cookies.createCookie("MEMBERLOG", member.getName(), "/", -1));
 	response.sendRedirect("list.jsp");
 	return;
 }
