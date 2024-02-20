@@ -159,6 +159,22 @@ public class BoardDao {
 		}
 		return 0;
 	}
+	
+	public int insertComment(Board board) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		String formattedDateTime = LocalDateTime.now().format(formatter);
+		
+		String sql = "INSERT INTO board (writer, content, regtime) VALUES (?, ?, ?)";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, board.getWriter());
+			pstmt.setString(2, board.getContent());
+			pstmt.setString(3, formattedDateTime);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	public int like (int num, Member member) {
 		String sql = "UPDATE board SET likes=likes+1 WHERE num=" + num;

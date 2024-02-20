@@ -17,6 +17,12 @@ public class Board {
 		this.content = content;
 	}
 
+	public Board(String writer, String content) {
+		super();
+		this.writer = writer;
+		this.content = content;
+	}
+
 	public Board(int num, String writer, String title, String content) {
 		super();
 		this.num = num;

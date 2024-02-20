@@ -160,7 +160,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="web_assignment_function_1st" path="/web_assignment_function_1st" reloadable="true" source="org.eclipse.jst.jee.server:web_assignment_function_1st"/><Context docBase="_web_2024_02_19" path="/_web_2024_02_19" reloadable="true" source="org.eclipse.jst.jee.server:_web_2024_02_19"/></Host>
+      <Context docBase="web_assignment_function_1st" path="/web_assignment_function_1st" reloadable="true" source="org.eclipse.jst.jee.server:web_assignment_function_1st"/><Context docBase="_web_2024_02_19" path="/_web_2024_02_19" reloadable="true" source="org.eclipse.jst.jee.server:_web_2024_02_19"/><Context docBase="_web_2024_02_20" path="/_web_2024_02_20" reloadable="true" source="org.eclipse.jst.jee.server:_web_2024_02_20"/><Context docBase="web_assignment_function_2nd_maintenance" path="/web_assignment_function_2nd_maintenance" reloadable="true" source="org.eclipse.jst.jee.server:web_assignment_function_2nd_maintenance"/><Context docBase="_web_assignment_score_loginlogout" path="/_web_assignment_score_loginlogout" reloadable="true" source="org.eclipse.jst.jee.server:_web_assignment_score_loginlogout"/></Host>
     </Engine>
   </Service>
 </Server>

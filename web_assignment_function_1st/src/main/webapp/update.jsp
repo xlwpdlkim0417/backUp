@@ -1,5 +1,5 @@
-<%@page import="dao.MemberDao"%>
-<%@page import="dto.Member"%>
+<%@ page import="dao.MemberDao"%>
+<%@ page import="dto.Member"%>
 <%@ page import="dao.BoardDao"%>
 <%@ page import="dto.Board"%>
 <%@ page import="java.sql.*"%>
