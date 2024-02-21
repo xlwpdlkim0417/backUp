@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>기업형 웹 페이지</title>
+<meta charset="UTF-8">
 <style>
 table {
 	width: 680px;
@@ -46,38 +43,9 @@ a:hover {
 	color: red;
 }
 </style>
-<link rel="icon" href="favicon.ico" type="image/x-icon" />
-<script src="http://kit.fontawesome.com/c47106c6a7.js"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/style.css" />
-<script defer src="js/ie.js"></script>
 </head>
 <body>
-	<header>
-		<div class="inner">
-			<h1>
-				<a href="#">DCODLAB</a>
-			</h1>
-
-			<ul id="gnb">
-				<li><a href="#">DEPARTMENT</a></li>
-				<li><a href="#">GALLERY</a></li>
-				<li><a href="#">YOUTUBE</a></li>
-				<li><a href="#">COMMUNITY</a></li>
-				<li><a href="#">LOCATION</a></li>
-			</ul>
-
-			<ul class="util">
-				<li><a href="#">Contact</a></li>
-				<li><a href="#">Help</a></li>
-				<li><a href="login_main.jsp">Login</a></li>
-				<li><a href="#">Join</a></li>
-				<li><a href="#">Sitemap</a></li>
-			</ul>
-		</div>
-	</header>
-	<figure>
-	<br>
+	
 	<%@page import="dao.MemberDao"%>
 	<%@page import="dto.Member"%>
 	<%@page import="dao.BoardDao"%>
@@ -132,6 +100,5 @@ a:hover {
 
 	<br>
 	<input type="button" value="글쓰기" onclick="location.href='write.jsp'">
-</figure>
 </body>
 </html>

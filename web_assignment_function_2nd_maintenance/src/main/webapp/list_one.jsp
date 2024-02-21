@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>기업형 웹 페이지</title>
+<meta charset="UTF-8">
 <style>
 table {
 	width: 680px;
@@ -46,66 +43,36 @@ a:hover {
 	color: red;
 }
 </style>
-<link rel="icon" href="favicon.ico" type="image/x-icon" />
-<script src="http://kit.fontawesome.com/c47106c6a7.js"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/style.css" />
-<script defer src="js/ie.js"></script>
 </head>
 <body>
-	<header>
-		<div class="inner">
-			<h1>
-				<a href="#">DCODLAB</a>
-			</h1>
+	<%@ page import="dao.CommenDao"%>
+	<%@ page import="dto.Commen"%>
+	<%@ page import="dao.MemberDao"%>
+	<%@ page import="dto.Member"%>
+	<%@ page import="dao.BoardDao"%>
+	<%@ page import="dto.Board"%>
+	<%@ page import="java.util.List"%>
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
+		pageEncoding="UTF-8"%>
+	<%
+	Member member = (Member) session.getAttribute("member");
+	if (member == null) {
+		response.sendRedirect("index.html");
+		return;
+	}
+	%>
+	<%
+	request.setCharacterEncoding("utf-8");
 
-			<ul id="gnb">
-				<li><a href="#">DEPARTMENT</a></li>
-				<li><a href="#">GALLERY</a></li>
-				<li><a href="#">YOUTUBE</a></li>
-				<li><a href="#">COMMUNITY</a></li>
-				<li><a href="#">LOCATION</a></li>
-			</ul>
-
-			<ul class="util">
-				<li><a href="#">Contact</a></li>
-				<li><a href="#">Help</a></li>
-				<li><a href="login_main.jsp">Login</a></li>
-				<li><a href="#">Join</a></li>
-				<li><a href="#">Sitemap</a></li>
-			</ul>
-		</div>
-	</header>
-	<figure>
-
-<%@ page import="dao.CommenDao"%>
-<%@ page import="dto.Commen"%>
-<%@ page import="dao.MemberDao"%>
-<%@ page import="dto.Member"%>
-<%@ page import="dao.BoardDao"%>
-<%@ page import="dto.Board"%>
-<%@ page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%
-Member member = (Member) session.getAttribute("member");
-if (member == null) {
-	response.sendRedirect("index.html");
-	return;
-}
-%>
-<%
-request.setCharacterEncoding("utf-8");
-
-String writer = request.getParameter("writer");
-BoardDao dao = BoardDao.getInstance();
-List<Board> list = dao.selectListOne(writer);
-%>
+	String writer = request.getParameter("writer");
+	BoardDao dao = BoardDao.getInstance();
+	List<Board> list = dao.selectListOne(writer);
+	%>
 
 	<form action="logout.jsp" method="post">
-		<%=member.getName()%>님 로그인
-		<input type="submit" value="로그아웃">
-		<input type="button" value="회원정보 수정" onclick="window.open('member_update_form.jsp', 'popup', 'width=600, height=300')">
+		<%=member.getName()%>님 로그인 <input type="submit" value="로그아웃">
+		<input type="button" value="회원정보 수정"
+			onclick="window.open('member_update_form.jsp', 'popup', 'width=600, height=300')">
 	</form>
 
 	<table>
@@ -121,7 +88,8 @@ List<Board> list = dao.selectListOne(writer);
 		%>
 		<tr>
 			<td><%=board.getNum()%></td>
-			<td style="text-align: left;"><a href="view.jsp?num=<%=board.getNum()%>"> <%=board.getTitle()%></a></td>
+			<td style="text-align: left;"><a
+				href="view.jsp?num=<%=board.getNum()%>"> <%=board.getTitle()%></a></td>
 			<td><%=board.getWriter()%></td>
 			<td><%=board.getRegtime()%></td>
 			<td><%=board.getHits()%></td>
@@ -130,7 +98,7 @@ List<Board> list = dao.selectListOne(writer);
 		}
 		%>
 	</table>
-	
+
 	<%
 	CommenDao daocom = CommenDao.getInstance();
 	List<Commen> list2 = daocom.selectListOne(writer);
@@ -160,6 +128,5 @@ List<Board> list = dao.selectListOne(writer);
 	<br>
 	<input type="button" value="글쓰기" onclick="location.href='write.jsp'">
 	<input type="button" value="전체목록" onclick="location.href='list.jsp'">
-</figure>
 </body>
 </html>
