@@ -127,7 +127,7 @@ CommenDao daocom = CommenDao.getInstance();
 					class="d-flex justify-content-center display-5 link-body-emphasis mb-1"><%=title%></h2>
 				<div class="d-flex justify-content-end">
 					<p class="blog-post-meta"><%=regtime%>
-						by <a href="list_one_board.jsp?writer=<%=writer%>"><%=writer%></a>
+						by <a href="list_one.jsp?writer=<%=writer%>"><%=writer%></a>
 					</p>
 				</div>
 				<div class="d-flex justify-content-end">
@@ -142,30 +142,37 @@ CommenDao daocom = CommenDao.getInstance();
 				<hr>
 
 				<div class="d-flex justify-content-center">
-				<%
-				if(!cookies.exists("LIKEIT"+num)){
+					<%
+					if (!cookies.exists("LIKEIT" + num)) {
 					%>
 					<img src="../img/hand-thumbs-up.svg" alt="좋아요"
 						style="width: 30px; height: 30px;"
 						onclick="location.href='likes.jsp?num=<%=num%>'">
 					<%
-				} else if (cookies.exists("LIKEIT"+num)){
+					} else if (cookies.exists("LIKEIT" + num)) {
 					%>
 					<img src="../img/hand-thumbs-up-fill.svg" alt="좋아요"
 						style="width: 30px; height: 30px;"
 						onclick="location.href='likes.jsp?num=<%=num%>'">
 					<%
-				}
-					%>	
+					}
+					%>
 				</div>
 
 				<div class="d-flex justify-content-end">
 					<input type="button" class="btn btn-dark" value="목록보기"
-						onclick="location.href='list.jsp'"> &nbsp; <input
-						type="button" class="btn btn-dark" value="수정"
+						onclick="location.href='list.jsp'"> &nbsp;
+					<%
+					if (member.getName().equals(dao.selectOneDelete(num).getWriter())) {
+					%>
+					<input type="button" class="btn btn-dark" value="수정"
 						onclick="location.href='write.jsp?num=<%=num%>'"> &nbsp; <input
 						type="button" class="btn btn-dark" value="삭제"
 						onclick="location.href='delete.jsp?num=<%=num%>'">
+					<%
+					}
+					%>
+
 				</div>
 
 				<h6>댓글</h6>
@@ -188,7 +195,7 @@ CommenDao daocom = CommenDao.getInstance();
 				}
 
 				// 전체 글 수 조회
-				int totalPosts = daocom.selectListNum(); // getTotalPosts()는 전체 글 수를 반환하는 메소드
+				int totalPosts = daocom.selectListNum(num); // getTotalPosts()는 전체 글 수를 반환하는 메소드
 
 				// 전체 페이지 수 계산
 				int totalPages = totalPosts / pageSize;
@@ -212,16 +219,28 @@ CommenDao daocom = CommenDao.getInstance();
 								readonly>
 							<tr>
 								<th scope="row"><a
-									href="list_one_comment.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
-								<td><%=commen.getContent()%></td>
+									href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
+								<td><%=commen.getContent().replace(" ", "&nbsp;").replace("\n", "<br>")%></td>
+
+								<%
+								if (member.getName().equals(commen.getWriter())) {
+								%>
 								<td class="text-end"><input type="button"
 									class="btn btn-secondary btn-sm" value="수정"
-									onclick="location.href='../_comment/write_comment.jsp?num=<%=num%>'"></td>
-								<td class="text-end"><input type="button"
-									class="btn btn-secondary btn-sm" value="삭제"
+									style="margin-right: 5px; padding: 5px 10px;"
+									onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 800, 600)">
+
+									<input type="button" class="btn btn-secondary btn-sm"
+									value="삭제" style="padding: 5px 10px;"
 									onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
 								</td>
+
+								<%
+								}
+								%>
+
 							</tr>
+
 						</tbody>
 
 
@@ -239,7 +258,7 @@ CommenDao daocom = CommenDao.getInstance();
 						for (int i = 1; i <= totalPages; i++) {
 						%>
 						<li class="page-item"><a class="page-link text-black"
-							href="list.jsp?pagenow=<%=i%>"><%=i%></a></li>
+							href="view.jsp?pagenow=<%=i%>&num=<%=num%>"><%=i%></a></li>
 						<%
 						}
 						%>
@@ -249,6 +268,18 @@ CommenDao daocom = CommenDao.getInstance();
 		</div>
 	</div>
 
+	<script>
+function openCenteredWindow(url, width, height) {
+    // 스크린 사이즈에서 팝업을 가운데 위치시키기 위한 계산
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
 
+    // 팝업 창 설정
+    var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
+
+    // 팝업 창 열기
+    window.open(url, 'popup', windowFeatures);
+}
+</script>
 </body>
 </html>

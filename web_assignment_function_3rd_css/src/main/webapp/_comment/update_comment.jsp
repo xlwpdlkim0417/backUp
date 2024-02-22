@@ -34,9 +34,20 @@ return;
 
 CommenDao dao = CommenDao.getInstance();
 Commen commen = new Commen(num, writer, content);
-dao.update(commen, false);
+int result = dao.update(commen, false);
+if(result==1){
+	%>
+	<script>
+alert('댓글이 성공적으로 수정되었습니다.');
+window.opener.location.reload(); // 부모 창(원래 페이지)을 새로고침
+window.close(); // 현재 팝업 창 닫기
+</script>
+	<%
+} else {
 %>
+<script>
+window.close(); // 현재 팝업 창 닫기
+</script>
 <%
-response.sendRedirect("../_board/view.jsp?num=" + num);
+}
 %>
-

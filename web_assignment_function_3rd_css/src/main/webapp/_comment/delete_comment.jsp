@@ -24,22 +24,6 @@ CommenDao dao = CommenDao.getInstance();
 int num = Integer.parseInt(request.getParameter("num"));
 int ghost = Integer.parseInt(request.getParameter("ghost"));
 
-if (member.getName().equals(dao.selectOne(num).getWriter())) {
-	
-	dao.deleteghost(ghost);
-%>
-<script>
-	alert("삭제되었습니다.");
-	location.href = '../_board/view.jsp?num=' + <%=num%>;
-</script>
-<%
-} else {
-%>
-<script>
-	alert('작성자 only 삭제.');
-	history.back();
-</script>
-<%
-}
-%>
+dao.deleteghost(ghost);
 
+%>

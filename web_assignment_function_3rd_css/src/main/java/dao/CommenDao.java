@@ -139,6 +139,23 @@ public class CommenDao {
 		return totalPosts;
 	}
 	
+	public int selectListNum(int num) {
+		int totalPosts = 0;
+		String sql = "SELECT COUNT(*) FROM commen WHERE num = ?";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalPosts = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return totalPosts;
+	}
+	
 	public int selectListNum(String writer) {
 		int totalPosts = 0;
 		String sql = "SELECT COUNT(*) FROM commen WHERE writer = ?";
@@ -245,6 +262,7 @@ public class CommenDao {
 			pstmt.setString(2, commen.getContent());
 			pstmt.setInt(4, commen.getNum());
 			pstmt.setString(3, formattedDateTime);
+			System.out.println(pstmt.executeUpdate());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

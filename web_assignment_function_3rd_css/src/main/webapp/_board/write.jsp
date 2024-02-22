@@ -95,20 +95,11 @@ if (member == null) {
 		writer = board.getWriter();
 		title = board.getTitle();
 		content = board.getContent();
-	%>
-	<%
-	if (member.getName().equals(writer)) {
+		
 		action = "update.jsp?num=" + num;
-	} else {
-	%>
-	<script>
-		alert('작성자 only 업데이트.');
-		history.back();
-	</script>
-	<%
-	}
 	}
 	%>
+	
 	<form method="post" action="<%=action%>">
 		<div class="d-flex justify-content-center">
 			<div class="col-md-10">

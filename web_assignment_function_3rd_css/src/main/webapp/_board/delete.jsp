@@ -13,6 +13,7 @@ if (member == null) {
 	return;
 }
 %>
+
 <%
 // 지정된 글 번호 얻기
 request.setCharacterEncoding("utf-8");
@@ -20,22 +21,13 @@ BoardDao dao = BoardDao.getInstance();
 
 int num = Integer.parseInt(request.getParameter("num"));
 
-if (member.getName().equals(dao.selectOneDelete(num).getWriter())) {
-	
-	dao.delete(num);
+dao.delete(num);
 %>
+
 <script>
 	alert("삭제되었습니다.");
 	location.href = "list.jsp";
 </script>
-<%
-} else {
-%>
-<script>
-	alert('작성자 only 삭제.');
-	history.back();
-</script>
-<%
-}
-%>
+
+
 

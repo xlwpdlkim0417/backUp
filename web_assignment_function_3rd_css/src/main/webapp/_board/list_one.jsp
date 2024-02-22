@@ -74,7 +74,7 @@ if (member == null) {
 	BoardDao dao = BoardDao.getInstance();
 
 	int pagenow = 1; // 현재 페이지 번호, 기본값은 1
-	int pageSize = 10; // 페이지당 글 수
+	int pageSize = 5; // 페이지당 글 수
 	if (request.getParameter("pagenow") != null) {
 		pagenow = Integer.parseInt(request.getParameter("pagenow"));
 	}
@@ -150,7 +150,7 @@ if (member == null) {
 	CommenDao daocom = CommenDao.getInstance();
 
 	pagenowc = 1; // 현재 페이지 번호, 기본값은 1
-	int pageSizec = 10; // 페이지당 글 수
+	int pageSizec = 5; // 페이지당 글 수
 	if (request.getParameter("pagenowc") != null) {
 		pagenowc = Integer.parseInt(request.getParameter("pagenowc"));
 	}
@@ -192,9 +192,7 @@ if (member == null) {
 		</table>
 		<div class="d-flex justify-content-end mt-2">
 		<button type="button" class="btn btn-dark"
-				onclick="location.href='list.jsp'">목록으로</button> &nbsp;
-			<button type="button" class="btn btn-dark"
-				onclick="location.href='write.jsp'">글쓰기</button>
+				onclick="location.href='list.jsp'">목록으로</button>
 		</div>
 	</div>
 
@@ -211,12 +209,5 @@ if (member == null) {
 			%>
 		</ul>
 	</nav>
-
-	<br>
-	<div class="d-flex justify-content-end mt-2">
-		<button type="button" class="btn btn-dark"
-			onclick="location.href='write.jsp'">글쓰기</button>
-	</div>
-	<input type="button" value="전체목록" onclick="location.href='list.jsp'">
 </body>
 </html>
