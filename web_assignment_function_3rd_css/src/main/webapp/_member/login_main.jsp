@@ -110,7 +110,7 @@
     </div>
     <div class="form-buttons">
     <button class="btn btn-dark btn-lg py-2" type="submit" onclick="location.href=login.jsp">로그인</button>
-    <button class="btn btn-dark btn-lg py-2" type="submit" onclick="window.open('member_join_form.jsp', 'popup', 'width=800, height=600')">회원가입</button>
+    <button class="btn btn-dark btn-lg py-2" type="submit" onclick="openCenteredWindow('member_join_form.jsp', '800', '600')">회원가입</button>
     </div>
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2023-2024</p>
   </form>
@@ -121,6 +121,18 @@
 	
 
 	
-	
+		<script>
+function openCenteredWindow(url, width, height) {
+    // 스크린 사이즈에서 팝업을 가운데 위치시키기 위한 계산
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+
+    // 팝업 창 설정
+    var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
+
+    // 팝업 창 열기
+    window.open(url, 'popup', windowFeatures);
+}
+</script>
 </body>
 </html>

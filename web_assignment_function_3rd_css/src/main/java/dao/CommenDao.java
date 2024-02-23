@@ -274,13 +274,12 @@ public class CommenDao {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String formattedDateTime = LocalDateTime.now().format(formatter);
 
-		String sql = "INSERT INTO commen (ghost, num, writer, content, regtime, hits, likes) VALUES (?, ?, ?, ?, ?, 0, 0)";
+		String sql = "INSERT INTO commen (ghost, num, writer, content, regtime, hits, likes) VALUES (SEQ_COMMEN.nextval, ?, ?, ?, ?, 0, 0)";
 		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
-			pstmt.setString(3, commen.getWriter());
-			pstmt.setString(4, commen.getContent());
-			pstmt.setString(5, formattedDateTime);
-			pstmt.setInt(2, commen.getNum());
-			pstmt.setInt(1, commen.getGhost());
+			pstmt.setString(2, commen.getWriter());
+			pstmt.setString(3, commen.getContent());
+			pstmt.setString(4, formattedDateTime);
+			pstmt.setInt(1, commen.getNum());
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

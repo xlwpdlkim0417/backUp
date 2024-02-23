@@ -38,29 +38,22 @@ if (member == null) {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="../_navi/notice.jsp">Notice</a></li>
+					<li class="nav-item"><a class="nav-link" href="../_navi/hot.jsp">Hot</a></li>
+					<li class="nav-item"><a class="nav-link" href="list.jsp">List</a></li>
 					<li class="nav-item"><a class="nav-link disabled"
 						aria-disabled="true">Disabled</a></li>
 				</ul>
 
 				<form class="d-flex" action="../_member/logout.jsp" method="post">
-					<input class="form-control me-2" type="text"
-						value="<%=member.getName()%>님 로그인을 환영함" readonly> <input
-						type="submit" value="로그아웃"> &nbsp; <input type="button"
-						value="회원정보 수정"
-						onclick="window.open('../_member/member_update_form.jsp', 'popup', 'width=600, height=300')">
+					<input class="form-control me-2" type="hidden" value="<%=member.getName()%>" readonly>
+					<div style="color: white; display: flex; align-items: center;" >
+    				<%= member.getName() %>님 로그인을 환영합니다
+					</div> &nbsp;
+					<input type="submit" value="로그아웃"> &nbsp;
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form.jsp', '800', '600')">
 				</form>
 			</div>
 		</div>
@@ -149,5 +142,19 @@ if (member == null) {
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous"></script>
+		
+	<script>
+function openCenteredWindow(url, width, height) {
+    // 스크린 사이즈에서 팝업을 가운데 위치시키기 위한 계산
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+
+    // 팝업 창 설정
+    var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
+
+    // 팝업 창 열기
+    window.open(url, 'popup', windowFeatures);
+}
+</script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String id = request.getParameter("id");
+	String email = request.getParameter("email");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-String id = request.getParameter("id");
-String email = request.getParameter("email");
-%>
-<%=id %>님으로 로그인 됐습니다
+<%=id %><br>
+<%=email %>
 </body>
 </html>

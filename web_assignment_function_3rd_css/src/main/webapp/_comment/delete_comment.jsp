@@ -26,4 +26,5 @@ int ghost = Integer.parseInt(request.getParameter("ghost"));
 
 dao.deleteghost(ghost);
 
+response.sendRedirect("../_board/view.jsp?num=" + num);
 %>

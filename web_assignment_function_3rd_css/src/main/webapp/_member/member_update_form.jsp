@@ -4,11 +4,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	request.setCharacterEncoding("utf-8");
-	
-	Member member = (Member)session.getAttribute("member");
-	MemberDao.getInstance().select(member.getId());	
-	%>
+request.setCharacterEncoding("utf-8");
+
+Member member = (Member) session.getAttribute("member");
+MemberDao.getInstance().select(member.getId());
+%>
 
 <!doctype html>
 <html lang="en">
@@ -17,50 +17,46 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>List</title>
 <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            padding: 0; /* 추가: padding 초기화 */
-            
-        }
+body, html {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
 
-        .centered-form {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+.centered-form {
+	display: flex;
+	justify-content: center;
+	height: 100%;
+}
 
-        .form-signin {
-            width: 100%;
-            max-width: 330px;
-            padding: 15px;
-            margin-top: 0;
-        }
+.form-signin {
+	width: 100%;
+	max-width: 330px;
+	padding: 15px;
+	margin-top: 0;
+}
 
 .form-buttons {
-    width: 100%; /* 버튼 너비를 폼 너비에 맞춤 */
-    display: flex;
-    flex-direction: column;
-
-    gap: 10px; /* 버튼 사이의 간격 */
-    margin-top: 40px; /* 입력칸과 버튼 사이의 간격을 더 늘림 */
-}
-        
-        .centered-image {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 40px;
 }
 
-        
-    </style>
+.centered-image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+</style>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
 	crossorigin="anonymous">
-	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
+<link rel="canonical"
+	href="https://getbootstrap.com/docs/5.3/examples/sign-in/">
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-body-tertiary"
@@ -95,32 +91,48 @@
 		</div>
 	</nav>
 
-	
-	
 	<div class="centered-form">
-	<form action="member_update.jsp" method="post" class="form-signin">
-    <h1 class="h3 mb-3 fw-normal">회원 정보 수정</h1>
+		<form id="frm" method="post" class="form-signin">
+			<h1 class="h3 mb-3 fw-normal">회원 정보 수정</h1>
 
-	
+			<div>
+				<input type="text" name="id" class="form-control" id="floatingInput"
+					value="<%=member.getId()%>" readonly>
+			</div>
+			<br>
 
-    <div class="form-floating">
-      <input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID">
-      <label for="floatingInput"><input type="text" name="id" readonly
-					value="<%=member.getId()%>"></label>
-    </div>
-    <div class="form-floating">
-      <input type="text" name="pw" class="form-control" id="floatingPassword" placeholder="name@example.com">
-      <label for="floatingPassword"><input type="text" name="email" value="<%=member.getEmail()%>"></label>
-    </div>
-    <div class="form-floating">
-      <input type="text" name="name" class="form-control" id="floatingName" value="<%=member.getName()%>" >
-    </div>
-    <div class="form-buttons">
-    <button class="btn btn-dark btn-lg py-2" type="submit">확인</button>
-    <button class="btn btn-secondary py-2" type="submit" onclick="window.close();">취소</button>
-    </div>
-  </form>
-  </div>
-	
+			<div>
+				<input type="text" name="email" class="form-control"
+					id="floatingPassword" value="<%=member.getEmail()%>">
+			</div>
+			<br>
+
+			<div>
+				<input type="text" name="name" class="form-control"
+					id="floatingName" value="<%=member.getName()%>">
+			</div>
+
+			<div class="form-buttons">
+				<button class="btn btn-dark btn-lg py-2" type="submit"
+					onclick="update()">확인</button>
+				<button class="btn btn-secondary py-2" type="submit"
+					onclick="window.close();">취소</button>
+
+				<button class="btn btn-danger btn-sm py-2" type="submit"
+					onclick="del()">회원 탈퇴</button>
+			</div>
+		</form>
+	</div>
+	<script>
+		function update() {
+			document.querySelector('#frm').action = 'member_update.jsp';
+			document.querySelector('#frm').submit();
+		}
+		function del() {
+			/* delete는 자바스크립트의 예약어라서 사용 불가능 */
+			document.getElementById('frm').action = 'member_delete.jsp';
+			document.getElenemtById('frm').submit();
+		}
+	</script>
 </body>
 </html>

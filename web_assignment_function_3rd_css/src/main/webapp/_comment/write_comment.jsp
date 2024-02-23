@@ -32,6 +32,7 @@ if (member == null) {
 	margin-top: 2rem; /* 상단에서 2rem 만큼 떨어트림 */
 }
 </style>
+</style>
 <title>Bootstrap demo</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -95,20 +96,22 @@ if (member == null) {
 
 		writer = commen.getWriter();
 		content = commen.getContent();
-		
+
 		action = "update_comment.jsp?num=" + num;
 	}
 	%>
-	
+
+
 	<form method="post" action="<%=action%>">
 		<div class="d-flex justify-content-center">
-			<div class="col-md-10">
-				<article class="blog-post" >
+			<div class="col-md-8">
+				<article class="blog-post">
 					<div class="d-flex justify-content-end">
 						<p class="blog-post-meta">
 							by
 							<%=member.getName()%>
-							<input type="hidden" name="writer" maxlength="20" value="<%=member.getName()%>" readonly>
+							<input type="hidden" name="writer" maxlength="20"
+								value="<%=member.getName()%>" readonly>
 						</p>
 					</div>
 					<hr>
@@ -121,7 +124,7 @@ if (member == null) {
 							onclick="window.close();">
 					</div>
 					<div class="d-flex justify-content-center">
-						<input type="submit" class="btn btn-dark btn-lg" value="저장" >
+						<input type="submit" class="btn btn-dark btn-lg" value="저장">
 					</div>
 
 				</article>

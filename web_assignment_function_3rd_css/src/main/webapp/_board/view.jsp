@@ -47,19 +47,10 @@ CommenDao daocom = CommenDao.getInstance();
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="../_navi/notice.jsp">Notice</a></li>
+					<li class="nav-item"><a class="nav-link" href="../_navi/hot.jsp">Hot</a></li>
+					<li class="nav-item"><a class="nav-link" href="list.jsp">List</a></li>
 					<li class="nav-item"><a class="nav-link disabled"
 						aria-disabled="true">Disabled</a></li>
 				</ul>
@@ -189,7 +180,7 @@ CommenDao daocom = CommenDao.getInstance();
 				</form>
 				<%
 				int pagenow = 1; // 현재 페이지 번호, 기본값은 1
-				int pageSize = 10; // 페이지당 글 수
+				int pageSize = 5; // 페이지당 글 수
 				if (request.getParameter("pagenow") != null) {
 					pagenow = Integer.parseInt(request.getParameter("pagenow"));
 				}
@@ -213,14 +204,12 @@ CommenDao daocom = CommenDao.getInstance();
 							<%
 							for (Commen commen : list2) {
 							%>
-							<input type="hidden" name="ghost" maxlength="20"
-								value="<%=commen.getGhost()%>" readonly>
-							<input type="hidden" name="num" maxlength="20" value="<%=num%>"
-								readonly>
+							<input type="hidden" name="ghost" maxlength="20" value="<%=commen.getGhost()%>" readonly>
+							<input type="hidden" name="num" maxlength="20" value="<%=num%>" readonly>
 							<tr>
-								<th scope="row"><a
-									href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
+								<th scope="row"><a href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
 								<td><%=commen.getContent().replace(" ", "&nbsp;").replace("\n", "<br>")%></td>
+							
 
 								<%
 								if (member.getName().equals(commen.getWriter())) {
@@ -228,7 +217,7 @@ CommenDao daocom = CommenDao.getInstance();
 								<td class="text-end"><input type="button"
 									class="btn btn-secondary btn-sm" value="수정"
 									style="margin-right: 5px; padding: 5px 10px;"
-									onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 800, 600)">
+									onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
 
 									<input type="button" class="btn btn-secondary btn-sm"
 									value="삭제" style="padding: 5px 10px;"
