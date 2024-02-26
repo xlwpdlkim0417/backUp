@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -68,6 +69,43 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 		return member;
+	}
+	
+	public ArrayList<Member> selectList(int pagenow, int pageSize) {
+		ArrayList<Member> list = new ArrayList<Member>();
+		int startRow = (pagenow - 1) * pageSize;
+		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM member) a WHERE ROWNUM <= ? ) WHERE rnum > ?";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow + pageSize);
+			pstmt.setInt(2, startRow); 
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Member member = new Member(rs.getString("id"), rs.getString("email"),
+						rs.getString("name"));
+				list.add(member);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int selectListNum() {
+		int totalPosts = 0;
+		String sql = "SELECT COUNT(*) FROM member";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalPosts = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return totalPosts;
 	}
 
 	public int insert(Member member) {

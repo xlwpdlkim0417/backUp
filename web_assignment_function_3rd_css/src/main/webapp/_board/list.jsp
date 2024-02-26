@@ -1,3 +1,4 @@
+<%@page import="util.Cookies"%>
 <%@page import="dao.MemberDao"%>
 <%@page import="dto.Member"%>
 <%@page import="dao.BoardDao"%>
@@ -11,6 +12,9 @@ if (member == null) {
 	response.sendRedirect("../index.html");
 	return;
 }
+%>
+<%
+Cookies cookies = new Cookies(request);
 %>
 
 <!doctype html>
@@ -29,7 +33,7 @@ if (member == null) {
 	<nav class="navbar navbar-expand-lg bg-body-tertiary"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
+			<a class="navbar-brand" >Board</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -41,9 +45,14 @@ if (member == null) {
 					<li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="../_navi/notice.jsp">Notice</a></li>
 					<li class="nav-item"><a class="nav-link" href="../_navi/hot.jsp">Hot</a></li>
-					<li class="nav-item"><a class="nav-link" href="list.jsp">List</a></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
+					<li class="nav-item"><a class="nav-link" href="list.jsp">List</a></li>					
+					<%
+					if(cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")){
+					%>
+					<li class="nav-item"><a class="nav-link" href="../_navi/member.jsp">Member</a></li>
+					<%
+					}
+					%>
 				</ul>
 
 				<form class="d-flex" action="../_member/logout.jsp" method="post">
@@ -132,7 +141,7 @@ if (member == null) {
 			%>
 		</ul>
 	</nav>
-
+	
 
 
 	<br>

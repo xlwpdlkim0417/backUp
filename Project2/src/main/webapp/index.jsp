@@ -32,8 +32,8 @@
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Help</a></li>
                 <li><a href="#">Login</a></li>
-                <li><a href="#">Join</a></li>
-                <li><a href="#">Sitemap</a></li>
+                <li><a href="list2.jsp">List2</a></li>
+                <li><a href="list.jsp">admin</a></li>
             </ul>
         </div>
     </header>

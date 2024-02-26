@@ -17,8 +17,12 @@ BoardDao daob = BoardDao.getInstance();
 Member member = dao.selectForLogin(id, email);
 
 if (member != null) {
+	if(id.equals("admin")){
+		response.addCookie(Cookies.createCookie("ADMIN", member.getId(), "/", -1));
+	}
 	session.setAttribute("member", member);
 	response.addCookie(Cookies.createCookie("MEMBERLOG", member.getName(), "/", -1));
+	
 	response.sendRedirect("../_board/list.jsp");
 	return;
 }

@@ -47,9 +47,12 @@ CommenDao daocom = CommenDao.getInstance();
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active" aria-current="page" href="../index.html">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="../_navi/notice.jsp">Notice</a></li>
-					<li class="nav-item"><a class="nav-link" href="../_navi/hot.jsp">Hot</a></li>
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="../index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/notice.jsp">Notice</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/hot.jsp">Hot</a></li>
 					<li class="nav-item"><a class="nav-link" href="list.jsp">List</a></li>
 					<li class="nav-item"><a class="nav-link disabled"
 						aria-disabled="true">Disabled</a></li>
@@ -154,7 +157,7 @@ CommenDao daocom = CommenDao.getInstance();
 					<input type="button" class="btn btn-dark" value="목록보기"
 						onclick="location.href='list.jsp'"> &nbsp;
 					<%
-					if (member.getName().equals(dao.selectOneDelete(num).getWriter())) {
+					if (member.getName().equals(dao.selectOneDelete(num).getWriter()) || cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
 					%>
 					<input type="button" class="btn btn-dark" value="수정"
 						onclick="location.href='write.jsp?num=<%=num%>'"> &nbsp; <input
@@ -204,12 +207,15 @@ CommenDao daocom = CommenDao.getInstance();
 							<%
 							for (Commen commen : list2) {
 							%>
-							<input type="hidden" name="ghost" maxlength="20" value="<%=commen.getGhost()%>" readonly>
-							<input type="hidden" name="num" maxlength="20" value="<%=num%>" readonly>
+							<input type="hidden" name="ghost" maxlength="20"
+								value="<%=commen.getGhost()%>" readonly>
+							<input type="hidden" name="num" maxlength="20" value="<%=num%>"
+								readonly>
 							<tr>
-								<th scope="row"><a href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
+								<th scope="row"><a
+									href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
 								<td><%=commen.getContent().replace(" ", "&nbsp;").replace("\n", "<br>")%></td>
-							
+
 
 								<%
 								if (member.getName().equals(commen.getWriter())) {
@@ -224,6 +230,14 @@ CommenDao daocom = CommenDao.getInstance();
 									onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
 								</td>
 
+								<%
+								} else if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+								%>
+								<td class="text-end"><input type="button"
+									class="btn btn-secondary btn-sm" value="삭제"
+									style="padding: 5px 10px;"
+									onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
+								</td>
 								<%
 								}
 								%>
@@ -256,6 +270,7 @@ CommenDao daocom = CommenDao.getInstance();
 			</article>
 		</div>
 	</div>
+
 
 	<script>
 function openCenteredWindow(url, width, height) {
