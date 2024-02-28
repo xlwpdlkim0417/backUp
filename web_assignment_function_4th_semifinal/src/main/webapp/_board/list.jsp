@@ -1,9 +1,9 @@
-<%@page import="util.Cookies"%>
-<%@page import="dao.MemberDao"%>
-<%@page import="dto.Member"%>
-<%@page import="dao.BoardDao"%>
-<%@page import="dto.Board"%>
-<%@page import="java.util.List"%>
+<%@ page import="util.Cookies"%>
+<%@ page import="dao.MemberDao"%>
+<%@ page import="dto.Member"%>
+<%@ page import="dao.BoardDao"%>
+<%@ page import="dto.Board"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -64,27 +64,40 @@ Cookies cookies = new Cookies(request);
 					<div style="color: white; display: flex; align-items: center;">
 						<%=member.getId()%>님 로그인을 환영합니다
 					</div>
-					&nbsp; <input type="submit" value="로그아웃"> &nbsp; <input
-						type="button" value="회원정보 수정"
+					&nbsp; &nbsp; <input type="submit" value="로그아웃"> &nbsp;
+					&nbsp;
+					
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form_admin.jsp', '800', '600')">
+					<%
+					} else {
+					%>
+					<input type="button" value="회원정보 수정"
 						onclick="openCenteredWindow('../_member/member_update_form.jsp', '800', '600')">
+					<%
+					}
+					%>
 				</form>
 			</div>
 		</div>
 	</nav>
+
 	<%
 	request.setCharacterEncoding("utf-8");
+
 	BoardDao dao = BoardDao.getInstance();
 
-	int pagenow = 1; // 현재 페이지 번호, 기본값은 1
-	int pageSize = 10; // 페이지당 글 수
+	int pagenow = 1;
+	int pageSize = 10;
 	if (request.getParameter("pagenow") != null) {
 		pagenow = Integer.parseInt(request.getParameter("pagenow"));
 	}
 
-	// 전체 글 수 조회
-	int totalPosts = dao.selectListNum(); // getTotalPosts()는 전체 글 수를 반환하는 메소드
+	int totalPosts = dao.selectListNum();
 
-	// 전체 페이지 수 계산
 	int totalPages = totalPosts / pageSize;
 	if (totalPosts % pageSize > 0) {
 		totalPages++;
@@ -92,6 +105,7 @@ Cookies cookies = new Cookies(request);
 
 	List<Board> list = dao.selectList(pagenow, pageSize);
 	%>
+
 	<div class="container" style="padding-top: 50px;">
 		<table class="table table-hover">
 			<thead>
@@ -101,9 +115,9 @@ Cookies cookies = new Cookies(request);
 					<th scope="col">작성자</th>
 					<th scope="col">작성일시</th>
 					<th scope="col">조회수</th>
+					<th scope="col">좋아요</th>
 				</tr>
 			</thead>
-
 			<tbody class="table-group-divider">
 				<%
 				for (Board board : list) {
@@ -112,9 +126,12 @@ Cookies cookies = new Cookies(request);
 					<th scope="row"><%=board.getNum()%></th>
 					<td style="text-align: left;"><a
 						href="view.jsp?num=<%=board.getNum()%>"> <%=board.getTitle()%></a></td>
+
 					<td><a href="list_one.jsp?writer=<%=board.getWriter()%>"><%=board.getWriter()%></a></td>
+
 					<td><%=board.getRegtime()%></td>
 					<td><%=board.getHits()%></td>
+					<td><%=board.getLikes()%></td>
 				</tr>
 			</tbody>
 			<%
@@ -127,7 +144,6 @@ Cookies cookies = new Cookies(request);
 			&nbsp;
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='write.jsp'">글쓰기</button>
-
 		</div>
 		<div class="d-flex justify-content-end mt-2"></div>
 	</div>
@@ -146,26 +162,16 @@ Cookies cookies = new Cookies(request);
 		</ul>
 	</nav>
 
-
-
-	<br>
-	<!-- <input type="button" class="btn btn-dark" value="글쓰기" onclick="location.href='write.jsp'"> -->
-	<!-- <button type="button" class="btn btn-dark" value="글쓰기" onclick="location.href='write.jsp'">글쓰기</button> -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-
+		crossorigin="anonymous">
+	</script>
 	<script>
 function openCenteredWindow(url, width, height) {
-    // 스크린 사이즈에서 팝업을 가운데 위치시키기 위한 계산
     var left = (window.screen.width / 2) - (width / 2);
     var top = (window.screen.height / 2) - (height / 2);
-
-    // 팝업 창 설정
     var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
-
-    // 팝업 창 열기
     window.open(url, 'popup', windowFeatures);
 }
 </script>

@@ -14,7 +14,8 @@ if (member == null) {
 	response.sendRedirect("../index.html");
 	return;
 }
-
+%>
+<%
 request.setCharacterEncoding("utf-8");
 
 int num = Integer.parseInt(request.getParameter("num"));
@@ -25,7 +26,7 @@ if (writer == null || writer.length() == 0 || content == null || content.length(
 %>
 
 <script>
-	alert('내용을 입력하시오 입력하라고 입력해.');
+	alert('내용을 입력해주세요');
 	history.back();
 </script>
 
@@ -35,10 +36,11 @@ return;
 CommenDao dao = CommenDao.getInstance();
 Commen commen = new Commen(num, writer, content);
 dao.insert(commen);
-/* response.sendRedirect("list.jsp"); */
 %>
 
 <script>
 	alert('댓글 등록 완료');
-	location.href = '../_board/view.jsp?num=' + <%=num%>;
+	location.href = '../_board/view.jsp?num=' +
+<%=num%>
+	;
 </script>

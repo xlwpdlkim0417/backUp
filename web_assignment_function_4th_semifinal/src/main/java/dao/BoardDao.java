@@ -63,7 +63,28 @@ public class BoardDao {
 	public ArrayList<Board> selectList(int pagenow, int pageSize) {
 		ArrayList<Board> list = new ArrayList<Board>();
 		int startRow = (pagenow - 1) * pageSize;
-		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM board ORDER BY num DESC) a WHERE ROWNUM <= ? ) WHERE rnum > ?";
+		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM board WHERE writer != 'admin' ORDER BY num DESC) a WHERE ROWNUM <= ? ) WHERE rnum > ?";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow + pageSize);
+			pstmt.setInt(2, startRow); 
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				Board board = new Board(rs.getInt("num"), rs.getString("writer"), rs.getString("title"),
+						rs.getString("content"), rs.getString("regtime"), rs.getInt("hits"), rs.getInt("likes"));
+				list.add(board);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<Board> selectListNotice(int pagenow, int pageSize) {
+		ArrayList<Board> list = new ArrayList<Board>();
+		int startRow = (pagenow - 1) * pageSize;
+		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM board WHERE writer = 'admin' ORDER BY num DESC) a WHERE ROWNUM <= ? ) WHERE rnum > ?";
 		PreparedStatement pstmt;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -163,6 +184,22 @@ public class BoardDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, writer);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				totalPosts = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return totalPosts;
+	}
+	
+	public int selectListNumNotice() {
+		int totalPosts = 0;
+		String sql = "SELECT COUNT(*) FROM board WHERE writer = 'admin'";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				totalPosts = rs.getInt(1);

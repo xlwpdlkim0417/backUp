@@ -1,5 +1,6 @@
-<%@page import="dao.MemberDao"%>
-<%@page import="dto.Member"%>
+<%@ page import="util.Cookies"%>
+<%@ page import="dao.MemberDao"%>
+<%@ page import="dto.Member"%>
 <%@ page import="dao.BoardDao"%>
 <%@ page import="dto.Board"%>
 <%@ page import="java.sql.*"%>
@@ -12,6 +13,9 @@ if (member == null) {
 	return;
 }
 %>
+<%
+Cookies cookies = new Cookies(request);
+%>
 
 <!doctype html>
 <html lang="en">
@@ -19,17 +23,18 @@ if (member == null) {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-    .blog-post textarea {
-        width: 100%; /* 너비를 부모 요소의 100%로 설정 */
-        box-sizing: border-box; /* 패딩과 테두리를 너비에 포함시킴 */
-        margin-top: 1rem; /* 위쪽 마진 설정 */
-        margin-bottom: 1rem; /* 아래쪽 마진 설정 */
-    }
-    .blog-post .display-5 {
-        margin-top: 2rem; /* 상단에서 2rem 만큼 떨어트림 */
-    }
+.blog-post textarea {
+	width: 100%; /* 너비를 부모 요소의 100%로 설정 */
+	box-sizing: border-box; /* 패딩과 테두리를 너비에 포함시킴 */
+	margin-top: 1rem; /* 위쪽 마진 설정 */
+	margin-bottom: 1rem; /* 아래쪽 마진 설정 */
+}
+
+.blog-post .display-5 {
+	margin-top: 2rem; /* 상단에서 2rem 만큼 떨어트림 */
+}
 </style>
-<title>Bootstrap demo</title>
+<title>Write</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -40,7 +45,7 @@ if (member == null) {
 	<nav class="navbar navbar-expand-lg bg-body-tertiary"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
+			<a class="navbar-brand">Board</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -50,28 +55,41 @@ if (member == null) {
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
+						aria-current="page" href="../index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/notice.jsp">Notice</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/hot.jsp">Hot</a></li>
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/member.jsp">Member</a></li>
+					<%
+					}
+					%>
 				</ul>
-
 				<form class="d-flex" action="../_member/logout.jsp" method="post">
-					<input class="form-control me-2" type="text"
-						value="<%=member.getName()%>님 로그인을 환영" readonly> <input
-						type="submit" value="로그아웃"> &nbsp; <input type="button"
-						value="회원정보 수정"
-						onclick="window.open('../_member/member_update_form.jsp', 'popup', 'width=600, height=300')">
+					<input class="form-control me-2" type="hidden"
+						value="<%=member.getId()%>" readonly>
+					<div style="color: white; display: flex; align-items: center;">
+						<%=member.getId()%>님 로그인을 환영합니다
+					</div>
+					&nbsp; &nbsp; <input type="submit" value="로그아웃"> &nbsp;
+					&nbsp;
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form_admin.jsp', '800', '600')">
+					<%
+					} else {
+					%>
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form.jsp', '800', '600')">
+					<%
+					}
+					%>
 				</form>
 			</div>
 		</div>
@@ -86,22 +104,7 @@ if (member == null) {
 	String writer = "";
 	String title = "";
 	String content = "";
-	%>
-	<%-- <div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-  <label class="form-check-label" for="flexRadioDefault1">
-    공지사항
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-  <label class="form-check-label" for="flexRadioDefault2">
-    게시판
-  </label>
-</div>
-	<%
-	String action = request.getParameter("action"); --%>
-		 <% String action = "insert.jsp";
+	String action = "insert.jsp";
 
 	if (num > 0) {
 		BoardDao dao = BoardDao.getInstance();
@@ -110,43 +113,80 @@ if (member == null) {
 		writer = board.getWriter();
 		title = board.getTitle();
 		content = board.getContent();
-		
+
 		action = "update.jsp?num=" + num;
 	}
 	%>
-	
-	<form method="post" action="<%=action%>">
+
+	<form id="frm" method="post" action="<%=action%>">
 		<div class="d-flex justify-content-center">
 			<div class="col-md-10">
-				<article class="blog-post" >
-					<h2 class="d-flex justify-content-center display-5 link-body-emphasis mb-1">
+				<article class="blog-post">
+					<h2
+						class="d-flex justify-content-center display-5 link-body-emphasis mb-1">
 						<input type="text" name="title" maxlength="80" value="<%=title%>"
-							placeholder="제목을 입력하세요.">
+							placeholder="제목을 입력하세요." style="text-align: center;">
 					</h2>
 
 					<div class="d-flex justify-content-end">
 						<p class="blog-post-meta">
+							<%
+							if (num > 0 && cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+							%>
 							by
-							<%=member.getId() %>
-							<input type="hidden" name="writer" maxlength="20" value="<%=member.getId() %>" readonly>
+							<%=writer%>
+							<input type="hidden" name="writer" maxlength="20"
+								value="<%=writer%>" readonly>
+							<%
+							} else {
+							%>
+							by
+							<%=member.getId()%>
+							<input type="hidden" name="writer" maxlength="20"
+								value="<%=member.getId()%>" readonly>
+							<%
+							}
+							%>
 						</p>
 					</div>
 					<hr>
 					<p>
 						<textarea name="content" rows="10"><%=content%></textarea>
-					</p>				
+					</p>
 					<hr>
 					<div class="d-flex justify-content-end">
 						<input type="button" class="btn btn-secondary" value="취소"
 							onclick="history.back()">
 					</div>
 					<div class="d-flex justify-content-center">
+						<%
+						if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+						%>
+						<input type="submit" class="btn btn-dark btn-lg" value="관리자 계정 저장">
+						<%
+						} else {
+						%>
 						<input type="submit" class="btn btn-dark btn-lg" value="저장">
+						<%
+						}
+						%>
 					</div>
-
 				</article>
 			</div>
 		</div>
 	</form>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous">
+	</script>
+	<script>
+function openCenteredWindow(url, width, height) {
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+    var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
+    window.open(url, 'popup', windowFeatures);
+}
+</script>
 </body>
 </html>

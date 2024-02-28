@@ -15,7 +15,6 @@ if (member == null) {
 	return;
 }
 %>
-
 <%
 request.setCharacterEncoding("utf-8");
 

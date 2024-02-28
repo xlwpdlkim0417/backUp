@@ -1,3 +1,4 @@
+<%@ page import="util.Cookies"%>
 <%@ page import="dao.CommenDao"%>
 <%@ page import="dto.Commen"%>
 <%@ page import="dao.MemberDao"%>
@@ -13,6 +14,9 @@ if (member == null) {
 	response.sendRedirect("../index.html");
 	return;
 }
+%>
+<%
+Cookies cookies = new Cookies(request);
 %>
 
 <!doctype html>
@@ -32,8 +36,7 @@ if (member == null) {
 	margin-top: 2rem; /* 상단에서 2rem 만큼 떨어트림 */
 }
 </style>
-</style>
-<title>Bootstrap demo</title>
+<title>Write Comment</title>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -44,7 +47,7 @@ if (member == null) {
 	<nav class="navbar navbar-expand-lg bg-body-tertiary"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
+			<a class="navbar-brand">Board</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -54,32 +57,46 @@ if (member == null) {
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
+						aria-current="page" href="../index.html">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/notice.jsp">Notice</a></li>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/hot.jsp">Hot</a></li>
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<li class="nav-item"><a class="nav-link"
+						href="../_navi/member.jsp">Member</a></li>
+					<%
+					}
+					%>
 				</ul>
-
 				<form class="d-flex" action="../_member/logout.jsp" method="post">
-					<input class="form-control me-2" type="text"
-						value="<%=member.getId() %>님 로그인을 환영" readonly> <input
-						type="submit" value="로그아웃"> &nbsp; <input type="button"
-						value="회원정보 수정"
-						onclick="window.open('../_member/member_update_form.jsp', 'popup', 'width=600, height=300')">
+					<input class="form-control me-2" type="hidden"
+						value="<%=member.getId()%>" readonly>
+					<div style="color: white; display: flex; align-items: center;">
+						<%=member.getId()%>님 로그인을 환영합니다
+					</div>
+					&nbsp; &nbsp; <input type="submit" value="로그아웃"> &nbsp;
+					&nbsp;
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form_admin.jsp', '800', '600')">
+					<%
+					} else {
+					%>
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form.jsp', '800', '600')">
+					<%
+					}
+					%>
 				</form>
 			</div>
 		</div>
 	</nav>
+
 	<%
 	request.setCharacterEncoding("utf-8");
 
@@ -108,10 +125,23 @@ if (member == null) {
 				<article class="blog-post">
 					<div class="d-flex justify-content-end">
 						<p class="blog-post-meta">
+							<%
+							if (num > 0 && cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+							%>
 							by
-							<%=member.getId() %>
+							<%=writer%>
 							<input type="hidden" name="writer" maxlength="20"
-								value="<%=member.getId() %>" readonly>
+								value="<%=writer%>" readonly>
+							<%
+							} else {
+							%>
+							by
+							<%=member.getId()%>
+							<input type="hidden" name="writer" maxlength="20"
+								value="<%=member.getId()%>" readonly>
+							<%
+							}
+							%>
 						</p>
 					</div>
 					<hr>
@@ -126,10 +156,22 @@ if (member == null) {
 					<div class="d-flex justify-content-center">
 						<input type="submit" class="btn btn-dark btn-lg" value="저장">
 					</div>
-
 				</article>
 			</div>
 		</div>
 	</form>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous">
+	</script>
+	<script>
+function openCenteredWindow(url, width, height) {
+    var left = (window.screen.width / 2) - (width / 2);
+    var top = (window.screen.height / 2) - (height / 2);
+    var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
+    window.open(url, 'popup', windowFeatures);
+}
+</script>
 </body>
 </html>

@@ -1,9 +1,9 @@
-<%@page import="util.Cookies"%>
-<%@page import="dao.MemberDao"%>
-<%@page import="dto.Member"%>
-<%@page import="dao.BoardDao"%>
-<%@page import="dto.Board"%>
-<%@page import="java.util.List"%>
+<%@ page import="util.Cookies"%>
+<%@ page import="dao.MemberDao"%>
+<%@ page import="dto.Member"%>
+<%@ page import="dao.BoardDao"%>
+<%@ page import="dto.Board"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
@@ -22,7 +22,8 @@ Cookies cookies = new Cookies(request);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>List</title>
+<title>Member List</title>
+<link rel="icon" href="../favicon.ico" type="image/x-icon" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -33,7 +34,7 @@ Cookies cookies = new Cookies(request);
 	<nav class="navbar navbar-expand-lg bg-body-tertiary"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
+			<a class="navbar-brand">Board</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -48,44 +49,54 @@ Cookies cookies = new Cookies(request);
 						href="../_navi/notice.jsp">Notice</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../_navi/hot.jsp">Hot</a></li>
-					<li class="nav-item"><a class="nav-link" href="list.jsp">List</a></li>
 					<li class="nav-item"><a class="nav-link"
-						href="../_navi/temp.jsp">Temporary</a></li>
-					<li class="nav-item"><a class="nav-link"
-						href="../_navi/member.jsp">Member</a></li>
-
-
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
+						href="../_board/list.jsp">List</a></li>
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<li class="nav-item"><a class="nav-link" href="member.jsp">Member</a></li>
+					<%
+					}
+					%>
 				</ul>
-
 				<form class="d-flex" action="../_member/logout.jsp" method="post">
 					<input class="form-control me-2" type="hidden"
-						value="<%=member.getName()%>" readonly>
+						value="<%=member.getId()%>" readonly>
 					<div style="color: white; display: flex; align-items: center;">
-						<%=member.getName()%>님 로그인을 환영합니다
+						<%=member.getId()%>님 로그인을 환영합니다
 					</div>
-					&nbsp; <input type="submit" value="로그아웃"> &nbsp; <input
-						type="button" value="회원정보 수정"
+					&nbsp; &nbsp; <input type="submit" value="로그아웃"> &nbsp;
+					&nbsp;
+					<%
+					if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+					%>
+					<input type="button" value="회원정보 수정"
+						onclick="openCenteredWindow('../_member/member_update_form_admin.jsp', '800', '600')">
+					<%
+					} else {
+					%>
+					<input type="button" value="회원정보 수정"
 						onclick="openCenteredWindow('../_member/member_update_form.jsp', '800', '600')">
+					<%
+					}
+					%>
 				</form>
 			</div>
 		</div>
 	</nav>
+
 	<%
 	request.setCharacterEncoding("utf-8");
 	MemberDao dao = MemberDao.getInstance();
 
-	int pagenow = 1; // 현재 페이지 번호, 기본값은 1
-	int pageSize = 5; // 페이지당 글 수
+	int pagenow = 1;
+	int pageSize = 5;
 	if (request.getParameter("pagenow") != null) {
 		pagenow = Integer.parseInt(request.getParameter("pagenow"));
 	}
 
-	// 전체 글 수 조회
-	int totalPosts = dao.selectListNum(); // getTotalPosts()는 전체 글 수를 반환하는 메소드
+	int totalPosts = dao.selectListNum();
 
-	// 전체 페이지 수 계산
 	int totalPages = totalPosts / pageSize;
 	if (totalPosts % pageSize > 0) {
 		totalPages++;
@@ -94,19 +105,15 @@ Cookies cookies = new Cookies(request);
 	List<Member> list = dao.selectList(pagenow, pageSize);
 	%>
 	<div class="container" style="padding-top: 50px;">
-
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th scope="col">ID</th>
 					<th scope="col">EMAIL</th>
 					<th scope="col">NAME</th>
-
 				</tr>
 			</thead>
-
 			<tbody class="table-group-divider">
-
 				<%
 				for (Member member2 : list) {
 				%>
@@ -115,30 +122,19 @@ Cookies cookies = new Cookies(request);
 					<th scope="row"><%=member2.getId()%></th>
 					<td><%=member2.getEmail()%></td>
 					<td><%=member2.getName()%></td>
-
-					<%
-					if (!member2.getId().equals("admin")) {
-					%>
-
 					<td class="text-end">
 						<button type="submit" class="btn btn-secondary btn-sm" value="수정"
 							style="margin-right: 5px; padding: 5px 10px;"
-							onclick="openCenteredWindow('../_member/member_update_form_admin.jsp?id=<%=member2.getId()%>&email=<%=member2.getEmail()%>&name=<%=member2.getName()%>', '800', '600')">수정</button>
-
+							onclick="openCenteredWindow('../_member/member_update_form.jsp?id=<%=member2.getId()%>&email=<%=member2.getEmail()%>&name=<%=member2.getName()%>', '800', '600')">수정</button>
 						<button type="submit" class="btn btn-secondary btn-sm" value="삭제"
 							style="padding: 5px 10px;"
 							onclick="location.href='../_member/member_delete_admin.jsp?id=<%=member2.getId()%>'">삭제</button>
 					</td>
-					<%
-					}
-					%>
-
 				</tr>
-
+				<%
+				}
+				%>
 			</tbody>
-			<%
-			}
-			%>
 		</table>
 
 		<div class="d-flex justify-content-end mt-2">
@@ -147,9 +143,7 @@ Cookies cookies = new Cookies(request);
 			&nbsp;
 			<button type="button" class="btn btn-dark"
 				onclick="location.href='../_board/write.jsp'">글쓰기</button>
-
 		</div>
-		<div class="d-flex justify-content-end mt-2"></div>
 	</div>
 
 	<nav aria-label="Page navigation"
@@ -166,32 +160,18 @@ Cookies cookies = new Cookies(request);
 		</ul>
 	</nav>
 
-
-
-
-
-	<br>
-	<!-- <input type="button" class="btn btn-dark" value="글쓰기" onclick="location.href='write.jsp'"> -->
-	<!-- <button type="button" class="btn btn-dark" value="글쓰기" onclick="location.href='write.jsp'">글쓰기</button> -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-		crossorigin="anonymous"></script>
-
-
+		crossorigin="anonymous">
+		</script>
 	<script>
 function openCenteredWindow(url, width, height) {
-    // 스크린 사이즈에서 팝업을 가운데 위치시키기 위한 계산
     var left = (window.screen.width / 2) - (width / 2);
     var top = (window.screen.height / 2) - (height / 2);
-
-    // 팝업 창 설정
     var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
-
-    // 팝업 창 열기
     window.open(url, 'popup', windowFeatures);
 }
-
 </script>
 </body>
 </html>

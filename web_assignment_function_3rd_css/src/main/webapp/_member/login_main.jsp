@@ -113,6 +113,7 @@
     <button class="btn btn-dark btn-lg py-2" type="submit" onclick="openCenteredWindow('member_join_form.jsp', '800', '600')">회원가입</button>
     </div>
     <p class="mt-5 mb-3 text-body-secondary">&copy; 2023-2024</p>
+    
   </form>
   </div>
 	<%

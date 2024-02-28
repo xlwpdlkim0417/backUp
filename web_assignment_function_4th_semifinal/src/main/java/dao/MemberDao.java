@@ -74,7 +74,7 @@ public class MemberDao {
 	public ArrayList<Member> selectList(int pagenow, int pageSize) {
 		ArrayList<Member> list = new ArrayList<Member>();
 		int startRow = (pagenow - 1) * pageSize;
-		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM member) a WHERE ROWNUM <= ? ) WHERE rnum > ?";
+		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM member WHERE id <> 'admin') a WHERE ROWNUM <= ? ) WHERE rnum > ?";
 		PreparedStatement pstmt;
 		try {
 			pstmt = conn.prepareStatement(sql);

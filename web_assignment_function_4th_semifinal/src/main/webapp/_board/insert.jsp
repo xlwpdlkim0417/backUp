@@ -1,5 +1,5 @@
-<%@page import="dao.MemberDao"%>
-<%@page import="dto.Member"%>
+<%@ page import="dao.MemberDao"%>
+<%@ page import="dto.Member"%>
 <%@ page import="dao.BoardDao"%>
 <%@ page import="dto.Board"%>
 <%@ page import="java.sql.*"%>
@@ -12,19 +12,19 @@ if (member == null) {
 	response.sendRedirect("../index.html");
 	return;
 }
-
+%>
+<%
 request.setCharacterEncoding("utf-8");
 
 String writer = request.getParameter("writer");
 String title = request.getParameter("title");
 String content = request.getParameter("content");
 
-if (writer == null || writer.length() == 0 || title == null || title.length() == 0 || content == null
-		|| content.length() == 0) {
+if (writer == null || writer.length() == 0 || title == null || title.length() == 0) {
 %>
 
 <script>
-	alert('모든 항목이 빈칸 없이 입력되어야 합니다');
+	alert('제목을 입력해주세요');
 	history.back();
 </script>
 

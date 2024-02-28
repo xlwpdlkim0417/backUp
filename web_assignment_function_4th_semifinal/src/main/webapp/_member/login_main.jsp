@@ -1,9 +1,11 @@
 <!doctype html>
+<%@page import="util.Cookies"%>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>List</title>
+<link rel="icon" href="../favicon.ico" type="image/x-icon" />
+<title>Login Main</title>
 <style>
 body, html {
 	height: 100%;
@@ -51,34 +53,10 @@ body, html {
 	<nav class="navbar navbar-expand-lg bg-body-tertiary"
 		data-bs-theme="dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
-				</ul>
-			</div>
+			<a class="navbar-brand">Board</a>
 		</div>
 	</nav>
+
 	<%@ page import="dao.MemberDao"%>
 	<%@ page import="dto.Member"%>
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -86,6 +64,11 @@ body, html {
 	<%
 	request.setCharacterEncoding("utf-8");
 	%>
+
+	<%
+	Cookies cookies = new Cookies(request);
+	%>
+	
 	<%
 	Member member = (Member) session.getAttribute("member");
 	if (member != null) {
@@ -107,11 +90,14 @@ body, html {
 					id="floatingPassword" placeholder="name@example.com"> <label
 					for="floatingPassword">Email Address</label>
 			</div>
+			
 			<div class="form-buttons">
-				<button class="btn btn-dark btn-lg py-2" type="submit"
-					onclick="location.href=login.jsp">로그인</button>
+				<button class="btn btn-dark btn-lg py-2" type="submit">로그인</button>
 				<button class="btn btn-dark btn-lg py-2" type="submit"
 					onclick="openCenteredWindow('member_join_form.jsp', '800', '600')">회원가입</button>
+				<button class="btn btn-secondary btn-lg py-2" type="button"
+					onclick="location.href='../index.html'">돌아가기</button>
+
 			</div>
 			<p class="mt-5 mb-3 text-body-secondary">&copy; 2023-2024</p>
 		</form>
@@ -119,19 +105,16 @@ body, html {
 	<%
 	}
 	%>
-
-
-
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+		crossorigin="anonymous">
+	</script>
 	<script>
 function openCenteredWindow(url, width, height) {
-    // 스크린 사이즈에서 팝업을 가운데 위치시키기 위한 계산
     var left = (window.screen.width / 2) - (width / 2);
     var top = (window.screen.height / 2) - (height / 2);
-
-    // 팝업 창 설정
     var windowFeatures = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',resizable=yes';
-
-    // 팝업 창 열기
     window.open(url, 'popup', windowFeatures);
 }
 </script>
