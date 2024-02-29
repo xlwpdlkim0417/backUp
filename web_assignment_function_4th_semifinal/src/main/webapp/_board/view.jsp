@@ -223,7 +223,7 @@ CommenDao daocom = CommenDao.getInstance();
 								value="<%=commen.getGhost()%>" readonly>
 							<input type="hidden" name="num" maxlength="20" value="<%=num%>"
 								readonly>
-							<tr>
+							<tr onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
 								<th scope="row"><a
 									href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
 								<td><%=commen.getContent().replace(" ", "&nbsp;").replace("\n", "<br>")%>

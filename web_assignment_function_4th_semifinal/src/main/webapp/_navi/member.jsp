@@ -123,6 +123,7 @@ Cookies cookies = new Cookies(request);
 					<td><%=member2.getEmail()%></td>
 					<td><%=member2.getName()%></td>
 					<td class="text-end">
+					<input type="hidden" >
 						<button type="submit" class="btn btn-secondary btn-sm" value="수정"
 							style="margin-right: 5px; padding: 5px 10px;"
 							onclick="openCenteredWindow('../_member/member_update_form.jsp?id=<%=member2.getId()%>&email=<%=member2.getEmail()%>&name=<%=member2.getName()%>', '800', '600')">수정</button>

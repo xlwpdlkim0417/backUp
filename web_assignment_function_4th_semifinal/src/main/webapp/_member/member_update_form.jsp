@@ -94,7 +94,7 @@ body, html {
 				if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
 				%>
 				<input type="text" name="id" class="form-control" id="floatingInput"
-					value="<%=id%>" readonly>
+					value="<%=id%>">
 				<%
 				} else {
 				%>
@@ -144,7 +144,7 @@ body, html {
 				<button class="btn btn-secondary py-2" type="submit"
 					onclick="window.close();">취소</button>
 				<button class="btn btn-danger btn-sm py-2" type="submit"
-					onclick="del()">회원 탈퇴</button>
+					onclick="del()">회원 삭제</button>
 			</div>
 		</form>
 	</div>
