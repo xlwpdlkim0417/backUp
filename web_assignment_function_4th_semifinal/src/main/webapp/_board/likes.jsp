@@ -9,7 +9,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -26,7 +26,7 @@ if (!cookies.exists("LIKEIT" + num)) {
 
 	dao.like(num, member);
 
-	response.addCookie(Cookies.createCookie("LIKEIT" + num, member.getName(), "/", 10));
+	response.addCookie(Cookies.createCookie("LIKEIT" + num, member.getName(), "/", 1));
 %>
 
 <script>

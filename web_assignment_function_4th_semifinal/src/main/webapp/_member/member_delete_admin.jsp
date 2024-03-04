@@ -11,7 +11,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -22,16 +22,16 @@ MemberDao dao = MemberDao.getInstance();
 
 String id = request.getParameter("id");
 
-int result = dao.delete(member);
+int result = dao.deletemember(id);
 
 if (result == 1) {
-	session.removeAttribute("member");
-	response.addCookie(Cookies.createCookie("MEMBERLOG", "", "/", 0));
+
 %>
 
 <script>
 	alert('회원 계정 삭제 완료');
-	response.sendRedirect("../_navi/member.jsp");
+	opener.location.reload(true);
+	window.close();
 </script>
 
 <%
@@ -40,7 +40,8 @@ if (result == 1) {
 
 <script>
 	alert('회원 계정 삭제 실패 개발자에게 문의주세요');
-	response.sendRedirect("../_navi/member.jsp");
+	opener.location.reload(true);
+	window.close();
 </script>
 
 <%

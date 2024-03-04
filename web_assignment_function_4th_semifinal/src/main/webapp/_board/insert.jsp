@@ -9,7 +9,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>

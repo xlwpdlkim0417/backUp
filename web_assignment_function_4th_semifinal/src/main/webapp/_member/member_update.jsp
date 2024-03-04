@@ -24,15 +24,6 @@ if (id == null || id.isEmpty() || email == null || email.isEmpty() || name == nu
 <%
 } else {
 MemberDao dao = MemberDao.getInstance();
-if (!id.equals(member.getId()) && dao.selectListNumId(id)) {
-%>
-<script>
-	alert('이미 등록된 ID입니다');
-	history.back();
-</script>
-<%
-} else {
-
 member = new Member(id, email, name);
 int result = dao.update(member);
 if (result > 0) {
@@ -55,6 +46,6 @@ if (result > 0) {
 </script>
 <%
 }
-}
+
 }
 %>

@@ -7,7 +7,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -143,8 +143,19 @@ body, html {
 					onclick="update()">확인</button>
 				<button class="btn btn-secondary py-2" type="submit"
 					onclick="window.close();">취소</button>
+					<%
+				if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+				%>
+				<button class="btn btn-danger btn-sm py-2" type="submit"
+					onclick="deladmin()">회원 삭제 by 관리자</button>
+				<%
+				} else {
+				%>
 				<button class="btn btn-danger btn-sm py-2" type="submit"
 					onclick="del()">회원 삭제</button>
+				<%
+				}
+				%>
 			</div>
 		</form>
 	</div>
@@ -162,6 +173,11 @@ body, html {
 		function del() {
 			/* delete는 자바스크립트의 예약어라서 사용 불가능 */
 			document.getElementById('frm').action = 'member_delete.jsp';
+			document.getElementById('frm').submit();
+		}
+		function deladmin() {
+			/* delete는 자바스크립트의 예약어라서 사용 불가능 */
+			document.getElementById('frm').action = 'member_delete_admin.jsp';
 			document.getElementById('frm').submit();
 		}
 	</script>

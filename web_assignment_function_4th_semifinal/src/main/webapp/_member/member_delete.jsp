@@ -11,7 +11,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -31,7 +31,7 @@ if (result == 1) {
 
 <script>
 	alert('회원 탈퇴 완료');
-	window.opener.location.href = "../index.html"; // 부모 창을 다른 페이지로 이동
+	window.opener.location.href = "../index.jsp"; // 부모 창을 다른 페이지로 이동
 	window.close(); // 현재 팝업 창 닫기
 </script>
 

@@ -9,7 +9,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -55,7 +55,7 @@ Cookies cookies = new Cookies(request);
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="../index.html">Home</a></li>
+						aria-current="page" href="../index.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../_navi/notice.jsp">Notice</a></li>
 					<li class="nav-item"><a class="nav-link"

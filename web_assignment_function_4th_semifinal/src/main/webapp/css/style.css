@@ -16,9 +16,12 @@ a{
 /* 윗 부분은 초기화네 전반적인 초기화 */
 /* Header */
 
-header{
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10; /* 헤더가 비디오 위에 나타나도록 z-index 값을 설정 */
     width: 100%;
-    border-bottom: 1px solid #ddd;
 }
 
 header .inner{
@@ -32,13 +35,11 @@ header .inner{
 header .inner h1{
     position: absolute;
     left: 0px;
-    bottom: 15px;
 }
 
 header .inner h1 a{
     font: bold 24px/1 "arial";
-    /* font 축약형 */
-    color: #444;
+    color: #fff;
 }
 
 header .inner .util{
@@ -54,7 +55,7 @@ header .inner .util li{
 header .inner .util li a{
     display: block;
     font: 12px/1 "arial";
-    color: #999;
+    color:#fff;
     padding: 0px 10px;
 }
 
@@ -71,7 +72,7 @@ header .inner #gnb li {
 header .inner #gnb li a{
     display: block;
     font: 15px/1 "arial";
-    color: #555;
+    color:#fff;
     padding: 20px 40px;
     transition: all 0.5s;
 }
@@ -82,25 +83,19 @@ header .inner #gnb li a:hover{
 }
 
 /* visual */
-figure{
-    width: 100%;
-    height: calc(100vh - 120px);
-    /* 전체 브라우저 높이에서 120px 만큼 빼줌 */
-    background: #000;
-    position: relative;
-    overflow: hidden;
-    padding-top: 250px;
+figure {
+    margin-top: 0; /* 필요 없는 속성, figure의 margin-top을 제거 */
+    height: 100vh; /* 전체 화면 높이 설정 */
+    position: relative; /* 비디오가 화면을 꽉 채우도록 설정 */
 }
 
-figure video{
+figure video {
     object-fit: cover;
-    /* 영상을 figure 영역 안에 꽉 차도록 설정 */
     width: 100%;
-    height: 100%;
-    opacity: 0.3;
-    position: absolute;
-    top: 0px;
-    left: 0px;
+    height: 100vh; /* 비디오 높이를 화면 전체 높이로 설정 */
+    top: 0;
+    left: 0;
+    z-index: 1; /* 헤더 뒤에 위치하도록 z-index 값을 낮게 설정 */
 }
 
 figure .inner{
@@ -110,7 +105,7 @@ figure .inner{
 }
 
 figure .inner h1{
-    font: normal 120px/1 "arial";
+    font: normal 30px/1 "arial";
     color: #fff;
     margin-bottom: 20px;
 }

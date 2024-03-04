@@ -9,7 +9,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -44,7 +44,7 @@ Cookies cookies = new Cookies(request);
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="../index.html">Home</a></li>
+						aria-current="page" href="../index.jsp">Home</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="../_navi/notice.jsp">Notice</a></li>
 					<li class="nav-item"><a class="nav-link"
@@ -127,9 +127,6 @@ Cookies cookies = new Cookies(request);
 						<button type="submit" class="btn btn-secondary btn-sm" value="수정"
 							style="margin-right: 5px; padding: 5px 10px;"
 							onclick="openCenteredWindow('../_member/member_update_form.jsp?id=<%=member2.getId()%>&email=<%=member2.getEmail()%>&name=<%=member2.getName()%>', '800', '600')">수정</button>
-						<button type="submit" class="btn btn-secondary btn-sm" value="삭제"
-							style="padding: 5px 10px;"
-							onclick="location.href='../_member/member_delete_admin.jsp?id=<%=member2.getId()%>'">삭제</button>
 					</td>
 				</tr>
 				<%

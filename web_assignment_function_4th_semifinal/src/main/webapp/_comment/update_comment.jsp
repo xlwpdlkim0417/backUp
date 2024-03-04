@@ -12,7 +12,7 @@
 <%
 Member member = (Member) session.getAttribute("member");
 if (member == null) {
-	response.sendRedirect("../index.html");
+	response.sendRedirect("../index.jsp");
 	return;
 }
 %>
@@ -27,11 +27,10 @@ String writer = request.getParameter("writer");
 String content = request.getParameter("content");
 
 if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
-	// "관리자에 의해 수정된 글" 문구가 이미 있는지 확인하고, 있다면 제거
 
 	String adminPrefix = "(관리자에 의해 수정된 글입니다) ";
-	if (!content.startsWith(adminPrefix)) { // 해당 문구로 시작하지 않는다면
-		content = adminPrefix + content; // 문구를 타이틀 앞에 추가
+	if (!content.startsWith(adminPrefix)) {
+		content = adminPrefix + content;
 	}
 }
 

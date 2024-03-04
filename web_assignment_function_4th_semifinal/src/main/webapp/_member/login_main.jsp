@@ -96,7 +96,7 @@ body, html {
 				<button class="btn btn-dark btn-lg py-2" type="submit"
 					onclick="openCenteredWindow('member_join_form.jsp', '800', '600')">회원가입</button>
 				<button class="btn btn-secondary btn-lg py-2" type="button"
-					onclick="location.href='../index.html'">돌아가기</button>
+					onclick="location.href='../index.jsp'">돌아가기</button>
 
 			</div>
 			<p class="mt-5 mb-3 text-body-secondary">&copy; 2023-2024</p>
