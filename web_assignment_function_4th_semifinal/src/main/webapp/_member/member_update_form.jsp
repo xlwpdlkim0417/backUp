@@ -152,7 +152,7 @@ body, html {
 				} else {
 				%>
 				<button class="btn btn-danger btn-sm py-2" type="submit"
-					onclick="del()">회원 삭제</button>
+					onclick="del()">회원 탈퇴</button>
 				<%
 				}
 				%>

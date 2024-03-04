@@ -1,0 +1,14 @@
+CREATE SEQUENCE SEQ_BOARD
+
+CREATE TABLE board (
+    num     INT PRIMARY KEY,
+    writer  VARCHAR2(20) NOT NULL,
+    title   VARCHAR2(100) NOT NULL,
+    content CLOB,
+    regtime VARCHAR2(20) NOT NULL,
+    hits    INT NOT NULL,
+    likes   INT NOT NULL
+);
+
+INSERT INTO BOARD (NUM, WRITER, TITLE, CONTENT, REGTIME, HITS, LIKES)
+VALUES(SEQ_BOARD.nextval, 'admin', '제목1', '내용1', SYSDATE, 0 ,0)

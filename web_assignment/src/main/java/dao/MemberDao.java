@@ -160,4 +160,15 @@ public class MemberDao {
 		}
 		return 0;
 	}
+	
+	public int deletemember (String id) {
+		String sql = "DELETE FROM member WHERE id = ?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, id);
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }

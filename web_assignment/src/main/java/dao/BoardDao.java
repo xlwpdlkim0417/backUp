@@ -40,27 +40,8 @@ public class BoardDao {
 		}
 	}
 
-	public ArrayList<Board> selectList() {
-		ArrayList<Board> list = new ArrayList<Board>();
-		String sql = "SELECT * FROM board ORDER BY num DESC";
-		PreparedStatement pstmt;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				Board board = new Board(rs.getInt("num"), rs.getString("writer"), rs.getString("title"),
-						rs.getString("content"), rs.getString("regtime"), rs.getInt("hits"), rs.getInt("likes"));
-				list.add(board);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-	
-	
-
 	public ArrayList<Board> selectList(int pagenow, int pageSize) {
+//		_board/list.jsp
 		ArrayList<Board> list = new ArrayList<Board>();
 		int startRow = (pagenow - 1) * pageSize;
 		String sql = "SELECT * FROM ( SELECT a.*, ROWNUM rnum FROM (SELECT * FROM board WHERE writer != 'admin' ORDER BY num DESC) a WHERE ROWNUM <= ? ) WHERE rnum > ?";
