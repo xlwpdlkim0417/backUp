@@ -56,7 +56,7 @@ public class AccDao {
 
 	public int insert(Acc acc) {
 		String sql = "INSERT INTO acc (year, month, day, trname, dlname, mulname) VALUES (?,?,?,?,?,?)";
-		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setInt(1, acc.getYear());
 			pstmt.setInt(2, acc.getMonth());
 			pstmt.setInt(3, acc.getDay());
@@ -69,7 +69,7 @@ public class AccDao {
 		}
 		return 0;
 	}
-	
+
 	public int delete(int num) {
 		try (PreparedStatement pstmt = conn.prepareStatement("DELETE FROM acc WHERE num =" + num);) {
 			return pstmt.executeUpdate();
@@ -77,6 +77,75 @@ public class AccDao {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public List<Acc> selectByDateRange(int startYear, int startMonth, int startDay, int endYear, int endMonth,
+			int endDay) {
+		List<Acc> list = new ArrayList<>();
+		String sql = "SELECT TRNAME, MULNAME, COUNT(*) AS count\r\n" + "FROM acc\r\n"
+				+ "WHERE (year > ? OR (year = ? AND month > ?) OR (year = ? AND month = ? AND day >= ?))\r\n"
+				+ "      AND (year < ? OR (year = ? AND month < ?) OR (year = ? AND month = ? AND day <= ?))\r\n"
+				+ "GROUP BY TRNAME, MULNAME\r\n" + "ORDER BY TRNAME, MULNAME;";
+
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			// 시작 날짜
+			pstmt.setInt(1, startYear);
+			pstmt.setInt(2, startYear);
+			pstmt.setInt(3, startMonth);
+			pstmt.setInt(4, startYear);
+			pstmt.setInt(5, startMonth);
+			pstmt.setInt(6, startDay);
+			// 종료 날짜
+			pstmt.setInt(7, endYear);
+			pstmt.setInt(8, endYear);
+			pstmt.setInt(9, endMonth);
+			pstmt.setInt(10, endYear);
+			pstmt.setInt(11, endMonth);
+			pstmt.setInt(12, endDay);
+
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				Acc acc = new Acc(rs.getString("trname"), rs.getString("mulname"), rs.getInt("count"));
+
+				list.add(acc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return list;
+	}
+
+	public List<Acc> getStatistics(String startDate, String endDate) {
+		List<Acc> resultList = new ArrayList<>();
+		String sql = "SELECT TRNAME, MULNAME, COUNT(*) AS COUNT FROM acc WHERE DATE(CONCAT(year, '-', LPAD(month, 2, '0'), '-', LPAD(day, 2, '0'))) BETWEEN ? AND ? GROUP BY TRNAME, MULNAME ORDER BY COUNT DESC;";
+
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+			pstmt.setString(1, startDate);
+			pstmt.setString(2, endDate);
+
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					String trName = rs.getString("TRNAME");
+					String mulName = rs.getString("MULNAME");
+					int count = rs.getInt("COUNT");
+
+					Acc acc = new Acc();
+					acc.setTrname(trName);
+					acc.setMulname(mulName);
+					acc.setCount(count); // 가정: Acc 클래스에 count 필드와 관련 메서드가 존재
+					resultList.add(acc);
+				}
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return resultList;
 	}
 
 }

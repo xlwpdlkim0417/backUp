@@ -1,3 +1,5 @@
+<%@ page import="java.time.LocalDate"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="dto.Acc"%>
 <%@ page import="dao.AccDao"%>
 <%@ page import="java.util.*"%>
@@ -6,6 +8,12 @@
 
 <%
 request.setCharacterEncoding("utf-8");
+
+LocalDate todayo = LocalDate.now();
+LocalDate threeMonthsAgo = todayo.minusMonths(3);
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+String todayStr = todayo.format(formatter);
+String samMonthStr = threeMonthsAgo.format(formatter);
 
 int year = 0;
 int month = 0; // 0 ~ 11
@@ -53,7 +61,6 @@ if ((startBlankCnt + lastDate) % 7 != 0) {
 	endBlankCnt = 7 - (startBlankCnt + lastDate) % 7;
 }
 int tdCnt = startBlankCnt + lastDate + endBlankCnt;
-System.out.println(lastDate);
 %>
 <!DOCTYPE html>
 <html>
@@ -82,6 +89,15 @@ th {
 	height: 30px;
 	font-weight: normal;
 }
+
+label {
+	display: block;
+	font: 1rem 'Fira Sans', sans-serif;
+}
+
+input, label {
+	margin: 0.4rem 0;
+}
 </style>
 </head>
 
@@ -91,12 +107,53 @@ th {
 			<span> <a class="btn btn-outline-dark btn-sm"
 				href="<%=request.getContextPath()%>/myCalendar.jsp?year=<%=year%>&month=<%=month - 1%>">
 					[이전달] </a>
-			</span> <span class="fw-bold fs-3"><%=year%>년 <%=month + 1%>월</span> <span>
-				<a class="btn btn-outline-dark btn-sm"
+			</span> <label for="start">Start date:</label> <input type="date" id="start"
+				name="trip-start" value="<%=samMonthStr%>" min="2018-01-01"
+				max="<%=todayStr%>" /> <label for="end">End date:</label> <input
+				type="date" id="end" name="trip-end" value="<%=todayStr%>"
+				min="2018-01-01" max="<%=todayStr%>" /> <span class="fw-bold fs-3"><%=year%>년
+				<%=month + 1%>월</span> <span> <a class="btn btn-outline-dark btn-sm"
 				href="<%=request.getContextPath()%>/myCalendar.jsp?year=<%=year%>&month=<%=month + 1%>">
 					[다음달] </a>
 			</span>
 		</div>
+		<%
+		
+		String start = request.getParameter("trip-start");
+		
+		List<Acc> resultList = dao.getStatistics(start, todayStr);
+		%>
+		<div class="container mt-3">
+			<h2>통계 결과</h2>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>TRNAME</th>
+						<th>MULNAME</th>
+						<th>Count</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					for (Acc accc : resultList) {
+					%>
+					<tr>
+						<td><%=accc.getTrname()%></td>
+						<td><%=accc.getMulname()%></td>
+						<td><%=accc.getCount()%></td>
+					</tr>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
+		</div>
+
+
+
+
+
+
 		<div>
 			<table class="table text-left table-bordered">
 				<tr class="table-light text-center fs-5 tr-h">
@@ -127,7 +184,8 @@ th {
 
 									out.println("<div>" + acc.getMulname() + "</div>");
 							%>
-							<a type="button" onclick="location.href='delete.jsp?num=<%=acc.getNum()%>'">
+							<a type="button"
+								onclick="location.href='delete.jsp?num=<%=acc.getNum()%>'">
 								<%
 								out.println("<div>" + acc.getTrname() + "</div>");
 								%>
@@ -158,8 +216,6 @@ th {
 			</table>
 		</div>
 	</div>
-
-
 	<script>
 function openCenteredWindow(url, width, height) {
     var left = (window.screen.width / 2) - (width / 2);

@@ -10,6 +10,14 @@ public class Acc {
 	String trname;
 	String dlname;
 	String mulname;
+	private int count;
+
+	public Acc(String trname, String mulname, int count) {
+		super();
+		this.trname = trname;
+		this.mulname = mulname;
+		this.count = count;
+	}
 
 	public Acc(int day, int month, int year, String trname, String dlname, String mulname) {
 		super();
@@ -30,6 +38,18 @@ public class Acc {
 		this.trname = trname;
 		this.dlname = dlname;
 		this.mulname = mulname;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public Acc() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getNum() {

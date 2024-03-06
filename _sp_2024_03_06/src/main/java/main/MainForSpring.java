@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-import assembler.Assembler;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
 import spring.MemberNotFoundException;
@@ -12,11 +15,12 @@ import spring.MemberRegisterService;
 import spring.RegisterRequest;
 import spring.WrongPasswordException;
 
-public class MainForAssembler {
-	
-	private static Assembler assembler = new Assembler();
+public class MainForSpring {
+
+	private static ApplicationContext ctx = null;
 
 	public static void main(String[] args) throws IOException {
+		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			System.out.println("명령어를 입력하세요:");
@@ -42,7 +46,7 @@ public class MainForAssembler {
 			printHelp();
 			return;
 		}
-		MemberRegisterService regSvc = assembler.getMemberRegisterService();
+		MemberRegisterService regSvc = ctx.getBean("memberRegSvc", MemberRegisterService.class);
 		RegisterRequest req = new RegisterRequest();
 		req.setEmail(arg[1]);
 		req.setName(arg[2]);
@@ -54,7 +58,7 @@ public class MainForAssembler {
 			return;
 		}
 		try {
-			regSvc.Regist(req);
+			regSvc.regist(req);
 			System.out.println("등록했습니다.\n");
 		} catch (DuplicateMemberException e) {
 			System.out.println("이미 존재하는 이메일입니다.\n");
@@ -66,7 +70,7 @@ public class MainForAssembler {
 			printHelp();
 			return;
 		}
-		ChangePasswordService changePwdSvc = assembler.getChangePasswordService();
+		ChangePasswordService changePwdSvc = ctx.getBean("changePwdSvc", ChangePasswordService.class);
 		try {
 			changePwdSvc.changePassword(arg[1], arg[2], arg[3]);
 			System.out.println("암호를 변경했습니다.\n");

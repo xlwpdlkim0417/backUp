@@ -54,7 +54,7 @@ public class MainForAssembler {
 			return;
 		}
 		try {
-			regSvc.Regist(req);
+			regSvc.regist(req);
 			System.out.println("등록했습니다.\n");
 		} catch (DuplicateMemberException e) {
 			System.out.println("이미 존재하는 이메일입니다.\n");
