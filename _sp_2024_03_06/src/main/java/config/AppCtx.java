@@ -13,6 +13,7 @@ public class AppCtx {
 	@Bean
 	public MemberDao memberDao() {
 		return new MemberDao();
+//		NPE를 없앨 수 있음 왜? 객체 생성을 MemberRegisterService에서 하지 않고 여기서 직접 처리하기 때문에
 	}
 
 	@Bean

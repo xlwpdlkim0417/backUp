@@ -9,7 +9,7 @@ public class MemberRegisterService {
 		this.memberDao = memberDao;
 	}
 
-	public Long Regist(RegisterRequest req) {
+	public Long regist(RegisterRequest req) {
 		Member member = memberDao.selectByEmail(req.getEmail());
 		if (member != null) {
 			throw new DuplicateMemberException("dup email" + req.getEmail());

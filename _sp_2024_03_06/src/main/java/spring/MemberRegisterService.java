@@ -10,6 +10,7 @@ public class MemberRegisterService {
 	}
 
 	public Long regist(RegisterRequest req) {
+//		매개 번수로 클래스를 넣을 수 있다는 점을 기억해
 		Member member = memberDao.selectByEmail(req.getEmail());
 		if (member != null) {
 			throw new DuplicateMemberException("dup email" + req.getEmail());
@@ -18,5 +19,4 @@ public class MemberRegisterService {
 		memberDao.insert(newMember);
 		return newMember.getId();
 	}
-
 }
