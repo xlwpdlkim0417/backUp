@@ -1,5 +1,6 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,42 +13,37 @@ import spring.MemberRegisterService;
 import spring.VersionPrinter;
 
 @Configuration
-public class AppCtx {
-
-	@Bean
-	public MemberDao memberDao() {
-		return new MemberDao();
-//		NPE를 없앨 수 있음 왜? 객체 생성을 MemberRegisterService에서 하지 않고 여기서 직접 처리하기 때문에
-	}
+public class AppConf2 {
+	
+	@Autowired
+	private MemberDao memberDao;
+	@Autowired
+	private MemberPrinter memberPrinter;
 
 	@Bean
 	public MemberRegisterService memberRegSvc() {
-		return new MemberRegisterService(memberDao());
+		return new MemberRegisterService(memberDao);
 	}
 
 	@Bean
 	public ChangePasswordService changePwdSvc() {
 		ChangePasswordService pwdSvc = new ChangePasswordService();
-		pwdSvc.setMemberDao(memberDao());
+		pwdSvc.setMemberDao(memberDao);
 		return pwdSvc;
 	}
 
 	@Bean
-	public MemberPrinter memberPrinter() {
-		return new MemberPrinter();
-	}
-
-	@Bean
 	public MemberListPrinter listPrinter() {
-		return new MemberListPrinter(memberDao(), memberPrinter());
+		return new MemberListPrinter(memberDao, memberPrinter);
 //		DI 의존성 주입 발생
 	}
 
 	@Bean
 	public MemberInfoPrinter infoPrinter() {
 		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-		infoPrinter.setMemberDao(memberDao());
-		infoPrinter.setPrinter(memberPrinter());
+		infoPrinter.setMemberDao(memberDao);
+		infoPrinter.setPrinter(memberPrinter);
+//		@Autowired를 사용하면 이런 것도 생략할 수 있다는데?
 		return infoPrinter;
 	}
 
@@ -58,13 +54,4 @@ public class AppCtx {
 		versionPrinter.setMinorVersion(0);
 		return versionPrinter;
 	}
-	
-	@Bean
-	public VersionPrinter oldVersionPrinter() {
-		VersionPrinter versionPrinter = new VersionPrinter();
-		versionPrinter.setMajorVersion(4);
-		versionPrinter.setMinorVersion(3);
-		return versionPrinter;
-	}
-	
 }

@@ -109,45 +109,24 @@ input, label {
 					[이전달] </a>
 			</span> <label for="start">Start date:</label> <input type="date" id="start"
 				name="trip-start" value="<%=samMonthStr%>" min="2018-01-01"
-				max="<%=todayStr%>" /> <label for="end">End date:</label> <input
-				type="date" id="end" name="trip-end" value="<%=todayStr%>"
-				min="2018-01-01" max="<%=todayStr%>" /> <span class="fw-bold fs-3"><%=year%>년
-				<%=month + 1%>월</span> <span> <a class="btn btn-outline-dark btn-sm"
+				max="<%=todayStr%>" onchange="getFromServer()" /> <label for="end">End
+				date:</label> <input type="date" id="end" name="trip-end"
+				value="<%=todayStr%>" min="2018-01-01" max="<%=todayStr%>" /> 
+				
+				<span
+				class="fw-bold fs-3"><%=year%>년 <%=month + 1%>월</span> <span>
+				<a class="btn btn-outline-dark btn-sm"
 				href="<%=request.getContextPath()%>/myCalendar.jsp?year=<%=year%>&month=<%=month + 1%>">
 					[다음달] </a>
 			</span>
 		</div>
-		<%
+		<button type="button" onclick="getFromServer()">GET DATA</button>
+		<div id="target"
+			style="width: 100%; height: 400px; border: solid 1px black;"></div>
 		
-		String start = request.getParameter("trip-start");
+
 		
-		List<Acc> resultList = dao.getStatistics(start, todayStr);
-		%>
-		<div class="container mt-3">
-			<h2>통계 결과</h2>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>TRNAME</th>
-						<th>MULNAME</th>
-						<th>Count</th>
-					</tr>
-				</thead>
-				<tbody>
-					<%
-					for (Acc accc : resultList) {
-					%>
-					<tr>
-						<td><%=accc.getTrname()%></td>
-						<td><%=accc.getMulname()%></td>
-						<td><%=accc.getCount()%></td>
-					</tr>
-					<%
-					}
-					%>
-				</tbody>
-			</table>
-		</div>
+
 
 
 
@@ -216,6 +195,21 @@ input, label {
 			</table>
 		</div>
 	</div>
+
+	<script>
+function getFromServer() {
+    var startDate = document.getElementById("start").value;
+    if (startDate) {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onload = function () {
+            document.getElementById("target").innerHTML = this.responseText;
+        }
+        xhttp.open("GET", "NewFile.jsp?trip-start=" + startDate, true);
+        xhttp.send();
+    }
+}
+</script>
+	<!-- 제이쿼리로 하는게 더 나음 -->
 	<script>
 function openCenteredWindow(url, width, height) {
     var left = (window.screen.width / 2) - (width / 2);

@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import config.AppConf1;
 import config.AppConf2;
 import config.AppCtx;
+import config.AppCtxNoMemberBean;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
 import spring.MemberInfoPrinter;
@@ -20,12 +21,12 @@ import spring.RegisterRequest;
 import spring.VersionPrinter;
 import spring.WrongPasswordException;
 
-public class MainForSpring {
+public class MainForSpring5 {
 
 	private static ApplicationContext ctx = null;
 
 	public static void main(String[] args) throws IOException {
-		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
+		ctx = new AnnotationConfigApplicationContext(AppCtxNoMemberBean.class);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 			System.out.println("명령어를 입력하세요:");

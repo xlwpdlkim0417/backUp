@@ -12,7 +12,9 @@ import spring.MemberRegisterService;
 import spring.VersionPrinter;
 
 @Configuration
-public class AppCtx {
+public class AppCtxNoMemberBean {
+
+	private MemberPrinter printer = new MemberPrinter();
 
 	@Bean
 	public MemberDao memberDao() {
@@ -32,14 +34,14 @@ public class AppCtx {
 		return pwdSvc;
 	}
 
-	@Bean
-	public MemberPrinter memberPrinter() {
-		return new MemberPrinter();
-	}
+//	@Bean
+//	public MemberPrinter memberPrinter() {
+//		return new MemberPrinter();
+//	}
 
 	@Bean
 	public MemberListPrinter listPrinter() {
-		return new MemberListPrinter(memberDao(), memberPrinter());
+		return new MemberListPrinter(memberDao(), printer);
 //		DI 의존성 주입 발생
 	}
 
@@ -47,7 +49,7 @@ public class AppCtx {
 	public MemberInfoPrinter infoPrinter() {
 		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
 		infoPrinter.setMemberDao(memberDao());
-		infoPrinter.setPrinter(memberPrinter());
+		infoPrinter.setPrinter(printer);
 		return infoPrinter;
 	}
 
@@ -58,7 +60,7 @@ public class AppCtx {
 		versionPrinter.setMinorVersion(0);
 		return versionPrinter;
 	}
-	
+
 	@Bean
 	public VersionPrinter oldVersionPrinter() {
 		VersionPrinter versionPrinter = new VersionPrinter();
@@ -66,5 +68,5 @@ public class AppCtx {
 		versionPrinter.setMinorVersion(3);
 		return versionPrinter;
 	}
-	
+
 }

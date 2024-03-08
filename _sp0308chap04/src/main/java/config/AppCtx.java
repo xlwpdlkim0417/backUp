@@ -9,6 +9,7 @@ import spring.MemberInfoPrinter;
 import spring.MemberListPrinter;
 import spring.MemberPrinter;
 import spring.MemberRegisterService;
+import spring.MemberSummaryPrinter;
 import spring.VersionPrinter;
 
 @Configuration
@@ -17,19 +18,16 @@ public class AppCtx {
 	@Bean
 	public MemberDao memberDao() {
 		return new MemberDao();
-//		NPE를 없앨 수 있음 왜? 객체 생성을 MemberRegisterService에서 하지 않고 여기서 직접 처리하기 때문에
 	}
 
 	@Bean
 	public MemberRegisterService memberRegSvc() {
-		return new MemberRegisterService(memberDao());
+		return new MemberRegisterService();
 	}
 
 	@Bean
 	public ChangePasswordService changePwdSvc() {
-		ChangePasswordService pwdSvc = new ChangePasswordService();
-		pwdSvc.setMemberDao(memberDao());
-		return pwdSvc;
+		return new ChangePasswordService();
 	}
 
 	@Bean
@@ -37,17 +35,24 @@ public class AppCtx {
 		return new MemberPrinter();
 	}
 
+//	@Bean
+//	public MemberPrinter memberPrinter1() {
+//		return new MemberPrinter();
+//	}
+//	
+//	@Bean
+//	public MemberSummaryPrinter memberPrinter2() {
+//		return new MemberSummaryPrinter();
+//	}
+
 	@Bean
 	public MemberListPrinter listPrinter() {
-		return new MemberListPrinter(memberDao(), memberPrinter());
-//		DI 의존성 주입 발생
+		return new MemberListPrinter();
 	}
 
 	@Bean
 	public MemberInfoPrinter infoPrinter() {
 		MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
-		infoPrinter.setMemberDao(memberDao());
-		infoPrinter.setPrinter(memberPrinter());
 		return infoPrinter;
 	}
 
@@ -58,13 +63,4 @@ public class AppCtx {
 		versionPrinter.setMinorVersion(0);
 		return versionPrinter;
 	}
-	
-	@Bean
-	public VersionPrinter oldVersionPrinter() {
-		VersionPrinter versionPrinter = new VersionPrinter();
-		versionPrinter.setMajorVersion(4);
-		versionPrinter.setMinorVersion(3);
-		return versionPrinter;
-	}
-	
 }
