@@ -149,6 +149,20 @@ public class MemberDao {
 		}
 		return 0;
 	}
+	
+	public int updateadmin(Member member, String id) {
+		String sql = "UPDATE member SET id = ?, email = ?, name = ? WHERE id = ?";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, id);
+			pstmt.setString(4, member.getId());
+			pstmt.setString(2, member.getEmail());
+			pstmt.setString(3, member.getName());
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 
 	public int delete(Member member) {
 		String sql = "DELETE FROM member WHERE id = ?";

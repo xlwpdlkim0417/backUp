@@ -188,7 +188,8 @@ CommenDao daocom = CommenDao.getInstance();
 
 				<form method="post" action="../_comment/insert_comment.jsp">
 					<input type="hidden" name="num" maxlength="20" value="<%=num%>">
-					<input type="hidden" name="commentwriter" maxlength="20" value="<%=member.getId()%>" readonly> <br>
+					<input type="hidden" name="commentwriter" maxlength="20"
+						value="<%=member.getId()%>" readonly> <br>
 					<div class="input-group">
 						<span class="input-group-text"><%=member.getId()%></span>
 						<textarea class="form-control" name="commentcontent" rows="1"></textarea>
@@ -212,55 +213,59 @@ CommenDao daocom = CommenDao.getInstance();
 
 				List<Commen> list2 = daocom.selectList(pagenow, pageSize, num);
 				%>
+				<form>
+					<div class="container" style="padding-top: 50px;">
+						<table class="table table-hover">
+							<tbody>
+								<%
+								for (Commen commen : list2) {
+								%>
 
-				<div class="container" style="padding-top: 50px;">
-					<table class="table table-hover">
-						<tbody>
+
+								<tr>
+									<th scope="row"><a
+										href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
+									<input type="hidden" name="ghost" maxlength="20"
+										value="<%=commen.getGhost()%>" readonly>
+									<input type="hidden" name="num" maxlength="20" value="<%=num%>"
+										readonly>
+									<td><%=commen.getContent()%></td>
+									<%
+									if (member.getId().equals(commen.getWriter())) {
+									%>
+									<td class="text-end"><input type="button"
+										class="btn btn-secondary btn-sm" value="수정"
+										onclick="openCenteredWindow('../_comment/write_comment.jsp?ghost=<%=commen.getGhost()%>', 900, 600)">
+										<input type="button" class="btn btn-secondary btn-sm"
+										value="삭제"
+										onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
+									</td>
+									<%
+									} else if (cookies.exists("ADMIN") && (cookies.getValue("ADMIN").equals("admin"))) {
+									%>
+									<td class="text-end"><input type="button"
+										class="btn btn-secondary btn-sm" value="수정"
+										style="margin-right: 5px; padding: 5px 10px;"
+										onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
+										<input type="button" class="btn btn-secondary btn-sm"
+										value="삭제" style="padding: 5px 10px;"
+										onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
+									</td>
+									<%
+									} else {
+									%>
+									<td class="text-end"></td>
+									<%
+									}
+									%>
+								</tr>
+							</tbody>
 							<%
-							for (Commen commen : list2) {
+							}
 							%>
-							<input type="hidden" name="ghost" maxlength="20"
-								value="<%=commen.getGhost()%>" readonly>
-							<input type="hidden" name="num" maxlength="20" value="<%=num%>"
-								readonly>
-							<tr onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
-								<th scope="row"><a
-									href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
-								<td><%=commen.getContent().replace(" ", "&nbsp;").replace("\n", "<br>")%>
-								</td>
-								<%
-								if (member.getId().equals(commen.getWriter())) {
-								%>
-								<td class="text-end"><input type="button"
-									class="btn btn-secondary btn-sm" value="수정"
-									style="margin-right: 5px; padding: 5px 10px;"
-									onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
-									<input type="button" class="btn btn-secondary btn-sm"
-									value="삭제" style="padding: 5px 10px;"
-									onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
-								</td>
-								<%
-								} else if (cookies.exists("ADMIN") && (cookies.getValue("ADMIN").equals("admin"))) {
-								%>
-								<td class="text-end"><input type="button"
-									class="btn btn-secondary btn-sm" value="수정"
-									style="margin-right: 5px; padding: 5px 10px;"
-									onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
-									<input type="button" class="btn btn-secondary btn-sm"
-									value="삭제" style="padding: 5px 10px;"
-									onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
-								</td>
-								<%
-								}
-								%>
-							</tr>
-						</tbody>
-						<%
-						}
-						%>
-					</table>
-				</div>
-
+						</table>
+					</div>
+				</form>
 				<nav aria-label="Page navigation"
 					class="d-flex justify-content-center mt-4">
 					<ul class="pagination">

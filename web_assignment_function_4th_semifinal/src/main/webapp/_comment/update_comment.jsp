@@ -22,7 +22,8 @@ Cookies cookies = new Cookies(request);
 <%
 request.setCharacterEncoding("utf-8");
 
-int num = Integer.parseInt(request.getParameter("num"));
+int ghost = Integer.parseInt(request.getParameter("ghost"));
+
 String writer = request.getParameter("writer");
 String content = request.getParameter("content");
 
@@ -45,8 +46,8 @@ return;
 }
 
 CommenDao dao = CommenDao.getInstance();
-Commen commen = new Commen(num, writer, content);
-int result = dao.update(commen, false);
+Commen commen = new Commen(writer, content);
+int result = dao.update(commen, ghost);
 if (result == 1) {
 %>
 <script>

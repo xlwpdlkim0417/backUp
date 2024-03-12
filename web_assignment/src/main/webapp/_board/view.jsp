@@ -223,20 +223,24 @@ CommenDao daocom = CommenDao.getInstance();
 								value="<%=commen.getGhost()%>" readonly>
 							<input type="hidden" name="num" maxlength="20" value="<%=num%>"
 								readonly>
-							<tr onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
-								<th scope="row"><a
-									href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a></th>
-								<td><%=commen.getContent().replace(" ", "&nbsp;").replace("\n", "<br>")%>
-								</td>
+								<input type="hidden" name="commentwriter" maxlength="20"
+								value="<%=commen.getWriter()%>" readonly>
+								<input type="hidden" name="commentcontent" maxlength="20"
+								value="<%=commen.getContent()%>" readonly>
+							<tr>
+								<th scope="row">
+								<a href="list_one.jsp?writer=<%=commen.getWriter()%>"><%=commen.getWriter()%></a>
+								</th>
+								
+								<td><%=commen.getContent()%></td>
 								<%
 								if (member.getId().equals(commen.getWriter())) {
 								%>
-								<td class="text-end"><input type="button"
-									class="btn btn-secondary btn-sm" value="수정"
-									style="margin-right: 5px; padding: 5px 10px;"
-									onclick="openCenteredWindow('../_comment/write_comment.jsp?num=<%=num%>', 900, 600)">
-									<input type="button" class="btn btn-secondary btn-sm"
-									value="삭제" style="padding: 5px 10px;"
+								<td class="text-end">
+								<input type="button" class="btn btn-secondary btn-sm" value="수정" style="margin-right: 5px; padding: 5px 10px;"
+									onclick="openCenteredWindow('../_comment/write_comment.jsp?ghost=<%=commen.getGhost()%>&content=<%=commen.getContent()%>', 900, 600)">
+									
+								<input type="button" class="btn btn-secondary btn-sm" value="삭제" style="padding: 5px 10px;"
 									onclick="location.href='../_comment/delete_comment.jsp?num=<%=num%>&ghost=<%=commen.getGhost()%>'">
 								</td>
 								<%

@@ -73,19 +73,23 @@
 
 	List<Acc> resultList = dao.getStatistics(start, todayStr);
 	%>
-		<h2>통계 결과</h2>
+	<h2>통계 결과</h2>
 
-				<%
-				for (Acc accc : resultList) {
-				%>
-				
-					<%=accc.getTrname()%>
-					<%=accc.getMulname()%>
-					<%=accc.getCount()%><br>
+	<%
+	for (Acc accc : resultList) {
+	%>
 
-				<%
-				}
-				%>
+	<div class=yourDataClass><%=accc.getTrname()%></div>
+
+
+	<%=accc.getMulname()%>
+
+	<%=accc.getCount()%><br>
+
+	<%
+	}
+	%>
+
 
 </body>
 </html>

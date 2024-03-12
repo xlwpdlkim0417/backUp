@@ -215,6 +215,8 @@ public class CommenDao {
 		}
 		return commen;
 	}
+	
+	
 
 	public Commen selectOne(int num) {
 		Commen commen = null;
@@ -223,6 +225,24 @@ public class CommenDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				commen = new Commen(rs.getInt("ghost"), rs.getInt("num"), rs.getString("writer"), rs.getString("content"),
+						rs.getString("regtime"), rs.getInt("hits"), rs.getInt("likes"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return commen;
+	}
+	
+	public Commen selectOneghost(int ghost) {
+		Commen commen = null;
+		String sql = "SELECT * FROM commen WHERE ghost = ?";
+		PreparedStatement pstmt;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, ghost);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				commen = new Commen(rs.getInt("ghost"), rs.getInt("num"), rs.getString("writer"), rs.getString("content"),
@@ -252,15 +272,15 @@ public class CommenDao {
 		return 0;
 	}
 
-	public int update(Commen commen, boolean inc) {
+	public int update(Commen commen, int ghost) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 		String formattedDateTime = LocalDateTime.now().format(formatter);
 
-		String sql = "UPDATE commen SET writer = ?, content = ?, regtime = ? WHERE num = ?";
+		String sql = "UPDATE commen SET writer = ?, content = ?, regtime = ? WHERE ghost = ?";
 		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, commen.getWriter());
 			pstmt.setString(2, commen.getContent());
-			pstmt.setInt(4, commen.getNum());
+			pstmt.setInt(4, ghost);
 			pstmt.setString(3, formattedDateTime);
 			System.out.println(pstmt.executeUpdate());
 			return pstmt.executeUpdate();

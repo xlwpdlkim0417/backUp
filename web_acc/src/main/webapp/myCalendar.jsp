@@ -98,6 +98,12 @@ label {
 input, label {
 	margin: 0.4rem 0;
 }
+
+.highlight {
+	background-color: yellow;
+}
+
+
 </style>
 </head>
 
@@ -107,96 +113,115 @@ input, label {
 			<span> <a class="btn btn-outline-dark btn-sm"
 				href="<%=request.getContextPath()%>/myCalendar.jsp?year=<%=year%>&month=<%=month - 1%>">
 					[이전달] </a>
-			</span> <label for="start">Start date:</label> <input type="date" id="start"
-				name="trip-start" value="<%=samMonthStr%>" min="2018-01-01"
-				max="<%=todayStr%>" onchange="getFromServer()" /> <label for="end">End
-				date:</label> <input type="date" id="end" name="trip-end"
-				value="<%=todayStr%>" min="2018-01-01" max="<%=todayStr%>" /> 
-				
-				<span
+			</span>  <span
 				class="fw-bold fs-3"><%=year%>년 <%=month + 1%>월</span> <span>
 				<a class="btn btn-outline-dark btn-sm"
 				href="<%=request.getContextPath()%>/myCalendar.jsp?year=<%=year%>&month=<%=month + 1%>">
 					[다음달] </a>
 			</span>
 		</div>
-		<button type="button" onclick="getFromServer()">GET DATA</button>
-		<div id="target"
-			style="width: 100%; height: 400px; border: solid 1px black;"></div>
-		
-
-		
-
-
-
-
-
-
-
-		<div>
-			<table class="table text-left table-bordered">
-				<tr class="table-light text-center fs-5 tr-h">
-					<th class="text-danger">일</th>
-					<th>월</th>
-					<th>화</th>
-					<th>수</th>
-					<th>목</th>
-					<th>금</th>
-					<th class="text-primary">토</th>
-				</tr>
-				<tr>
-					<%
-					for (int i = 1; i <= tdCnt; i++) {
-						if (i > startBlankCnt && i <= startBlankCnt + lastDate) {
-							int day = i - startBlankCnt; // 현재 날짜 계산
-					%>
-					<td><a type="button"
-						onclick="openCenteredWindow('insert_form.jsp?year=<%=year%>&month=<%=month + 1%>&day=<%=day%>', '800', '600')">
-							<%=day%>
-					</a>
-						<div style="text-align: center;">
-							<%
-							// 현재 날짜에 해당하는 Acc 데이터 찾기
-							for (Acc acc : list) {
-								if (acc.getDay() == day) {
-									// 현재 날짜와 일치하는 Acc 데이터를 여기에 출력
-
-									out.println("<div>" + acc.getMulname() + "</div>");
-							%>
-							<a type="button"
-								onclick="location.href='delete.jsp?num=<%=acc.getNum()%>'">
-								<%
-								out.println("<div>" + acc.getTrname() + "</div>");
-								%>
-							</a>
-							<%
-							// 필요한 경우 더 많은 정보 출력
-							break; // 일치하는 첫 번째 데이터만 출력하고 루프 종료
-
-							}
-							}
-							%>
-						</div></td>
-					<%
-					} else {
-					%>
-					<td>&nbsp;</td>
-					<%
-					}
-					if (i != tdCnt && i % 7 == 0) {
-					%>
-				</tr>
-				<tr>
-					<%
-					}
-					}
-					%>
-				</tr>
-			</table>
+		<div style="display: flex;">
+		Start date <input type="date" id="start" name="trip-start" value="<%=samMonthStr%>" min="2018-01-01" max="<%=todayStr%>" onchange="getFromServer()" />
+		End date <input type="date" id="end" name="trip-end" value="<%=todayStr%>" min="2018-01-01" max="<%=todayStr%>" />
 		</div>
-	</div>
+		
+		<div style="display: flex;">
+		<div id="target" style="border: solid 1px black; overflow: auto; height: 630px; flex: 1;">
+		<button type="button" onclick="getFromServer()">GET DATA</button>
+		</div>
+
+
+
+
+
+
+
+			<div style="flex: 4;">
+				<table class="table text-left table-bordered">
+					<tr class="table-light text-center fs-5 tr-h">
+						<th class="text-danger">일</th>
+						<th>월</th>
+						<th>화</th>
+						<th>수</th>
+						<th>목</th>
+						<th>금</th>
+						<th class="text-primary">토</th>
+					</tr>
+					<tr>
+						<%
+						for (int i = 1; i <= tdCnt; i++) {
+							if (i > startBlankCnt && i <= startBlankCnt + lastDate) {
+								int day = i - startBlankCnt; // 현재 날짜 계산
+						%>
+						<td><a type="button"
+							onclick="openCenteredWindow('insert_form.jsp?year=<%=year%>&month=<%=month + 1%>&day=<%=day%>', '800', '600')">
+								<%=day%>
+						</a>
+							<div style="text-align: center;">
+								<%
+								// 현재 날짜에 해당하는 Acc 데이터 찾기
+								for (Acc acc : list) {
+									if (acc.getDay() == day) {
+										// 현재 날짜와 일치하는 Acc 데이터를 여기에 출력
+
+										out.println("<div >" + acc.getMulname() + "</div>");
+								%>
+								<a type="button"
+									onclick="location.href='delete.jsp?num=<%=acc.getNum()%>'">
+									<%
+									out.println("<div class=yourDataClass>" + acc.getTrname() + "</div>");
+									%>
+
+								</a>
+								<%
+								// 필요한 경우 더 많은 정보 출력
+								break; // 일치하는 첫 번째 데이터만 출력하고 루프 종료
+
+								}
+								}
+								%>
+							</div></td>
+						<%
+						} else {
+						%>
+						<td>&nbsp;</td>
+						<%
+						}
+						if (i != tdCnt && i % 7 == 0) {
+						%>
+					</tr>
+					<tr>
+						<%
+						}
+						}
+						%>
+					</tr>
+				</table>
+			</div>
+		</div>
+</div>
 
 	<script>
+	
+	document.addEventListener("mouseover", function(event) {
+	    if (event.target.matches(".yourDataClass")) { // .yourDataClass는 불러온 데이터에 할당한 클래스입니다.
+	        const wordToHighlight = event.target.textContent;
+	        document.querySelectorAll(".yourDataClass").forEach(function(node) {
+	            if (node.textContent === wordToHighlight) {
+	                node.classList.add("highlight");
+	            }
+	        });
+	    }
+	});
+
+	document.addEventListener("mouseout", function(event) {
+	    if (event.target.matches(".yourDataClass")) {
+	        document.querySelectorAll(".highlight").forEach(function(node) {
+	            node.classList.remove("highlight");
+	        });
+	    }
+	});
+	
 function getFromServer() {
     var startDate = document.getElementById("start").value;
     if (startDate) {
@@ -208,8 +233,10 @@ function getFromServer() {
         xhttp.send();
     }
 }
+
 </script>
-	<!-- 제이쿼리로 하는게 더 나음 -->
+
+
 	<script>
 function openCenteredWindow(url, width, height) {
     var left = (window.screen.width / 2) - (width / 2);

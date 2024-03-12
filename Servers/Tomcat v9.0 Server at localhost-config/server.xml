@@ -173,7 +173,7 @@
       <Context docBase="_web_assign_board_1st" path="/_web_assign_board_1st" reloadable="true" source="org.eclipse.jst.jee.server:_web_assign_board_1st"/>
       <Context docBase="_web_assign_CRUD_FIN" path="/_web_assign_CRUD_FIN" reloadable="true" source="org.eclipse.jst.jee.server:_web_assign_CRUD_FIN"/>
       <Context docBase="_web_assignment_score_FIN" path="/_web_assignment_score_FIN" reloadable="true" source="org.eclipse.jst.jee.server:_web_assignment_score_FIN"/>
-      <Context docBase="_sp_2024_03_7" path="/_sp_2024_03_07" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_7"/></Host>
+      <Context docBase="_sp_2024_03_7" path="/_sp_2024_03_07" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_7"/><Context docBase="_sp0312" path="/_sp0312" reloadable="true" source="org.eclipse.jst.jee.server:_sp0312"/></Host>
     </Engine>
   </Service>
 </Server>

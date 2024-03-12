@@ -101,20 +101,21 @@ Cookies cookies = new Cookies(request);
 	request.setCharacterEncoding("utf-8");
 
 	String tmp = request.getParameter("num");
+	int ghost = Integer.parseInt(request.getParameter("ghost"));
 	int num = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
 
 	String writer = "";
 	String content = "";
 	String action = "insert_comment.jsp";
 
-	if (num > 0) {
+	if (ghost > 0) {
 		CommenDao dao = CommenDao.getInstance();
 		Commen commen = dao.selectOne(num, false);
 
 		writer = commen.getWriter();
 		content = commen.getContent();
 
-		action = "update_comment.jsp?num=" + num;
+		action = "update_comment.jsp?ghost=" + ghost;
 	}
 	%>
 

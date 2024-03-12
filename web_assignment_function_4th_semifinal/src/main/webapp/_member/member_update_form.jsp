@@ -94,7 +94,7 @@ body, html {
 				if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
 				%>
 				<input type="text" name="id" class="form-control" id="floatingInput"
-					value="<%=id%>">
+					value="<%=id%>" readonly>
 				<%
 				} else {
 				%>
@@ -139,11 +139,12 @@ body, html {
 				%>
 			</div>
 			<div class="form-buttons">
+
 				<button class="btn btn-dark btn-lg py-2" type="submit"
 					onclick="update()">확인</button>
 				<button class="btn btn-secondary py-2" type="submit"
 					onclick="window.close();">취소</button>
-					<%
+				<%
 				if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
 				%>
 				<button class="btn btn-danger btn-sm py-2" type="submit"
@@ -174,6 +175,10 @@ body, html {
 			/* delete는 자바스크립트의 예약어라서 사용 불가능 */
 			document.getElementById('frm').action = 'member_delete.jsp';
 			document.getElementById('frm').submit();
+		}
+		function updateadmin() {
+			document.querySelector('#frm').action = 'member_update_admin.jsp';
+			document.querySelector('#frm').submit();
 		}
 		function deladmin() {
 			/* delete는 자바스크립트의 예약어라서 사용 불가능 */

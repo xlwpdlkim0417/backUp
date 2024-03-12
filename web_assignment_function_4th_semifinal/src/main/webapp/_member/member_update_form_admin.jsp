@@ -123,7 +123,7 @@ body, html {
 	</script>
 	<script>
 		function update() {
-			document.querySelector('#frm').action = 'member_update.jsp';
+			document.querySelector('#frm').action = 'member_update_admin.jsp';
 			document.querySelector('#frm').submit();
 		}
 		function del() {

@@ -1,9 +1,13 @@
+<%@page import="util.Cookies"%>
 <%@ page import="dao.MemberDao"%>
 <%@ page import="dto.Member"%>
 <%@ page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<%
+Cookies cookies = new Cookies(request);
+%>
 <%
 request.setCharacterEncoding("utf-8");
 
@@ -27,7 +31,10 @@ MemberDao dao = MemberDao.getInstance();
 member = new Member(id, email, name);
 int result = dao.update(member);
 if (result > 0) {
-	session.setAttribute("member", member);
+	if(cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")){
+	} else {
+		session.setAttribute("member", member);
+	}
 %>
 
 <script>

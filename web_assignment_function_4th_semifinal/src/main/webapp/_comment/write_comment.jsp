@@ -99,39 +99,36 @@ Cookies cookies = new Cookies(request);
 
 	<%
 	request.setCharacterEncoding("utf-8");
-
+	
 	String tmp = request.getParameter("num");
 	int num = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
+	
+	String commentwriter = request.getParameter("commentwriter");
+	String commentcontent = request.getParameter("commentcontent");
+	int ghost = Integer.parseInt(request.getParameter("ghost"));
 
-	String writer = "";
-	String content = "";
-	String action = "insert_comment.jsp";
+	
+	CommenDao dao = CommenDao.getInstance();
+	Commen commen = dao.selectOneghost(ghost);
 
-	if (num > 0) {
-		CommenDao dao = CommenDao.getInstance();
-		Commen commen = dao.selectOne(num, false);
-
-		writer = commen.getWriter();
-		content = commen.getContent();
-
-		action = "update_comment.jsp?num=" + num;
-	}
+	
+	
 	%>
-
-
-	<form method="post" action="<%=action%>">
+	<form method="post" action="update_comment.jsp">
 		<div class="d-flex justify-content-center">
 			<div class="col-md-8">
 				<article class="blog-post">
 					<div class="d-flex justify-content-end">
 						<p class="blog-post-meta">
 							<%
-							if (num > 0 && cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
+							if (cookies.exists("ADMIN") && cookies.getValue("ADMIN").equals("admin")) {
 							%>
 							by
-							<%=writer%>
+							<%=commen.getWriter()%>
 							<input type="hidden" name="writer" maxlength="20"
-								value="<%=writer%>" readonly>
+								value="<%=commen.getWriter()%>" readonly>
+								<input type="hidden" name="ghost" maxlength="20"
+								value="<%=ghost%>" readonly>
 							<%
 							} else {
 							%>
@@ -139,6 +136,8 @@ Cookies cookies = new Cookies(request);
 							<%=member.getId()%>
 							<input type="hidden" name="writer" maxlength="20"
 								value="<%=member.getId()%>" readonly>
+							<input type="hidden" name="ghost" maxlength="20"
+								value="<%=ghost%>" readonly>
 							<%
 							}
 							%>
@@ -146,7 +145,7 @@ Cookies cookies = new Cookies(request);
 					</div>
 					<hr>
 					<p>
-						<textarea name="content" rows="10"><%=content%></textarea>
+						<textarea name="content" rows="10"><%=commen.getContent()%></textarea>
 					</p>
 					<hr>
 					<div class="d-flex justify-content-end">
