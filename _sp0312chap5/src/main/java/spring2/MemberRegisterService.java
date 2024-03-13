@@ -1,10 +1,17 @@
-package spring;
+package spring2;
 
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import config.ManualBean;
+import spring.DuplicateMemberException;
+import spring.Member;
+import spring.MemberDao;
+import spring.RegisterRequest;
+
+@ManualBean
 @Component
 public class MemberRegisterService {
 

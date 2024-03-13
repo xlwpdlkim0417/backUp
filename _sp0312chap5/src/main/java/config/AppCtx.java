@@ -5,18 +5,24 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.ComponentScan.Filter;
 
 import spring.ChangePasswordService;
 import spring.MemberDao;
 import spring.MemberInfoPrinter;
 import spring.MemberListPrinter;
 import spring.MemberPrinter;
-import spring.MemberRegisterService;
 import spring.MemberSummaryPrinter;
 import spring.VersionPrinter;
+import spring2.MemberRegisterService;
 
 @Configuration
-@ComponentScan(basePackages = {"spring"})
+@ComponentScan(basePackages = { "spring",
+		"spring2" }, excludeFilters = @Filter(type = FilterType.ANNOTATION, classes = { NoProduct.class,
+				ManualBean.class }))
+//@ComponentScan(basePackages = {
+//		"spring" }, excludeFilters = @Filter(type = FilterType.REGEX, pattern = "spring\\..*Service"))
 // 동일 패키지 내의 파일이면 @ComponentScan 뒤에 아무것도 안써도 괜찮음
 // 경로가 복잡해지면 그것까지 다 써줘야 함
 public class AppCtx {

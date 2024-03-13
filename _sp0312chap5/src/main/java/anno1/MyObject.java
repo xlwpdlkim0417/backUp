@@ -6,4 +6,9 @@ public class MyObject {
 	public void testMehtod1() {
 		System.out.println("testMehtod1()");
 	}
+	
+	@MyAnnotation
+	public void testMehtod2() {
+		System.out.println("testMehtod2()");
+	}
 }

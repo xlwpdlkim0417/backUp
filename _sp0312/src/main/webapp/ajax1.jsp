@@ -21,10 +21,32 @@
 				url: 'GetTodos',
 				method: 'Get',
 				success: function(data){
-					console.log(data);
+					addItem(data);
 				}
 			});
 		});
+		
+		function addItem(data){
+			const list = $('#todoList');
+			const item = $('<li></li>').text(data);
+			const removeButton = $('<button></button>').text('Remove');
+			removeButton.click(function(){
+				$.ajax({
+					url : 'RemoveTodo',
+					/* 서버에서 할 일을 삭제하는 엔드포인트 */
+					method : 'POST',
+					data : {
+						text : data
+						/* 자바스크립트의 객체 */
+					},
+					success : function(){
+						item.remove();
+					}	
+				});
+			});
+			item.append(removeButton);
+			list.append(item);
+		}
 	</script>
 </body>
 </html>
