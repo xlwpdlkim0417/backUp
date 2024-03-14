@@ -177,7 +177,7 @@
       
       
       
-      <Context docBase="_sp0312" path="/_sp0312" reloadable="true" source="org.eclipse.jst.jee.server:_sp0312"/></Host>
+      <Context docBase="_sp0312" path="/_sp0312" reloadable="true" source="org.eclipse.jst.jee.server:_sp0312"/><Context docBase="_sp_2024_03_springmvc" path="/_sp_2024_03_springmvc" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_springmvc"/><Context docBase="spring_0314" path="/spring_0314" reloadable="true" source="org.eclipse.jst.jee.server:spring_0314"/></Host>
     </Engine>
   </Service>
 </Server>
