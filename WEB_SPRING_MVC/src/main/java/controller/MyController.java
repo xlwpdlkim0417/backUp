@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import dao.BoardDao;
 import dto.LoginCheck;
 
 @Controller
@@ -30,12 +29,6 @@ public class MyController {
 	public String login(LoginCheck loginCheck, Model model) {
 		model.addAttribute("loginCheck", loginCheck);
 		return "login";
-	}
-
-	@GetMapping("/list")
-	public String list(BoardDao boardDao) {
-		boardDao.selectList(1, 10);
-		return "list";
 	}
 
 }

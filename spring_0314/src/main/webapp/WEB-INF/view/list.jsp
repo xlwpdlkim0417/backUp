@@ -7,7 +7,6 @@
 
 <%
 MemberDto memberDto = (MemberDto) session.getAttribute("member");
-System.out.println(memberDto);
 %>
 <!DOCTYPE html>
 <html>

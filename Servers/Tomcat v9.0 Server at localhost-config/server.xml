@@ -177,7 +177,15 @@
       
       
       
-      <Context docBase="_sp0312" path="/_sp0312" reloadable="true" source="org.eclipse.jst.jee.server:_sp0312"/><Context docBase="_sp_2024_03_springmvc" path="/_sp_2024_03_springmvc" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_springmvc"/><Context docBase="spring_0314" path="/spring_0314" reloadable="true" source="org.eclipse.jst.jee.server:spring_0314"/></Host>
+      <Context docBase="_sp0312" path="/_sp0312" reloadable="true" source="org.eclipse.jst.jee.server:_sp0312"/>
+      <Context docBase="_sp_2024_03_springmvc" path="/_sp_2024_03_springmvc" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_springmvc"/>
+      <Context docBase="spring_0314" path="/spring_0314" reloadable="true" source="org.eclipse.jst.jee.server:spring_0314"/>
+      <Context docBase="web_assignment_function_4th_semifinal" path="/web_assignment_function_4th_semifinal" reloadable="true" source="org.eclipse.jst.jee.server:web_assignment_function_4th_semifinal"/>
+      <Context docBase="sp_2024_mvc_1st" path="/sp_2024_mvc_1st" reloadable="true" source="org.eclipse.jst.jee.server:sp_2024_mvc_1st"/>
+      <Context docBase="WEB_SPRING_MVC" path="/WEB_SPRING_MVC" reloadable="true" source="org.eclipse.jst.jee.server:WEB_SPRING_MVC"/>
+      <Context docBase="WEB_SPRING_MVC_1st" path="/WEB_SPRING_MVC_1st" reloadable="true" source="org.eclipse.jst.jee.server:WEB_SPRING_MVC_1st"/>
+      <Context docBase="_sp_2024_03_7" path="/_sp_2024_03_07" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_7"/>
+      <Context docBase="todoList_servlet" path="/todoList_servlet" reloadable="true" source="org.eclipse.jst.jee.server:todoList_servlet"/></Host>
     </Engine>
   </Service>
 </Server>

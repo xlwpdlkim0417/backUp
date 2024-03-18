@@ -5,7 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import dao.BoardDao;
+
+import dao.MemberDao;
 import dto.LoginCheck;
 
 @Controller
@@ -27,15 +28,17 @@ public class MyController {
 	}
 
 	@PostMapping("/login")
-	public String login(LoginCheck loginCheck, Model model) {
-		model.addAttribute("loginCheck", loginCheck);
+	public String login(LoginCheck loginCheck, Model model, String id, String pw, MemberDao memberDao) {		
+		memberDao.selectForLogin(id, pw);
+		model.addAttribute("loginCheck", loginCheck);		
 		return "login";
 	}
-
+	
 	@GetMapping("/list")
-	public String list(BoardDao boardDao) {
-		boardDao.selectList(1, 10);
+	public String list() {
 		return "list";
 	}
+	
+	
 
 }

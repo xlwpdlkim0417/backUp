@@ -77,18 +77,16 @@ body, html {
 	%>
 	<div class="centered-form">
 		<form action="login.jsp" method="post" class="form-signin">
-			<img class="mb-4 centered-image" src="../img/chat-quote.svg" alt=""
-				width="200" height="200">
+			<img class="mb-4 centered-image" src="/img/chat-quote.svg" alt="" width="200" height="200">
 			<h1 class="h3 mb-3 fw-normal">로그인</h1>
 
 			<div class="form-floating">
-				<input type="text" name="id" class="form-control" id="floatingInput"
-					placeholder="ID"> <label for="floatingInput">ID</label>
+				<input type="text" name="id" class="form-control" id="floatingInput" placeholder="ID">
+				<label for="floatingInput">ID</label>
 			</div>
 			<div class="form-floating">
-				<input type="text" name="pw" class="form-control"
-					id="floatingPassword" placeholder="name@example.com"> <label
-					for="floatingPassword">Email Address</label>
+				<input type="text" name="pw" class="form-control" id="floatingPassword" placeholder="name@example.com">
+				<label for="floatingPassword">Email Address</label>
 			</div>
 			
 			<div class="form-buttons">
