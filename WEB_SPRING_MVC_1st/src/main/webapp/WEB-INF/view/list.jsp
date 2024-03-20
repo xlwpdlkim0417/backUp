@@ -1,12 +1,12 @@
-<%@page import="dto.MemberDto"%>
+<%@ page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%
-MemberDto memberDto = (MemberDto) session.getAttribute("member");
-System.out.println(memberDto);
+Member member = (Member) session.getAttribute("member");
+System.out.println(member);
 %>
 <!DOCTYPE html>
 <html>
