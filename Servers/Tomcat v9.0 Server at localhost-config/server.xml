@@ -185,7 +185,7 @@
       <Context docBase="WEB_SPRING_MVC" path="/WEB_SPRING_MVC" reloadable="true" source="org.eclipse.jst.jee.server:WEB_SPRING_MVC"/>
       <Context docBase="WEB_SPRING_MVC_1st" path="/WEB_SPRING_MVC_1st" reloadable="true" source="org.eclipse.jst.jee.server:WEB_SPRING_MVC_1st"/>
       <Context docBase="_sp_2024_03_7" path="/_sp_2024_03_07" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_7"/>
-      <Context docBase="todoList_servlet" path="/todoList_servlet" reloadable="true" source="org.eclipse.jst.jee.server:todoList_servlet"/></Host>
+      <Context docBase="todoList_servlet" path="/todoList_servlet" reloadable="true" source="org.eclipse.jst.jee.server:todoList_servlet"/><Context docBase="_sp_2024_03_05" path="/_sp_2024_03_05" reloadable="true" source="org.eclipse.jst.jee.server:_sp_2024_03_05"/><Context docBase="web_acc" path="/web_acc" reloadable="true" source="org.eclipse.jst.jee.server:web_acc"/></Host>
     </Engine>
   </Service>
 </Server>
